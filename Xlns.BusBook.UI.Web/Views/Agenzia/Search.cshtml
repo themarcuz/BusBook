@@ -1,0 +1,21 @@
+﻿@using Xlns.BusBook.UI.Web.Models
+@model Xlns.BusBook.UI.Web.Models.AgenzieView
+@foreach (DettaglioAgenziaView item in Model.Agenzie)
+{
+    <div class="tileAgenzia" onclick="window.location='@Url.Action("Detail", new { id = item.agenzia.Id })'">
+        @Html.Raw(item.NomeAdv)
+        <br />
+        Rag. Soc.: @Html.DisplayFor(modelItem => item.agenzia.RagioneSociale)
+        <br />
+        P.Iva: @Html.DisplayFor(modelItem => item.agenzia.PIva)
+        <br />
+        @Html.DisplayFor(modelItem => item.agenzia.Location.IndirizzoLeggibile)
+        <br />
+        @Html.DisplayFor(modelItem => item.agenzia.Email)
+        <br />
+        <div class="tileCommand">
+            @Html.ActionLink("Modifica", "Edit", new { id = item.agenzia.Id }, new { @class = "ui-icon ui-icon-pencil" })            
+            <a href="#" class="ui-icon ui-icon-closethick" data-agenzia-id="@item.agenzia.Id">Elimina</a>           
+        </div>
+    </div>
+}

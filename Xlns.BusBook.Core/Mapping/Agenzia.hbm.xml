@@ -1,0 +1,45 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Xlns.BusBook.Core.Model"
+                   assembly="Xlns.BusBook.Core" >
+
+  <class name="Agenzia" table="Agenzia">
+
+    <!-- Simple mappings -->
+    <id name="Id">     
+      <generator class="native" />
+    </id>
+    <property name="Nome" />
+    <property name="RagioneSociale" />
+    <property name="PIva" />
+    <property name="Email" />
+    <property name="Telefono" />
+    <property name="Fax" />
+    
+    <component name="Location" class="GeoLocation">
+      <property name="Nation"/>
+      <property name="Region"/>
+      <property name="Province"/>
+      <property name="City"/>
+      <property name="Street"/>
+      <property name="Number"/>
+      <property name="CAP"/>
+      <property name="Lat"/>
+      <property name="Lng"/>
+    </component>
+    
+   <!--<bag name="Telefoni" cascade="all" lazy="false">
+      <key column="Id" />
+      <one-to-many class="Telefono" />
+    </bag>
+
+    <bag name="Fax" cascade="all" lazy="false">
+      <key column="Id" />
+      <one-to-many class="Telefono" />
+    </bag>-->
+
+  </class>
+
+</hibernate-mapping>
+
+

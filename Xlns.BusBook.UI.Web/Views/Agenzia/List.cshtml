@@ -1,0 +1,79 @@
+﻿@using Xlns.BusBook.Core.Model
+@using Xlns.BusBook.UI.Web.Models
+@model AgenzieView
+@{
+    ViewBag.Title = "Elenco agenzie";
+    List<string> alfabeto = "abcdefghijklmnopqrstuvwxyz".Select(c => c.ToString().ToUpper()).ToList();
+    
+}
+@section head{
+    <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="@Url.Content("~/Content/ricerca.css")" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="@Url.Content("~/Content/agenzia.css")" rel="stylesheet" type="text/css" media="screen"/>
+}
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/agenzia.list.js")" ></script>
+}
+<div id="content-wrapper" class="container_16">
+    <div id="main" class="grid_16">
+        <h3>@ViewBag.Title</h3>
+        <p>
+            <input type="button" value="Nuova agenzia" class="button" 
+                onclick="window.location = '@Url.Content("~/Agenzia/Create")'" />
+        </p>
+        @using (Ajax.BeginForm("Search", null, new AjaxOptions()
+                                            {
+                                                HttpMethod = "GET",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = "elencoAgenzie",
+                                                LoadingElementId = "loadingDiv",
+                                                OnBegin = "hideResult",
+                                                OnComplete = "showResult"
+                                            }, new { id = "quick-search" }))
+        {
+            <div style="margin: 10px">
+                @Html.TextBox("q", Model.SearchString, new { style = "width: 200px" })
+                <input type="submit" value="Cerca" class="button" />
+            </div>
+            <div style="margin: 10px;">
+                @Ajax.ActionLink("Tutto", "Search", new { ini = string.Empty, q = Model.SearchString },
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "elencoAgenzie",
+                LoadingElementId = "loadingDiv",
+                OnComplete = "showResult",
+                OnBegin = "beginInitialLetterFilter"
+            },
+             new { style = "font-weight:bold" }
+             )
+                &nbsp;|&nbsp;
+                @foreach (var lettera in alfabeto)
+                {
+                    @Ajax.ActionLink(lettera, "Search", new { ini = lettera, q = Model.SearchString },
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "elencoAgenzie",
+                LoadingElementId = "loadingDiv",
+                OnComplete = "showResult",
+                OnBegin = "beginInitialLetterFilter"
+            })
+                                     
+                    if (lettera != alfabeto.Last())
+                    {
+                    <text> | </text>        
+                    }
+                }
+            </div>
+        }
+        <div style="display: none; margin-left: 50px" id="loadingDiv">
+            <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>
+        </div>        
+        <div id="elencoAgenzie" style="margin: 10px">
+            @{Html.RenderAction("Search");}
+        </div>
+    </div>
+</div>

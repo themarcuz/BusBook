@@ -1,0 +1,50 @@
+﻿@using Xlns.BusBook.Core.Model;
+@model Xlns.BusBook.Core.Model.Utente
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+<fieldset>
+    <legend>Utente</legend>
+
+    <div class="display-label">Cognome</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cognome)
+    </div>
+
+    <div class="display-label">Nome</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nome)
+    </div>
+
+    <div class="display-label">Username</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Username)
+    </div>
+
+    <div class="display-label">Password</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+
+    <div class="display-label">Telefono</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telefono)
+    </div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+    <div class="display-label">Latitudine</div>
+</fieldset>
+
+<div id="map_canvas" style="width:300px ; height:300px"></div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

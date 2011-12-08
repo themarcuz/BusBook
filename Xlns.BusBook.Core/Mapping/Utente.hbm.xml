@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Xlns.BusBook.Core.Model"
+                   assembly="Xlns.BusBook.Core" >
+
+  <class name="Utente" table="Utente">
+
+    <!-- Simple mappings -->
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <property name="Nome" />
+    <property name="Cognome" />
+    <property name="Username" />
+    <property name="Password" />
+    <property name="Telefono" />
+    <property name="Email" />
+
+  </class>
+
+</hibernate-mapping>

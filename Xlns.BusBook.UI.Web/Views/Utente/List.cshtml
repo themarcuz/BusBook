@@ -1,0 +1,86 @@
+﻿@using Xlns.BusBook.Core.Model
+@using Xlns.BusBook.UI.Web.Models
+@model UtenteView
+@{
+    ViewBag.Title = "List";
+    List<string> alfabeto = "abcdefghijklmnopqrstuvwxyz".Select(c => c.ToString().ToUpper()).ToList();
+    
+}
+<h2>
+    List</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Ajax.BeginForm("Search", new AjaxOptions()
+                                            {
+                                                HttpMethod = "GET",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = "elencoUtenti",
+                                                LoadingElementId = "loadingDiv",
+                                                OnComplete = "showResult"
+                                            }))
+{
+    <div style="margin: 10px">
+        @Html.TextBox("q", Model.SearchString)
+        <input type="submit" value="Cerca" />
+        <span style="display: none" id="loadingDiv">
+            <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>
+        </span>  
+    </div>
+    <div style="margin: 10px">
+        @Ajax.ActionLink("Tutto", "Search", new { ini = string.Empty, q = Model.SearchString },
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "elencoUtenti",
+                LoadingElementId = "loadingDiv",
+                OnComplete = "showResult",
+                OnBegin = "beginInitialLetterFilter"
+            })
+        &nbsp;|&nbsp;        
+        @foreach (var lettera in alfabeto)
+        {
+            @Ajax.ActionLink(lettera, "Search", new { ini = lettera, q = Model.SearchString },
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "elencoUtenti",
+                LoadingElementId = "loadingDiv",
+                OnComplete = "showResult",
+                OnBegin = "beginInitialLetterFilter"
+            })
+                                     
+            if (lettera != alfabeto.Last())
+            {
+            <text> | </text>        
+            }
+        }
+    </div>
+
+    <br />
+    <script type="text/javascript">
+        function beginInitialLetterFilter() {
+            hideResult();
+            clearSearchBox();
+        }
+
+        function clearSearchBox() {
+            $("#q").val("");
+        }
+
+        function hideResult() {
+            $("#elencoUtenti").hide('fast');
+        }
+
+        function showResult() {
+            $("#elencoUtenti").show('fast');
+        }
+    </script>
+    
+    <div id="elencoUtenti" style="margin: 10px">   
+        @{Html.RenderAction("Search");}        
+    </div>
+}

@@ -1,0 +1,26 @@
+﻿@using Xlns.BusBook.UI.Web.Models
+@model Xlns.BusBook.UI.Web.Models.UtenteView
+
+@foreach (DettaglioUtenteView item in Model.Utente)
+{
+ <div id="tileUtente" style="border: 3px solid red; margin-top: 10px; width: 200px; padding: 5px">            
+    @Html.Raw(item.NomeAdv)
+    <br />
+    @Html.DisplayFor(modelItem => item.utente.Cognome)
+    <br />    
+    @Html.DisplayFor(modelItem => item.utente.Nome)
+    <br />
+    @Html.DisplayFor(modelItem => item.utente.Username)
+    <br />
+     @Html.DisplayFor(modelItem => item.utente.Password)
+    <br />
+    @Html.DisplayFor(modelItem => item.utente.Telefono)
+    <br />
+     @Html.DisplayFor(modelItem => item.utente.Email)
+    <br />
+    @Html.ActionLink("Modifica", "Edit", new { id = item.utente.Id }) |
+    @Html.ActionLink("Dettaglio", "Detail", new { id = item.utente.Id }) |
+    @Html.ActionLink("Elimina", "Delete", new { id = item.utente.Id }) |
+      @Html.ActionLink("Modifica Password", "ChangePassword", new { id = item.utente.Id })      
+  </div>
+}

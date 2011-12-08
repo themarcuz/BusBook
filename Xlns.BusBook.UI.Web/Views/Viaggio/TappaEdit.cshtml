@@ -1,0 +1,21 @@
+﻿@model Xlns.BusBook.Core.Model.Tappa
+@{
+    String legend = Model.Tipo.ToString();
+}
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div style="margin-top: 10px">
+        <fieldset>
+            <legend>@legend</legend>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Ordinamento)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Ordinamento)
+                @Html.ValidationMessageFor(model => model.Ordinamento)
+            </div>
+            @Html.HiddenFor(model => model.Id)
+        </fieldset>
+    </div>
+}
