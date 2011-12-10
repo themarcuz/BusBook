@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Xlns.BusBook.Core.Model"
+                   assembly="Xlns.BusBook.Core" >
+
+  <class name="Viaggio" table="Viaggio">
+
+    <!-- Simple mappings -->
+    <id name="Id">     
+      <generator class="native" />
+    </id>
+    <property name="Nome" />
+    <property name="DataPartenza" />
+    <property name="DataChiusuraPrenotazioni" />
+   
+    <bag name="Tappe" cascade="all" lazy="false" order-by="Ordinamento asc">
+      <key column="Viaggio" />
+      <one-to-many class="Tappa" />
+    </bag>
+    
+  </class>
+
+</hibernate-mapping>
+
+

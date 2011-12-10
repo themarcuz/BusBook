@@ -2,7 +2,7 @@
 @model Xlns.BusBook.UI.Web.Models.AgenzieView
 @foreach (DettaglioAgenziaView item in Model.Agenzie)
 {
-    <div class="tileAgenzia" onclick="window.location='@Url.Action("Detail", new { id = item.agenzia.Id })'">
+    <div class="tileElement" onclick="window.location='@Url.Action("Detail", new { id = item.agenzia.Id })'">
         @Html.Raw(item.NomeAdv)
         <br />
         Rag. Soc.: @Html.DisplayFor(modelItem => item.agenzia.RagioneSociale)

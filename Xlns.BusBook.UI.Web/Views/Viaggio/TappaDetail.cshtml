@@ -1,0 +1,15 @@
+﻿@model Xlns.BusBook.Core.Model.Tappa
+
+@{
+    String title =  Model.Tipo.ToString();    
+    }
+
+<fieldset>
+    <legend>@title</legend>
+
+    <div class="display-label">Posizione</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Location.IndirizzoLeggibile)
+    </div>
+    @{Html.RenderAction("Read", "Location", new { location = Model.Location, mapWidth = 300, mapHeight = 150 });}    
+</fieldset>

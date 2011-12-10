@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AgenziaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\UtenteController.cs" />
     <Compile Include="Controllers\ViaggioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -91,6 +92,7 @@
     <Compile Include="Models\Helper\GoogleAPIHelper.cs" />
     <Compile Include="Models\Helper\PagerHelper.cs" />
     <Compile Include="Models\Helper\SessionHelper.cs" />
+    <Compile Include="Models\LocationPartialView.cs" />
     <Compile Include="Models\UtenteView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,7 +100,8 @@
     <Content Include="Config\hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\agenzia.css" />
+    <Content Include="Content\scripts\location.read.js" />
+    <Content Include="Content\tiledList.css" />
     <Content Include="Content\img\bus.metro.gray.png" />
     <Content Include="Content\img\loading.gif" />
     <Content Include="Content\KeepItSimple11\blog.html" />
@@ -249,6 +252,18 @@
   <ItemGroup>
     <Content Include="Views\Viaggio\Create.cshtml" />
     <Content Include="Views\Viaggio\TappaEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Viaggio\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Viaggio\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Viaggio\TappaDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Location\Read.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

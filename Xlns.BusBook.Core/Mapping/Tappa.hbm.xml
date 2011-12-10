@@ -3,18 +3,14 @@
                    namespace="Xlns.BusBook.Core.Model"
                    assembly="Xlns.BusBook.Core" >
 
-  <class name="Agenzia" table="Agenzia">
+  <class name="Tappa" table="Tappa">
 
     <!-- Simple mappings -->
     <id name="Id">     
       <generator class="native" />
     </id>
-    <property name="Nome" />
-    <property name="RagioneSociale" />
-    <property name="PIva" />
-    <property name="Email" />
-    <property name="Telefono" />
-    <property name="Fax" />
+    <property name="Tipo" />
+    <property name="Ordinamento" />
     
     <component name="Location" class="GeoLocation">
       <property name="Nation"/>
@@ -27,7 +23,7 @@
       <property name="Lat"/>
       <property name="Lng"/>
     </component>
-      
+    
   </class>
 
 </hibernate-mapping>

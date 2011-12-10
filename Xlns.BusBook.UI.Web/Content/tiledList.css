@@ -15,7 +15,7 @@
     height: 50px;
 }
 
-.tileAgenzia
+.tileElement
 {
     margin-top: 10px;
     width: 400px;
@@ -23,17 +23,17 @@
     position: relative;
 }
 
-.tileAgenzia:hover
+.tileElement:hover
 {
     background-color: #F5F4F3;
     cursor: pointer;
 }
 
-.tileAgenzia .ui-icon
+.tileElement .ui-icon
 {
     display: none;
 }
-.tileAgenzia:hover .ui-icon
+.tileElement:hover .ui-icon
 {
     display: inline-block;
 }

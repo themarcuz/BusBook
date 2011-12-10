@@ -12,13 +12,11 @@ namespace Xlns.BusBook.Core.Model
         [StringLength(50, ErrorMessage = "Il campo può essere lungo al massimo 50 caratteri")]
         [Display(Name="Nazione")]
         public String Nation { get; set; }
-
-        [Required]
+        
         [StringLength(50, ErrorMessage = "Il campo può essere lungo al massimo 50 caratteri")]
         [Display(Name = "Regione")]
         public String Region { get; set; }
-
-        [Required]
+        
         [StringLength(10, ErrorMessage = "Il campo può essere lungo al massimo 10 caratteri")]
         [Display(Name = "Provincia")]
         public String Province { get; set; }

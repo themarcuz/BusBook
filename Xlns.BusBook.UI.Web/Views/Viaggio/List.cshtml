@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Xlns.BusBook.Core.Model.Viaggio>
+@{    
+    ViewBag.Title = "Viaggi";
+}
+@section head{
+    <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
+}
+<div id="content-wrapper" class="container_16">
+    <div id="main" class="grid_16">
+        <h3>@ViewBag.Title</h3>
+        <p>
+            @Html.ActionLink("Proponi nuovo viaggio", "Create")
+        </p>        
+        @foreach (var item in Model)
+        {
+            <div class="tileElement">
+                @Html.DisplayFor(modelItem => item.Nome)
+                <br />
+                @Html.DisplayFor(modelItem => item.DataPartenza)
+                <br />
+                @Html.DisplayFor(modelItem => item.DataChiusuraPrenotazioni)
+                <br />               
+                @foreach (var t in item.Tappe) { 
+                    Html.RenderAction("TappaDetail", new {tappa = t});
+                }
+                <br />
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </div>
+        }
+    </div>
+</div>
