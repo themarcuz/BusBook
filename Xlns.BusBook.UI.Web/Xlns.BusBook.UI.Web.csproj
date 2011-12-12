@@ -219,9 +219,6 @@
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Agenzia\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Agenzia\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +261,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Location\Read.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Viaggio\ViaggioTiledDetail.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

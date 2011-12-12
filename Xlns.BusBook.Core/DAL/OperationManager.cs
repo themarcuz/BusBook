@@ -57,9 +57,19 @@ namespace Xlns.BusBook.Core.DAL
         public void CommitOperation()
         {
             if (isInternalTransaction)
-            {                
-                tx.Commit();
-                logger.Debug(GetCallerClassDotMethod() + " sta chiudendo con committ la transazione " + tx.GetHashCode());
+            {
+                try
+                {
+                    tx.Commit();
+                    logger.Debug(GetCallerClassDotMethod() + " sta chiudendo con committ la transazione " + tx.GetHashCode());
+                }
+                catch (Exception ex)
+                {
+                    string msg = "Errore durante la fase di commit della transazione";
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+                
             }
         }
 

@@ -1,21 +1,4 @@
-﻿#content-wrapper
-{
-    margin: 0 auto;
-    background: #fff;
-    padding-bottom: 35px;
-    padding-top: 5px;
-    overflow: auto;
-}
-
-#header
-{
-    position: relative;
-    margin: 0 auto;
-    background: url(../images/border.gif) repeat-x left bottom;
-    height: 50px;
-}
-
-.tileElement
+﻿.tileElement
 {
     margin-top: 10px;
     width: 400px;

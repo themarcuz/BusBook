@@ -50,7 +50,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Agenzia agenzia) 
+        public ActionResult Save(Agenzia agenzia) 
         {
             if (ModelState.IsValid)
             {

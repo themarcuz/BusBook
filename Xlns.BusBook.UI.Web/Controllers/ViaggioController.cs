@@ -42,10 +42,16 @@ namespace Xlns.BusBook.UI.Web.Controllers
             var tappa = viaggi[0].Tappe[1];
             return View("TappaDetail", tappa);
         }
+        
         [ChildActionOnly]
         public ActionResult TappaDetail(Tappa tappa)
         {
             return PartialView(tappa);
+        }
+
+        [ChildActionOnly]
+        public ActionResult ViaggioTiledDetail(Viaggio viaggio) {
+            return PartialView(viaggio);
         }
 
     }
