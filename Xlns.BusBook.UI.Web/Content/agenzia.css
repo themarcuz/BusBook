@@ -1,0 +1,56 @@
+﻿#content-wrapper
+{
+    margin: 0 auto;
+    background: #fff;
+    padding-bottom: 35px;
+    padding-top: 5px;
+    overflow: auto;
+}
+
+#header
+{
+    position: relative;
+    margin: 0 auto;
+    background: url(../images/border.gif) repeat-x left bottom;
+    height: 50px;
+}
+
+.tileAgenzia
+{
+    margin-top: 10px;
+    width: 400px;
+    padding: 5px;
+    position: relative;
+}
+
+.tileAgenzia:hover
+{
+    background-color: #F5F4F3;
+    cursor: pointer;
+}
+
+.tileAgenzia .ui-icon
+{
+    display: none;
+}
+.tileAgenzia:hover .ui-icon
+{
+    display: inline-block;
+}
+.tileCommand
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.ui-icon
+{
+    display: inline-block;
+}
+
+.ui-icon:hover
+{
+    background-color: #9CCF5F;
+    cursor: pointer;
+}
