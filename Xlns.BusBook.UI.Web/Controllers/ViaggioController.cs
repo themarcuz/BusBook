@@ -19,17 +19,6 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(viaggi);
         }
 
-        public ActionResult Create()
-        {
-            var viaggio = new Viaggio();
-            viaggio.Tappe = new List<Tappa>()
-            {
-                new Tappa() { Id = 1, Tipo = TipoTappa.PARTENZA, Ordinamento = 1},
-                new Tappa() { Id = 2, Tipo = TipoTappa.DESTINAZIONE, Ordinamento = 2},
-            };
-            return View(viaggio);
-        }
-
         [ChildActionOnly]
         public ActionResult TappaEdit(Tappa tappa)
         {
@@ -52,6 +41,12 @@ namespace Xlns.BusBook.UI.Web.Controllers
         [ChildActionOnly]
         public ActionResult ViaggioTiledDetail(Viaggio viaggio) {
             return PartialView(viaggio);
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var viaggio = vr.GetById(id);
+            return View(viaggio);
         }
 
     }

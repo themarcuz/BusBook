@@ -37,3 +37,17 @@
     background-color: #9CCF5F;
     cursor: pointer;
 }
+
+.tileTitle
+{
+    font-family: Verdana;
+    font-size: small;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tileSubTitle
+{
+    font-style: italic; 
+    color: #C0C0C0;
+}

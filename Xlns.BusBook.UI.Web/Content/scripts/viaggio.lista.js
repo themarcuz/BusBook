@@ -1,5 +1,4 @@
-﻿$(function () {
-    $(".tileElement").click(function () { alert("click sul viaggio"); });
+﻿$(function () {    
     $(".hiddenTappaDetail").hide();
     $(".visualizzaDettaglioTappaLink")
             .each(function () {

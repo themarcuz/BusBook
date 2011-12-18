@@ -1,0 +1,63 @@
+﻿@model Xlns.BusBook.Core.Model.Viaggio
+@{
+    ViewBag.Title = Model.Nome;
+}
+@section head{
+    <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
+}
+<div id="content-wrapper" class="container_16">
+    <div id="main" class="grid_16">
+        <h3 style="padding-bottom: 0px">@Model.Nome</h3>
+        <h4 style="padding-top: 0px" class="tileSubTitle">
+            @Html.DisplayFor(model => model.Descrizione)
+        </h4>
+        <br />
+        <div class="grid_6 alpha">
+            <fieldset>
+                @Html.LabelFor(model => model.DataPartenza)
+                <div>
+                    @Html.DisplayFor(model => model.DataPartenza)
+                </div>
+                @Html.LabelFor(model => model.DataChiusuraPrenotazioni)
+                <div>
+                    @Html.DisplayFor(model => model.DataChiusuraPrenotazioni)
+                </div>
+                <div>
+                    <label>
+                        Partenza</label>
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.Tappe
+                                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
+                                    .OrderBy(t => t.Ordinamento)
+                                    .First()
+                                    .Location.City)
+                </div>
+                <div>
+                    <label>
+                        Destinazione</label>
+                </div>
+                <div>
+                    @Html.DisplayFor(model => model.Tappe
+                                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE)
+                                    .OrderByDescending(t => t.Ordinamento)
+                                    .First()
+                                    .Location.City)
+                </div>
+            </fieldset>
+        </div>
+        <div class="grid_8 omega" style="border: 1px solid black">
+            <div style="height: 20px">
+                <span id="loaderMessage"></span>
+            </div>
+            <div id="map_canvas" style="width: 500px; height: 350px;">
+            </div>
+        </div>
+    </div>
+    <div class="grid_16">
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
+</div>
