@@ -100,6 +100,7 @@
     <Content Include="Config\hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\scripts\viaggio.detail.js" />
     <Content Include="Content\scripts\viaggio.lista.js" />
     <Content Include="Content\scripts\location.read.js" />
     <Content Include="Content\tiledList.css" />
