@@ -13,5 +13,10 @@ namespace Xlns.BusBook.Core.Repository
         public IList<Viaggio> GetViaggi() {
             return getAll<Viaggio>();
         }
+
+        public Viaggio GetById(int id)
+        {
+            return base.getDomainObjectById<Viaggio>(id);
+        }
     }
 }
