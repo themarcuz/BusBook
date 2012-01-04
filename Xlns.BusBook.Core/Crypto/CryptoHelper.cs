@@ -8,14 +8,29 @@ namespace Xlns.BusBook.Core.Crypto
 {
     public class CryptoHelper
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// Effettua la criptazione della password sfruttando l'algoritmo di criptazione MD5
+        /// </summary>
+        /// <param name="password">Stringa da criptare</param>
+        /// <returns>Stringa criptata</returns>
         public string cryptPassword(string password)
         {
-            MD5 md5 = MD5.Create();
-            byte[] hashPassword = md5.ComputeHash(Encoding.Default.GetBytes(password));
-            StringBuilder res = new StringBuilder();
-            for (int i = 0; i < hashPassword.Length; i++)
-                res.Append(hashPassword[i].ToString());
-            return res.ToString();
+            try
+            {
+                MD5 md5 = MD5.Create();
+                byte[] hashPassword = md5.ComputeHash(Encoding.Default.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < hashPassword.Length; i++)
+                    builder.Append(hashPassword[i].ToString());
+                var result = builder.ToString();
+                logger.Debug("Password criptata con successo - hash = {0}", result);
+                return result;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

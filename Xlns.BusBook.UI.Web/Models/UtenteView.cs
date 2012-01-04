@@ -24,6 +24,5 @@ namespace Xlns.BusBook.UI.Web.Models
                 Utente.Add(new DettaglioUtenteView(u, s));
             }
         }
-
     }
 }

@@ -39,6 +39,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.5.4.1.0\lib\net40-client\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Web">
+      <HintPath>..\packages\FacebookWeb.5.4.1.0\lib\net40\Facebook.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Web.Mvc">
+      <HintPath>..\packages\FacebookWebMvc.5.4.1.0\lib\net40\Facebook.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\Iesi.Collections.dll</HintPath>
@@ -63,6 +72,8 @@
   <ItemGroup>
     <Compile Include="Crypto\CryptoHelper.cs" />
     <Compile Include="DAL\OperationManager.cs" />
+    <Compile Include="Facebook\FacebookHelper.cs" />
+    <Compile Include="Mailer\MailHelper.cs" />
     <Compile Include="Model\GeoLocation.cs" />
     <Compile Include="Model\Tappa.cs" />
     <Compile Include="Model\Utente.cs" />
@@ -101,6 +112,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Tappa.hbm.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

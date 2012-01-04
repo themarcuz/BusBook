@@ -30,23 +30,22 @@
     <!-- header starts-->
     <div id="header-wrap">
         <div id="header" class="container_16">
-            @RenderSection("logo", false)            
+            @RenderSection("logo", false)
             <!-- navigation -->
-    <div id="nav">
-        <ul>
-            <li ><a href="@Href("~")">Home</a></li>
-            <li >@Html.ActionLink("Agenzie", "List", "Agenzia")</li>
-            <li >@Html.ActionLink("Utenti", "List", "Utente")</li>
-            <li >@Html.ActionLink("Viaggi", "List", "Viaggio")</li>
-            <li><a href="index.html">Services</a></li>
-            <li><a href="index.html">Support</a></li>
-            <li><a href="index.html">About</a></li>
-        </ul>
-    </div>
+            <div id="nav">
+                <ul>
+                    <li><a href="@Href("~")">Home</a></li>
+                    <li>@Html.ActionLink("Agenzie", "List", "Agenzia")</li>
+                    <li>@Html.ActionLink("Utenti", "List", "Utente")</li>
+                    <li>@Html.ActionLink("Viaggi", "List", "Viaggio")</li>
+                    <li><a href="index.html">About</a></li>
+                </ul>
+            </div>
             <div id="header-image">
             </div>
             <form id="quick-search" action="index.html" method="get">
             <p>
+                
                 <label for="qsearch">
                     Cerca:</label>
                 <input class="tbox" id="qsearch" type="text" name="qsearch" value="Cerca..." title="Start typing and hit ENTER" />
@@ -58,9 +57,7 @@
     </div>
     <!-- content starts -->
     <div id="content-outer">
-            
-            @RenderBody()
-       
+        @RenderBody()
     </div>
     <div id="footer-wrapper" class="container_16">
         <div id="footer-content">

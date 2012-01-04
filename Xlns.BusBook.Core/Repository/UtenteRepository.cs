@@ -17,6 +17,28 @@ namespace Xlns.BusBook.Core.Repository
             return base.getDomainObjectById<Utente>(id);
         }
 
+        public Utente GetByEmail(string email)
+        {
+            using (var manager = new OperationManager())
+            {
+                try
+                {
+                    var session = manager.BeginOperation();
+                    var res = session.Query<Utente>()
+                                    .Where(u => u.Email.ToLower().Equals(email)).SingleOrDefault();
+                    manager.CommitOperation();
+                    return res;
+                }
+                catch (Exception ex)
+                {
+                    manager.RollbackOperation();
+                    string message = "Error";
+                    logger.ErrorException(message, ex);
+                    throw new Exception(message, ex);
+                }
+            }
+        }
+
         public IList<Utente> GetAllUtenti()
         {
             try

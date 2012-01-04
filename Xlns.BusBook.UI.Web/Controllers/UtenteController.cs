@@ -7,6 +7,7 @@ using Xlns.BusBook.Core.Repository;
 using Xlns.BusBook.Core.Crypto;
 using Xlns.BusBook.UI.Web.Models;
 using Xlns.BusBook.UI.Web.Models.Helper;
+using Xlns.BusBook.Core.Mailer;
 using Xlns.BusBook.Core.Model;
 
 namespace Xlns.BusBook.UI.Web.Controllers
@@ -14,23 +15,19 @@ namespace Xlns.BusBook.UI.Web.Controllers
     public class UtenteController : Controller
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
-        //
-        // GET: /Utente/
+        UtenteRepository ur = new UtenteRepository();
 
         public ActionResult Index(string q, string ini)
         {
             return RedirectToAction("List");
         }
 
-
         public ActionResult List(string q, string ini)
         {
             logger.Debug("Caricamento utenti con iniziale='{0}' e filtro='{1}'", ini, q);
             if (string.IsNullOrEmpty(q)) q = "";
             if (string.IsNullOrEmpty(ini)) ini = "";
-            var utenteService = new UtenteRepository();
-            var myModel = utenteService.GetAllUtenti(q, ini);
+            var myModel = ur.GetAllUtenti(q, ini);
             var utenti = new UtenteView(myModel.ToList(), q, ini);
             return View(utenti);
         }
@@ -41,31 +38,36 @@ namespace Xlns.BusBook.UI.Web.Controllers
             System.Threading.Thread.Sleep(1000);
             if (string.IsNullOrEmpty(q)) q = "";
             if (string.IsNullOrEmpty(ini)) ini = "";
-            var utenteService = new UtenteRepository();
-            var myModel = utenteService.GetAllUtenti(q, ini);
+            var myModel = ur.GetAllUtenti(q, ini);
             var utenti = new UtenteView(myModel.ToList(), q, ini);
             return PartialView(utenti);
         }
 
         public ActionResult Detail(int id)
         {
-            var ur = new UtenteRepository();
             Utente utente = ur.GetById(id);
             return View(utente);
         }
 
-        public ActionResult Delete(int id)
+        public void Delete(int id)
         {
-            var ur = new UtenteRepository();
-            Utente utente = ur.GetById(id);
-            ur.Delete(utente);
-            return RedirectToAction("List");
+            try
+            {
+                Utente utente = ur.GetById(id);
+                ur.Delete(utente);
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore durante l'eliminazione dell'utente con id={0}", id);
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg);
+            }
         }
 
         public ActionResult Create()
         {
-            var myModel = new Utente();
-            return View(myModel);
+           Utente utente = new Utente();
+           return View(utente);
         }
 
         [HttpPost]
@@ -73,10 +75,9 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var uRepository = new UtenteRepository();
                 var cryptyo = new CryptoHelper();
                 utente.Password = cryptyo.cryptPassword(utente.Password);
-                uRepository.Save(utente);
+                ur.Save(utente);
                 return RedirectToAction("List");
             }
             return View(utente);
@@ -84,10 +85,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var ur = new UtenteRepository();
             Utente utente = ur.GetById(id);
-            var myModel = utente;
-            return View(myModel);
+            return View(utente);
         }
 
         [HttpPost]
@@ -95,8 +94,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var uRepository = new UtenteRepository();
-                uRepository.Save(utente);
+                ur.Save(utente);
                 return RedirectToAction("List");
             }
             return View(utente);
@@ -104,22 +102,30 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult ChangePassword(int id)
         {
-            var ur = new UtenteRepository();
             Utente utente = ur.GetById(id);
-            var myModel = utente;
-            return View(myModel);
+            var password = new DettaglioPasswordView();
+            return View(password);
         }
 
         [HttpPost]
-        public ActionResult ChangePassword(Utente utente)
+        public ActionResult ChangePassword(DettaglioPasswordView dettaglioPassword, int id)
         {
-            var newPassword = utente.Password;
-            var ur = new UtenteRepository();
-            var cryptyo = new CryptoHelper();
-            utente = ur.GetById(utente.Id);
-            utente.Password = cryptyo.cryptPassword(newPassword);
-            ur.Save(utente);
-            return RedirectToAction("List");
+            if (ModelState.IsValid)
+            {
+                Utente utente = ur.GetById(id);
+                var newPassword = dettaglioPassword.newPassword;
+                var repeatNewPassword = dettaglioPassword.repeatNewPassword;
+                if (newPassword.Equals(repeatNewPassword))
+                {
+                    var chrypto = new CryptoHelper();
+                    utente.Password = chrypto.cryptPassword(newPassword);
+                    ur.Save(utente);
+                    MailHelper mh = new MailHelper();
+                    mh.SendChangedPasswordEmail(utente.Email);
+                    return RedirectToAction("List");
+                }
+            }
+            return View(dettaglioPassword);
         }
     }
 }

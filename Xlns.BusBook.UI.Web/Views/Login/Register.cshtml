@@ -1,0 +1,85 @@
+﻿@using Xlns.BusBook.UI.Web.Models
+@using Microsoft.Web.Helpers
+@{
+    ViewBag.Title = "Modulo di Registrazione Utente";
+}
+@section head{
+    <link href="@Url.Content("~/Content/agenzia.css")" rel="stylesheet" type="text/css" media="screen"/>
+}
+<div id="content-wrapper" class="container_16">
+    <div id="main" class="grid_16">
+       <h3>BusBook registrazione fase 2 di 3 - 
+            @ViewBag.Title</h3>
+        @model RegistrationView
+        @using (Html.BeginForm("Register", "Login", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+
+            <table>
+                <tr>
+                    <td>
+                        <fieldset>
+                            <legend>Utente</legend>
+                            <br />
+                            <div>
+                                @Html.LabelFor(model => model.UtenteCognome)
+                            </div>
+                            <div>
+                                @Html.EditorFor(model => model.UtenteNome)
+                                @Html.ValidationMessageFor(model => model.UtenteNome)
+                            </div>
+                            <div>
+                                @Html.LabelFor(model => model.UtenteCognome)
+                            </div>
+                            <div>
+                                @Html.EditorFor(model => model.UtenteCognome)
+                                @Html.ValidationMessageFor(model => model.UtenteCognome)
+                            </div>
+                            <div>
+                                @Html.LabelFor(model => model.UtenteEmail)
+                            </div>
+                            <div>
+                                @Html.EditorFor(model => model.UtenteEmail)
+                                @Html.ValidationMessageFor(model => model.UtenteEmail)
+                            </div>
+                            <div>
+                                @Html.LabelFor(model => model.UtentePassword)
+                            </div>
+                            <div>
+                                @Html.PasswordFor(model => model.UtentePassword)
+                                @Html.ValidationMessageFor(model => model.UtentePassword)
+                            </div>
+                            <div>
+                                @Html.LabelFor(model => model.UtenteRepeatPassword)
+                            </div>
+                            <div>
+                                @Html.PasswordFor(model => model.UtenteRepeatPassword)
+                                @Html.ValidationMessageFor(model => model.UtenteRepeatPassword)
+                            </div>
+                            <div>
+                                @Html.LabelFor(model => model.UtenteTelefono)
+                            </div>
+                            <div>
+                                @Html.EditorFor(model => model.UtenteTelefono)
+                                @Html.ValidationMessageFor(model => model.UtenteTelefono)
+                            </div>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.RegisterAgency)
+                        @Html.CheckBoxFor(model => model.RegisterAgency)
+                    </td>
+                </tr>
+                <tr>
+                    <td>@ReCaptcha.GetHtml(publicKey: "6Lcq1csSAAAAAGdA4Ugi3h6D5kpwQTq-g-AXVXSt", theme: "clean")
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Registra" id="submitButton" class="button" />
+            <input type="button" value="Annulla" id="cancelButton" class="button" 
+                    onclick="window.location='@Href("~/Utente/List")'" />
+        }
+    </div>
+</div>

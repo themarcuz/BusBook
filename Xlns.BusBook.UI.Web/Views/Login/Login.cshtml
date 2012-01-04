@@ -1,0 +1,12 @@
+﻿@model Xlns.BusBook.Core.Model.Utente
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
+{
+    <h3>Don't be late, register yourself or you'll miss the bus!!!</h3>
+    @Html.LabelFor(model => model.Username)
+    @Html.EditorFor(model => model.Username)
+    @Html.LabelFor(model => model.Password)
+    @Html.PasswordFor(model => model.Password)
+    @Html.ActionLink("registrati", "Informativa") 
+    @Html.Label(" | ")
+    @Html.ActionLink("iForgot", "ResetPassword")
+}
