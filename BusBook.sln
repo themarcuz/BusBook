@@ -28,14 +28,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xlns.BusBook.IntegrationTes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalLibs", "ExternalLibs", "{F25B37F1-C87B-42D5-9AEF-2030696819D4}"
 	ProjectSection(SolutionItems) = preProject
+		ExternalLibs\Facebook.dll = ExternalLibs\Facebook.dll
+		ExternalLibs\Facebook.Web.dll = ExternalLibs\Facebook.Web.dll
+		ExternalLibs\Facebook.Web.Mvc.dll = ExternalLibs\Facebook.Web.Mvc.dll
 		ExternalLibs\Iesi.Collections.dll = ExternalLibs\Iesi.Collections.dll
 		ExternalLibs\Iesi.Collections.xml = ExternalLibs\Iesi.Collections.xml
 		ExternalLibs\log4net.dll = ExternalLibs\log4net.dll
 		ExternalLibs\log4net.xml = ExternalLibs\log4net.xml
+		ExternalLibs\Microsoft.Web.Helpers.dll = ExternalLibs\Microsoft.Web.Helpers.dll
 		ExternalLibs\NHibernate.dll = ExternalLibs\NHibernate.dll
 		ExternalLibs\NHibernate.xml = ExternalLibs\NHibernate.xml
 		ExternalLibs\NLog.dll = ExternalLibs\NLog.dll
 		ExternalLibs\NLog.xml = ExternalLibs\NLog.xml
+		ExternalLibs\Recaptcha.dll = ExternalLibs\Recaptcha.dll
+		ExternalLibs\Recaptcha.MvcModel.dll = ExternalLibs\Recaptcha.MvcModel.dll
 	EndProjectSection
 EndProject
 Global
