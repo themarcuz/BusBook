@@ -22,16 +22,32 @@ namespace Xlns.BusBook.UI.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            /*** Non più utilizzato, serve per memoria ed esempio ***/
+            /*
             routes.MapRoute(
                 "Agenzia", // Route name
                 "Agenzia/{action}/{id}", // URL with parameters
                 new { controller = "Agenzia", action = "List", id = UrlParameter.Optional } // Parameter defaults
             );
+            */
+            /********************************************************/
+
+            routes.MapRoute(
+               "blank", // Route name
+               "", // URL with parameters
+               new { controller = "Home", action = "Index" } // Parameter defaults
+           );
+
+            routes.MapRoute(
+                "Home", // Route name
+                "Home/{action}", // URL with parameters
+                new { controller = "Home", action = "Index" } // Parameter defaults
+            );
 
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { action = "List", id = UrlParameter.Optional } // Parameter defaults
             );
 
         }

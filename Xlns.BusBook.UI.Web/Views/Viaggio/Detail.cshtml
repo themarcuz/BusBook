@@ -61,7 +61,7 @@
             </fieldset>
         </div>
         <div class="grid_8 omega" >
-            <div style="height: 20px">
+            <div style="height: 40px">
                 <span id="loaderMessage"></span>
             </div>
             <div id="map_canvas" style="width: 500px; height: 350px;">
@@ -70,8 +70,8 @@
     </div>
     <div class="grid_16">
         <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
+            @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
         </p>
-    </div>
+    </div>    
 </div>
