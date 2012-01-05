@@ -22,32 +22,32 @@
                             <legend>Utente</legend>
                             <br />
                             <div>
-                                @Html.LabelFor(model => model.UtenteCognome)
+                                @Html.LabelFor(model => model.Utente.Nome)
                             </div>
                             <div>
-                                @Html.EditorFor(model => model.UtenteNome)
-                                @Html.ValidationMessageFor(model => model.UtenteNome)
+                                @Html.EditorFor(model => model.Utente.Nome)
+                                @Html.ValidationMessageFor(model => model.Utente.Nome)
                             </div>
                             <div>
-                                @Html.LabelFor(model => model.UtenteCognome)
+                                @Html.LabelFor(model => model.Utente.Cognome)
                             </div>
                             <div>
-                                @Html.EditorFor(model => model.UtenteCognome)
-                                @Html.ValidationMessageFor(model => model.UtenteCognome)
+                                @Html.EditorFor(model => model.Utente.Cognome)
+                                @Html.ValidationMessageFor(model => model.Utente.Cognome)
+                            </div>
+                             <div>
+                                @Html.LabelFor(model => model.Utente.Username)
                             </div>
                             <div>
-                                @Html.LabelFor(model => model.UtenteEmail)
+                                @Html.EditorFor(model => model.Utente.Username)
+                                @Html.ValidationMessageFor(model => model.Utente.Username)
                             </div>
                             <div>
-                                @Html.EditorFor(model => model.UtenteEmail)
-                                @Html.ValidationMessageFor(model => model.UtenteEmail)
+                                @Html.LabelFor(model => model.Utente.Password)
                             </div>
                             <div>
-                                @Html.LabelFor(model => model.UtentePassword)
-                            </div>
-                            <div>
-                                @Html.PasswordFor(model => model.UtentePassword)
-                                @Html.ValidationMessageFor(model => model.UtentePassword)
+                                @Html.PasswordFor(model => model.Utente.Password)
+                                @Html.ValidationMessageFor(model => model.Utente.Password)
                             </div>
                             <div>
                                 @Html.LabelFor(model => model.UtenteRepeatPassword)
@@ -56,20 +56,7 @@
                                 @Html.PasswordFor(model => model.UtenteRepeatPassword)
                                 @Html.ValidationMessageFor(model => model.UtenteRepeatPassword)
                             </div>
-                            <div>
-                                @Html.LabelFor(model => model.UtenteTelefono)
-                            </div>
-                            <div>
-                                @Html.EditorFor(model => model.UtenteTelefono)
-                                @Html.ValidationMessageFor(model => model.UtenteTelefono)
-                            </div>
                         </fieldset>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.LabelFor(model => model.RegisterAgency)
-                        @Html.CheckBoxFor(model => model.RegisterAgency)
                     </td>
                 </tr>
                 <tr>

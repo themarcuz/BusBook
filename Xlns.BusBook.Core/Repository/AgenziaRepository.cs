@@ -70,9 +70,9 @@ namespace Xlns.BusBook.Core.Repository
                 try
                 {
                     var session = om.BeginOperation();
-                    var result = session.Query<Agenzia>()                                    
-                                    .Where(a => a.Nome.ToLower().StartsWith(ini) && a.Nome.ToLower().Contains(q.ToLower()))                                    
-                                    .OrderBy(a=>a.Nome)
+                    var result = session.Query<Agenzia>()
+                                    .Where(a => a.Nome.ToLower().StartsWith(ini) && a.Nome.ToLower().Contains(q.ToLower()))
+                                    .OrderBy(a => a.Nome)
                                     .ToList();
                     om.CommitOperation();
                     return result;

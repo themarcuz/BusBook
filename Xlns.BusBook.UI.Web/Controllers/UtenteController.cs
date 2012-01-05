@@ -9,6 +9,7 @@ using Xlns.BusBook.UI.Web.Models;
 using Xlns.BusBook.UI.Web.Models.Helper;
 using Xlns.BusBook.Core.Mailer;
 using Xlns.BusBook.Core.Model;
+using Xlns.BusBook.Core;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -66,8 +67,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult Create()
         {
-           Utente utente = new Utente();
-           return View(utente);
+            Utente utente = new Utente();
+            return View(utente);
         }
 
         [HttpPost]
@@ -94,7 +95,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                ur.Save(utente);
+                UtenteManager um = new UtenteManager();
+                um.Save(utente);
                 return RedirectToAction("List");
             }
             return View(utente);
@@ -121,7 +123,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                     utente.Password = chrypto.cryptPassword(newPassword);
                     ur.Save(utente);
                     MailHelper mh = new MailHelper();
-                    mh.SendChangedPasswordEmail(utente.Email);
+                    //mh.SendChangedPasswordEmail(utente.Agenzia.Email);
                     return RedirectToAction("List");
                 }
             }

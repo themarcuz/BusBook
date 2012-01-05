@@ -13,8 +13,11 @@
     <property name="Cognome" />
     <property name="Username" />
     <property name="Password" />
-    <property name="Telefono" />
-    <property name="Email" />
+
+    <many-to-one name="Agenzia"
+    class="Agenzia"
+    cascade="none" fetch="join"
+    lazy="false" />
 
   </class>
 

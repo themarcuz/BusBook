@@ -40,20 +40,8 @@
                                 @Html.EditorFor(model => model.Username)
                                 @Html.ValidationMessageFor(model => model.Username)
                             </div>
-                            <div>
-                                @Html.LabelFor(model => model.Telefono)
-                            </div>
-                            <div>
-                                @Html.EditorFor(model => model.Telefono)
-                                @Html.ValidationMessageFor(model => model.Telefono)
-                            </div>
-                            <div>
-                                @Html.LabelFor(model => model.Email)
-                            </div>
-                            <div>
-                                @Html.EditorFor(model => model.Email)
-                                @Html.ValidationMessageFor(model => model.Email)
-                            </div>
+                            @Html.HiddenFor(model => model.Password)
+                            @Html.HiddenFor(model => model.Agenzia.Id)
                         </fieldset>
                     </td>
                 </tr>

@@ -9,9 +9,9 @@
         <br />
         @Html.DisplayFor(modelItem => item.utente.Nome)
         <br />
-        @Html.DisplayFor(modelItem => item.utente.Telefono)
+        @Html.DisplayFor(modelItem => item.utente.Username)
         <br />
-        @Html.DisplayFor(modelItem => item.utente.Email)
+         @Html.DisplayFor(modelItem => item.utente.Agenzia.Nome)
         <br />
         <div class="tileCommand">
             @Html.ActionLink("Modifica", "Edit", new { id = item.utente.Id }) |

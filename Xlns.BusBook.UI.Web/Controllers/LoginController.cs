@@ -38,13 +38,13 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = ur.GetByEmail(u.Email);
+                var user = ur.GetByUsername(u.Username);
                 if (user != null)
                 {
                     var newPassword = Membership.GeneratePassword(12, 0);
                     user.Password = crypto.cryptPassword(newPassword);
                     ur.Save(user);
-                    mh.SendResetPasswordEmail(u.Email, newPassword);
+                    //mh.SendResetPasswordEmail(u.Email, newPassword);
                 }
             }
             return View(u);
@@ -68,15 +68,14 @@ namespace Xlns.BusBook.UI.Web.Controllers
             {
                 if (!ReCaptcha.Validate(privateKey: ConfigurationManager.Configurator.Istance.recaptchaPublicKey))
                 {
-                    if (registration.UtentePassword.Equals(registration.UtenteRepeatPassword))
+                    if (registration.Utente.Password.Equals(registration.UtenteRepeatPassword))
                     {
                         Utente utente = new Utente();
-                        utente.Nome = registration.UtenteNome;
-                        utente.Cognome = registration.UtenteCognome;
-                        utente.Email = registration.UtenteEmail;
-                        var cryptedPassword = crypto.cryptPassword(registration.UtentePassword);
+                        utente.Nome = registration.Utente.Nome;
+                        utente.Cognome = registration.Utente.Cognome;
+                        utente.Username = registration.Utente.Username;
+                        var cryptedPassword = crypto.cryptPassword(registration.Utente.Password);
                         utente.Password = cryptedPassword;
-                        utente.Telefono = utente.Telefono; ;
                     }
                 }
             }

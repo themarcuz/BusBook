@@ -15,6 +15,9 @@
     <property name="Email" />
     <property name="Telefono" />
     <property name="Fax" />
+    <property name="Skype" />
+    <property name="Facebook" />
+    <property name="Twitter" />
     
     <component name="Location" class="GeoLocation">
       <property name="Nation"/>
@@ -27,6 +30,11 @@
       <property name="Lat"/>
       <property name="Lng"/>
     </component>
+
+    <bag name="Utenti" cascade="all" lazy="true">
+      <key column="Agenzia" />
+      <one-to-many class="Utente" />
+    </bag>
       
   </class>
 
