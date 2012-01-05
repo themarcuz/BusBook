@@ -23,15 +23,16 @@
                 @Html.DisplayFor(model => model.Nome)
             </div>
             <div>
-                @Html.LabelFor(model => model.Telefono)</div>
+                @Html.LabelFor(model => model.Username)</div>
             <div>
-                @Html.DisplayFor(model => model.Telefono)
+                @Html.DisplayFor(model => model.Username)
             </div>
             <div>
-                @Html.LabelFor(model => model.Email)</div>
+                @Html.LabelFor(model => model.Agenzia.Nome)</div>
             <div>
-                @Html.DisplayFor(model => model.Email)
+                @Html.DisplayFor(model => model.Agenzia.Nome)
             </div>
+
         </fieldset>
         <p>
             @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })

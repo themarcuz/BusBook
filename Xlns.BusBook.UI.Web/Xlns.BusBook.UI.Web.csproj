@@ -42,36 +42,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Facebook">
-      <HintPath>..\packages\Facebook.5.4.1.0\lib\net40-client\Facebook.dll</HintPath>
-    </Reference>
-    <Reference Include="Facebook.Web">
-      <HintPath>..\packages\FacebookWeb.5.4.1.0\lib\net40\Facebook.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Facebook.Web.Mvc">
-      <HintPath>..\packages\FacebookWebMvc.5.4.1.0\lib\net40\Facebook.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Helpers">
-      <HintPath>..\packages\microsoft-web-helpers.1.15\lib\Microsoft.Web.Helpers.dll</HintPath>
+    <Reference Include="Microsoft.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\Microsoft.Web.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="Recaptcha">
-      <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
+    <Reference Include="Recaptcha, Version=1.0.5.0, Culture=neutral, PublicKeyToken=9afc4d65b28c38c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\Recaptcha.dll</HintPath>
     </Reference>
-    <Reference Include="Recaptcha.MvcModel">
-      <HintPath>..\packages\reCaptchaMvcExtensions.1.0.1\lib\Recaptcha.MvcModel.dll</HintPath>
+    <Reference Include="Recaptcha.MvcModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalLibs\Recaptcha.MvcModel.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -291,7 +284,7 @@
   <ItemGroup>
     <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Viaggio\ViaggioTiledDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>

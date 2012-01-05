@@ -17,7 +17,7 @@ namespace Xlns.BusBook.Core.Repository
             return base.getDomainObjectById<Utente>(id);
         }
 
-        public Utente GetByEmail(string email)
+        public Utente GetByUsername(string email)
         {
             using (var manager = new OperationManager())
             {
@@ -25,7 +25,7 @@ namespace Xlns.BusBook.Core.Repository
                 {
                     var session = manager.BeginOperation();
                     var res = session.Query<Utente>()
-                                    .Where(u => u.Email.ToLower().Equals(email)).SingleOrDefault();
+                                    .Where(u => u.Username.ToLower().Equals(email)).SingleOrDefault();
                     manager.CommitOperation();
                     return res;
                 }
