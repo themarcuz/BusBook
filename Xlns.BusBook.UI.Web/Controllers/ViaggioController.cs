@@ -49,5 +49,15 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(viaggio);
         }
 
+        public ActionResult Edit(int id)
+        {
+            Viaggio viaggio = null;
+            if (id == 0)
+                viaggio = new Viaggio();
+            else
+                viaggio = vr.GetById(id);
+            return View(viaggio);
+        }
+
     }
 }

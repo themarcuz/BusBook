@@ -22,7 +22,7 @@ namespace Xlns.BusBook.Core.Model
         public virtual DateTime DataPartenza { get; set; }
 
         [Display(Name = "Data di chiusura delle prenotazioni")]
-        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", ApplyFormatInEditMode = true)]        
         public virtual DateTime DataChiusuraPrenotazioni { get; set; }
 
         public virtual IList<Tappa> Tappe { get; set; }
