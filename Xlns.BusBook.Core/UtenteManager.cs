@@ -14,7 +14,7 @@ namespace Xlns.BusBook.Core
             if (utente.Id != 0 && utente.Agenzia == null)
             { 
                 AgenziaRepository ar = new AgenziaRepository();
-                utente.Agenzia = ar.GetById(utente.Agenzia.Id);
+                utente.Agenzia = ar.GetAgenziaByIdUtente(utente.Id);
                 UtenteRepository ur = new UtenteRepository();
                 ur.Save(utente);
             }

@@ -97,5 +97,26 @@ namespace Xlns.BusBook.Core.Repository
             var agenzia = base.getDomainObjectById<Agenzia>(id);
             base.delete<Agenzia>(agenzia);
         }
+
+        public Agenzia GetAgenziaByIdUtente(int id)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var agenzia = session.Load<Utente>(id).Agenzia;
+                    om.CommitOperation();
+                    return agenzia;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = "Error";
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
     }
 }
