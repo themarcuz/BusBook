@@ -9559,7 +9559,7 @@ $.extend(Datepicker.prototype, {
 	/* Set the date(s) directly. */
 	_setDate: function(inst, date, noChange) {
 		var clear = !date;
-		var origMonth = inst.selectedMonth;
+		var origMonth = inst.selectedMonth;        
 		var origYear = inst.selectedYear;
 		var newDate = this._restrictMinMax(inst, this._determineDate(inst, date, new Date()));
 		inst.selectedDay = inst.currentDay = newDate.getDate();
