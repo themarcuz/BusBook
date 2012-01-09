@@ -23,6 +23,10 @@ namespace Xlns.BusBook.Core.Model
         [Required(ErrorMessage = "Campo obbligatorio")]
         [StringLength(50, ErrorMessage = "Il campo può essere lungo al massimo 50 caratteri")]
         public virtual string Password { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [StringLength(50, ErrorMessage = "Il campo può essere lungo al massimo 50 caratteri")]
+        public virtual string Email { get; set; }
         
         public virtual Agenzia Agenzia { get; set; }
     }

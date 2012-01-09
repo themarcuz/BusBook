@@ -1,0 +1,113 @@
+﻿@using Xlns.BusBook.UI.Web.Models
+@using Microsoft.Web.Helpers
+@{
+    ViewBag.Title = "Modulo di Registrazione Utente";
+}
+@model RegistrationView
+@using (Html.BeginForm("Registration", "Login", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <table>
+        <tr>
+            <td>
+                <fieldset>
+                    <legend>Utente</legend>
+                    <br />
+                    <div>
+                        @Html.LabelFor(model => model.Utente.Nome)
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.Utente.Nome)
+                        @Html.ValidationMessageFor(model => model.Utente.Nome)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Utente.Cognome)
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.Utente.Cognome)
+                        @Html.ValidationMessageFor(model => model.Utente.Cognome)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Utente.Username)
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.Utente.Username)
+                        @Html.ValidationMessageFor(model => model.Utente.Username)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Utente.Email)
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.Utente.Email)
+                        @Html.ValidationMessageFor(model => model.Utente.Email)
+                    </div>
+                </fieldset>
+            </td>
+            <td>
+                <fieldset>
+                    <legend>Agenzia</legend>
+                    <br />
+                    @Html.HiddenFor(model => model.Agenzia.Id)
+                    <div>
+                        @Html.LabelFor(model => model.Agenzia.Nome)
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.Agenzia.Nome)
+                        @Html.ValidationMessageFor(model => model.Agenzia.Nome)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Agenzia.RagioneSociale)
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.Agenzia.RagioneSociale)
+                        @Html.ValidationMessageFor(model => model.Agenzia.RagioneSociale)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Agenzia.PIva)
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.Agenzia.PIva)
+                        @Html.ValidationMessageFor(model => model.Agenzia.PIva)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.Agenzia.Email)
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.Agenzia.Email)
+                        @Html.ValidationMessageFor(model => model.Agenzia.Email)
+                    </div>
+                    <br />
+                </fieldset>
+            </td>
+            <td>
+                <fieldset>
+                    <legend>Dati di registrazione</legend>
+                    <br />
+                    <div>
+                        @Html.LabelFor(model => model.Utente.Password)
+                    </div>
+                    <div>
+                        @Html.PasswordFor(model => model.Utente.Password)
+                        @Html.ValidationMessageFor(model => model.Utente.Password)
+                    </div>
+                    <div>
+                        @Html.LabelFor(model => model.UtenteRepeatPassword)
+                    </div>
+                    <div>
+                        @Html.PasswordFor(model => model.UtenteRepeatPassword)
+                        @Html.ValidationMessageFor(model => model.UtenteRepeatPassword)
+                    </div>
+                </fieldset>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                @ReCaptcha.GetHtml(publicKey: "6Lcq1csSAAAAAGdA4Ugi3h6D5kpwQTq-g-AXVXSt", theme: "clean")
+                <br />
+                <input type="submit" value="Registra" id="submitButton" class="button" />
+            </td>
+        </tr>
+    </table>
+   
+    
+}

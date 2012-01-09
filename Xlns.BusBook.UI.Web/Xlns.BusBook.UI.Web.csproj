@@ -289,13 +289,10 @@
     <Content Include="Views\Viaggio\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Login\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Login\Informativa.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Viaggio\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Login\Registration.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

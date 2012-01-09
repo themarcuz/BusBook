@@ -50,19 +50,14 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(u);
         }
 
-        public ActionResult Register()
+        public ActionResult Registration()
         {
             RegistrationView registration = new RegistrationView();
-            return View(registration);
-        }
-
-        public ActionResult Informativa()
-        {
-            return View();
+            return PartialView(registration);
         }
 
         [HttpPost]
-        public ActionResult Register(RegistrationView registration)
+        public ActionResult Registration(RegistrationView registration)
         {
             if (ModelState.IsValid)
             {
