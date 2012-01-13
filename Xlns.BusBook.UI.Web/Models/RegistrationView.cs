@@ -10,8 +10,6 @@ namespace Xlns.BusBook.UI.Web.Models
 {
     public class RegistrationView
     {
-       
-
         [Required(ErrorMessage = "Campo obbligatorio")]
         [Display(Name = "Conferma la password")]
         [StringLength(16, ErrorMessage = "Il campo può essere lungo al massimo 16 caratteri")]

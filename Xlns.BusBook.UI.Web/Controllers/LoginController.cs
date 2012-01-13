@@ -17,6 +17,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
     {
         //
         // GET: /Login/
+        AgenziaRepository ar = new AgenziaRepository();
         UtenteRepository ur = new UtenteRepository();
         CryptoHelper crypto = new CryptoHelper();
         MailHelper mh = new MailHelper();
@@ -65,12 +66,20 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 {
                     if (registration.Utente.Password.Equals(registration.UtenteRepeatPassword))
                     {
+                        Agenzia agenzia = new Agenzia();
+                        agenzia.Nome = registration.Agenzia.Nome;
+                        agenzia.RagioneSociale = registration.Agenzia.RagioneSociale;
+                        agenzia.PIva = registration.Agenzia.PIva;
+                        agenzia.Email = registration.Agenzia.Email;
+                        ar.Save(agenzia);
                         Utente utente = new Utente();
                         utente.Nome = registration.Utente.Nome;
                         utente.Cognome = registration.Utente.Cognome;
                         utente.Username = registration.Utente.Username;
+                        utente.Agenzia = agenzia;
                         var cryptedPassword = crypto.cryptPassword(registration.Utente.Password);
                         utente.Password = cryptedPassword;
+                        ur.Save(utente);
                     }
                 }
             }
