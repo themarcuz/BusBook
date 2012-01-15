@@ -4,18 +4,8 @@ var hidLngId = "hiddenLng";
 var mapId = "map_canvas";
 var loaderId = "loaderMessage";
 
-/*
-$(function () {
-    initialize();
-});
-*/
 
-function initMap() {
-    //alert("chiamata inizializzazione senza parametri: latid=" + hidLatId + " ; lngid= " + hidLngId);
-    initialize(errorMsg, hidLatId, hidLngId, mapId, loaderId);
-}
-
-function initialize(errorMessage, hiddenLatId, hiddenLngId, mapDivId, loaderMessageSpanId) {
+function initializeLocation(errorMessage, hiddenLatId, hiddenLngId, mapDivId, loaderMessageSpanId) {    
     var loader = $("#" + loaderMessageSpanId);
     loader.hide();
     var lat = $('#' + hiddenLatId).val().replace(',', '.');
@@ -23,7 +13,7 @@ function initialize(errorMessage, hiddenLatId, hiddenLngId, mapDivId, loaderMess
     var latlng = new google.maps.LatLng(lat, lng);
     var options = {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        draggable: false,
+        draggable: true,
         panControl: false,
         zoomControl: false,
         mapTypeControl: false,

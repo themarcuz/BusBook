@@ -27,11 +27,7 @@ function initializeMap() {
                 map.fitBounds(results[0].geometry.viewport);
                 //aumento un po' lo zoom
                 map.setZoom(map.getZoom() + 1);
-                marker = new google.maps.Marker({
-                    map: map,
-                    position: latlng,
-                    draggable: false
-                });
+                updateMarker(latlng);                
             }
         } else {
             loader.show();

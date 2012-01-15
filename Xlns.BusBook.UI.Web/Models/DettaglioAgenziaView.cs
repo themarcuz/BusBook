@@ -31,7 +31,7 @@ namespace Xlns.BusBook.UI.Web.Models
         }
 
         private String search;
-        public Agenzia agenzia { get; set; }
+        public Agenzia agenzia { get; set; }        
 
         public DettaglioAgenziaView(Agenzia a, String s)
         {

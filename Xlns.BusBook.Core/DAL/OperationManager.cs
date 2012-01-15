@@ -61,7 +61,7 @@ namespace Xlns.BusBook.Core.DAL
                 try
                 {
                     tx.Commit();
-                    logger.Debug(GetCallerClassDotMethod() + " sta chiudendo con committ la transazione " + tx.GetHashCode());
+                    logger.Debug(GetCallerClassDotMethod() + " ha chiuso con committ la transazione " + tx.GetHashCode());
                 }
                 catch (Exception ex)
                 {
@@ -77,8 +77,15 @@ namespace Xlns.BusBook.Core.DAL
         {
             if (isInternalTransaction)
             {
-                tx.Rollback();
-                logger.Debug(GetCallerClassDotMethod() + " sta chiudendo con rollback la transazione " + tx.GetHashCode());                
+                try
+                {
+                    tx.Rollback();
+                    logger.Debug(GetCallerClassDotMethod() + " ha chiuso con rollback la transazione " + tx.GetHashCode());
+                }
+                catch (Exception ex) 
+                {
+                    logger.Warn("Problema durante il rollback esplicito");                    
+                }
             }
         }
 
@@ -88,7 +95,6 @@ namespace Xlns.BusBook.Core.DAL
             {
                 if (tx != null)
                 {
-                    if (tx.IsActive) tx.Rollback();
                     tx.Dispose();
                 }
                 PersistenceManager.Istance.Close();

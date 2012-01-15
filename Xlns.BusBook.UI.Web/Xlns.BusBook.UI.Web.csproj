@@ -108,9 +108,11 @@
     <Content Include="Config\hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\scripts\agenzia.tile.js" />
+    <Content Include="Content\scripts\location.edit.js" />
     <Content Include="Content\scripts\viaggio.detail.js" />
     <Content Include="Content\scripts\viaggio.lista.js" />
-    <Content Include="Content\scripts\location.read.js" />
+    <Content Include="Content\scripts\location.show.js" />
     <Content Include="Content\tiledList.css" />
     <Content Include="Content\img\bus.metro.gray.png" />
     <Content Include="Content\img\loading.gif" />
@@ -137,9 +139,7 @@
     <Content Include="Content\KeepItSimple11\index.html" />
     <Content Include="Content\KeepItSimple11\style.html" />
     <Content Include="Content\ricerca.css" />
-    <Content Include="Content\scripts\agenzia.detail.js" />
     <Content Include="Content\scripts\agenzia.list.js" />
-    <Content Include="Content\scripts\agenzia.map.js" />
     <Content Include="Content\scripts\viaggio.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -245,9 +245,6 @@
     <Content Include="Views\Agenzia\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Agenzia\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Utente\Create.cshtml" />
     <Content Include="Views\Utente\Detail.cshtml" />
     <Content Include="Views\Utente\Edit.cshtml" />
@@ -274,7 +271,7 @@
     <Content Include="Views\Viaggio\TappaDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Location\Read.cshtml" />
+    <Content Include="Views\Location\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Login\Login.cshtml" />
@@ -293,6 +290,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Login\Registration.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Location\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Agenzia\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Agenzia\ShowTile.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

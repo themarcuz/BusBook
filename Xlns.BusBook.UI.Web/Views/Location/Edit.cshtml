@@ -1,0 +1,79 @@
+﻿@model Xlns.BusBook.UI.Web.Models.LocationPartialView
+<div style="@Model.CssStyleForDataFieldDiv">
+    <fieldset>
+        @if (Model.ShowDataFieldLegend)
+        {
+            <legend>Locazione geografica</legend>
+            <br />
+        }
+        <div>
+            @Html.LabelFor(model => model.Location.City)
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Location.City, new { onblur = "refineLocation()" })
+            @Html.ValidationMessageFor(model => model.Location.City)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Location.Street)
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Location.Street, new { onblur = "refineLocation()" })
+            @Html.ValidationMessageFor(model => model.Location.Street)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Location.Number)
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Location.Number, new { onblur = "refineLocation()" })
+            @Html.ValidationMessageFor(model => model.Location.Number)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Location.CAP)
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Location.CAP, new { onblur = "refineLocation()" })
+            @Html.ValidationMessageFor(model => model.Location.CAP)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Location.Province)
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Location.Province, new { onblur = "refineLocation()" })
+            @Html.ValidationMessageFor(model => model.Location.Province)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Location.Region)
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Location.Region, new { onblur = "refineLocation()" })
+            @Html.ValidationMessageFor(model => model.Location.Region)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Location.Nation)
+        </div>
+        <div>
+            @Html.TextBoxFor(model => model.Location.Nation, new { onblur = "refineLocation()" })
+            @Html.ValidationMessageFor(model => model.Location.Nation)
+        </div>
+        @Html.HiddenFor(model => model.Location.Lat)
+        @Html.HiddenFor(model => model.Location.Lng)
+        <br />
+    </fieldset>
+</div>
+<div style="@Model.CssStyleForMapDiv">
+    <div>
+        Cerca indirizzo
+    </div>
+    <div>
+        <input type="text" id="searchAddressField" style="width: 200px" />
+        <input type="button" id="searchAddressButton" onclick="showLocation(searchAddressField.value, true);"
+            value="cerca" class="button" />
+    </div>
+    <div style="height: 20px">
+        <span id="loaderMessage"></span>
+    </div>
+    <div id="map_canvas" style="width: 500px; height: 350px;">
+    </div>
+</div>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/location.edit.js")"></script>

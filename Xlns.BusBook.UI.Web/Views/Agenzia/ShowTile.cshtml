@@ -1,0 +1,23 @@
+﻿@model Xlns.BusBook.UI.Web.Models.DettaglioAgenziaView
+<div class="tileElement" id="TileDivAgenzia@(Model.agenzia.Id)" onclick="window.location='@Url.Action("Detail", new { id = Model.agenzia.Id })'">
+    @Html.Raw(Model.NomeAdv)
+    <br />
+    Rag. Soc.: @Html.DisplayFor(modelItem => Model.agenzia.RagioneSociale)
+    <br />
+    P.Iva: @Html.DisplayFor(modelItem => Model.agenzia.PIva)
+    <br />
+    @Html.DisplayFor(modelItem => Model.agenzia.Location.IndirizzoLeggibile)
+    <br />
+    @Html.DisplayFor(modelItem => Model.agenzia.Email)
+    <br />
+    <div class="tileCommand">
+        @Html.ActionLink("Modifica", "Edit", new { id = Model.agenzia.Id }, new { @class = "ui-icon ui-icon-pencil" })
+        <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@Model.agenzia.Id">Elimina</a>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/agenzia.tile.js")" ></script>
+<script type="text/javascript">
+    $(function () {
+        new Tile(@(Model.agenzia.Id));
+    });
+</script>

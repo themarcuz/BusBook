@@ -111,7 +111,9 @@
     <EmbeddedResource Include="Mapping\Viaggio.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mapping\Tappa.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Tappa.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

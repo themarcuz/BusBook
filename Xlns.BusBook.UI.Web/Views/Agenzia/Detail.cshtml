@@ -1,13 +1,9 @@
 ﻿@using Xlns.BusBook.Core.Model;
+@using Xlns.BusBook.UI.Web.Models;
 @model Xlns.BusBook.Core.Model.Agenzia
 @{
     ViewBag.Title = "Dettaglio agenzia";
 }
-@section scripts{
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript" src="@Url.Content("~/Content/scripts/agenzia.detail.js")"></script>
-}
-
 <div id="content-wrapper" class="container_16">
     <div id="main" class="grid_16">
         <h3>@ViewBag.Title</h3>
@@ -54,11 +50,15 @@
             </fieldset>
         </div>
         <div class="grid_8 omega">
-            <div style="height: 20px">
-                <span id="loaderMessage"></span>
-            </div>
-            <div id="map_canvas" style="width: 500px; height: 350px;">
-            </div>
+            @{Html.RenderAction("Show", "Location",
+                        new
+                        {
+                            locationPartialView = new LocationPartialView()
+                                                  {
+                                                      Location = Model.Location                                                                                                           
+                                                  }
+                        });
+            }
         </div>
     </div>
     <div class="grid_16">

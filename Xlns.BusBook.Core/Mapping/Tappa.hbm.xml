@@ -9,7 +9,7 @@
     <id name="Id">     
       <generator class="native" />
     </id>
-    <property name="Tipo" />
+    <property name="IdTipo" type="int" column="Tipo" />
     <property name="Ordinamento" />
     
     <component name="Location" class="GeoLocation">
@@ -23,6 +23,11 @@
       <property name="Lat"/>
       <property name="Lng"/>
     </component>
+
+    <many-to-one name="Viaggio"
+      class="Viaggio"
+      cascade="none" fetch="join"
+      lazy="false" />
     
   </class>
 

@@ -9,7 +9,6 @@
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="@Url.Content("~/Content/scripts/viaggio.detail.js")"></script>
 }
-
 <div id="content-wrapper" class="container_16">
     <div id="main" class="grid_18">
         <h3 style="padding-bottom: 0px">@Model.Nome</h3>
@@ -27,40 +26,43 @@
                 <div>
                     @Html.DisplayFor(model => model.DataChiusuraPrenotazioni)
                 </div>
-                <div>
-                    <label>
-                        Partenza</label>
-                </div>
-                <div>
-                    @Html.DisplayFor(model => model.Tappe
+                @if (Model.Tappe != null && Model.Tappe.Count > 0)
+                {
+                    <div>
+                        <label>
+                            Partenza</label>
+                    </div>
+                    <div>
+                        @Html.DisplayFor(model => model.Tappe
                                     .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
                                     .OrderBy(t => t.Ordinamento)
                                     .First()
                                     .Location.City)
-                </div>
-                <div>
-                    <label>
-                        Destinazione</label>
-                </div>
-                <div>
-                    @Html.DisplayFor(model => model.Tappe
+                    </div>
+                    <div>
+                        <label>
+                            Destinazione</label>
+                    </div>
+                    <div>
+                        @Html.DisplayFor(model => model.Tappe
                                     .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE)
                                     .OrderByDescending(t => t.Ordinamento)
                                     .First()
                                     .Location.City)
-                </div>
-                <div style="display: none">
-                    @foreach (var tappa in Model.Tappe)
-                    {
-                        <div class="tappaLocationInfo" data-tappa-id="@tappa.Id">
-                            @Html.TextBox(String.Format("tbTappa{0}Lat", tappa.Id), tappa.Location.Lat)
-                            @Html.TextBox(String.Format("tbTappa{0}Lng", tappa.Id), tappa.Location.Lng)
-                        </div>
-                    }
-                </div>
+                    </div>
+                    <div style="display: none">
+                        @foreach (var tappa in Model.Tappe)
+                        {
+                            <div class="tappaLocationInfo" data-tappa-id="@tappa.Id">
+                                @Html.TextBox(String.Format("tbTappa{0}Lat", tappa.Id), tappa.Location.Lat)
+                                @Html.TextBox(String.Format("tbTappa{0}Lng", tappa.Id), tappa.Location.Lng)
+                            </div>
+                        }
+                    </div>
+                }
             </fieldset>
         </div>
-        <div class="grid_8 omega" >
+        <div class="grid_8 omega">
             <div style="height: 40px">
                 <span id="loaderMessage"></span>
             </div>
@@ -73,5 +75,5 @@
             @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
             @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
         </p>
-    </div>    
+    </div>
 </div>

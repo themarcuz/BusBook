@@ -66,6 +66,12 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(agenzia);
         }
 
+        [ChildActionOnly]
+        public ActionResult ShowTile(DettaglioAgenziaView agenziaVM)
+        {
+            return PartialView(agenziaVM);
+        }
+
         public ActionResult Delete(int id) {
             try
             {
@@ -102,7 +108,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
             else
                 agenzia = ar.GetById(id);
             return View(agenzia);
-        }
+        }        
        
     }    
 }

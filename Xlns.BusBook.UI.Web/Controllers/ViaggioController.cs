@@ -59,5 +59,22 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(viaggio);
         }
 
+        [HttpPost]
+        public ActionResult Save(Viaggio viaggio)
+        {
+            if (ModelState.IsValid)
+            {
+                Viaggio oldViaggio = vr.GetById(viaggio.Id);
+                if (oldViaggio != null) 
+                {
+                    viaggio.Tappe = oldViaggio.Tappe;
+                }
+
+                vr.Save(viaggio);
+                return RedirectToAction("List");
+            }
+            return View(viaggio);
+        }
+
     }
 }

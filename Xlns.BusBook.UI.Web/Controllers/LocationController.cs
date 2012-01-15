@@ -11,14 +11,14 @@ namespace Xlns.BusBook.UI.Web.Controllers
     public class LocationController : Controller
     {        
         [ChildActionOnly]
-        public ActionResult Read(GeoLocation location, int mapWidth = 500, int mapHeight = 350)
-        {
-            var locationPartialView = new LocationPartialView() 
-            {
-                Location = location,
-                MapWidth = mapWidth,
-                MapHeight = mapHeight
-            };
+        public ActionResult Show(LocationPartialView locationPartialView)
+        {           
+            return PartialView(locationPartialView);
+        }
+
+        [ChildActionOnly]
+        public ActionResult Edit(LocationPartialView locationPartialView)
+        {           
             return PartialView(locationPartialView);
         }
 
