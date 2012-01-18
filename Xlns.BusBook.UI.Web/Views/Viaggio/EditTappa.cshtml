@@ -1,0 +1,46 @@
+﻿@using Xlns.BusBook.UI.Web.Models;
+@model Xlns.BusBook.Core.Model.Tappa
+@{
+    String title = "Definizione tappa";
+    if (Model.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
+    {
+        title = "Da dove vuoi partire?";
+    }
+    if (Model.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE)
+    {
+        title = "Qual'è la destinazione?";
+    }    
+}
+<style type="text/css">
+    #dialogTitle
+    {
+        padding-top: 0px;
+        line-height: normal        
+        }
+    #salvaTappaForm
+    {
+        margin-top: 0px;
+        padding-top: 0px;
+        }
+</style>
+@using (Html.BeginForm("SaveTappa", "Viaggio", FormMethod.Post, new { id = "salvaTappaForm" }))
+{
+    <h3 id="dialogTitle">@title</h3>
+    <div style="width: 100%">
+        @{Html.RenderAction("Edit", "Location", new
+              {
+                  locationPartialView = new LocationPartialView()
+                  {
+                      Location = Model.Location,
+                      //CssStyleForDataFieldDiv = "display: table-cell; padding-right: 20px",
+                      MapHeight = "300px",
+                      MapWidth = "100%",
+                      CssStyleForMapDiv = "width: 100%",
+                      MapJsAlreadyLoaded = true
+                  }
+              });
+        }
+    </div>
+    <br />
+    <input type="button" value="Salva" id="submitButton" class="button" />
+}

@@ -9,19 +9,21 @@ namespace Xlns.BusBook.UI.Web.Models
     public class LocationPartialView
     {
         public GeoLocation Location { get; set; }
-        public int MapWidth { get; set; }
-        public int MapHeight { get; set; }                
+        public String MapWidth { get; set; }
+        public String MapHeight { get; set; }                
         public string CssStyleForDataFieldDiv { get; set; }
         public string CssStyleForMapDiv { get; set; }
         public bool ShowDataFieldLegend { get; set; }
+        public bool MapJsAlreadyLoaded { get; set; }
 
         public LocationPartialView() 
         {
             // valori di default
-            MapHeight = 350;
-            MapWidth = 500;            
+            MapHeight = "350px";
+            MapWidth = "500px";            
             CssStyleForDataFieldDiv = "display: none";
             ShowDataFieldLegend = true;
+            MapJsAlreadyLoaded = false;
         }
     }
 }

@@ -1,0 +1,22 @@
+﻿#content-wrapper
+{
+    overflow: hidden;
+    width: 800px;
+    background-color: white;
+    position: relative;
+    height: 450px;
+    float: left;
+}
+#section
+{
+    width: 6000px;
+    position: relative;
+}
+.section .sub
+{
+    position: relative;
+    float: left;
+    padding: 9px 30px 42px 20px;
+    width: 800px;
+    height: auto;
+}

@@ -16,24 +16,15 @@ function initializeMap() {
         overviewMapControl: false
     };
     map = new google.maps.Map(document.getElementById("map_canvas"), options);
-    geocoder = new google.maps.Geocoder();
-    var lat = $('#Location_Lat').val().replace(',', '.');
-    var lng = $('#Location_Lng').val().replace(',', '.');
-    var latlng = new google.maps.LatLng(lat, lng);
-    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            if (results[0]) {
-                map.setCenter(results[0].geometry.location);
-                map.fitBounds(results[0].geometry.viewport);
-                //aumento un po' lo zoom
-                map.setZoom(map.getZoom() + 1);
-                updateMarker(latlng);                
-            }
-        } else {
-            loader.show();
-            loader.text(errorMessage);
-        }
-    });
+    geocoder = new google.maps.Geocoder();    
+    if ($('#Location_Lat').val() == "" || $('#Location_Lng').val() == "") {
+        showLocation('Italia', true);
+    } else {
+        var lat = $('#Location_Lat').val().replace(',', '.');
+        var lng = $('#Location_Lng').val().replace(',', '.');
+        var latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode({ 'latLng': latlng }, updateMap);
+    }
 }
 
 $(function () {
@@ -53,7 +44,6 @@ $(function () {
         }
     });
 });
-
 
 function showLoader() {
     loader.text(loadingMessage);
@@ -75,25 +65,33 @@ function refineLocation() {
 function showLocation(address, showMarker) {
     if (!address) return;
     showLoader();
-    geocoder.geocode({ 'address': address }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-            map.fitBounds(results[0].geometry.viewport);
-            if (showMarker) {
-                //aumento un po' lo zoom
+    geocoder.geocode({ 'address': address }, updateMap);
+}
+
+function updateMap(results, status, clearSearchBox, dontZoom) {
+    if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+            map.setCenter(results[0].geometry.location);                                   
+            if (!dontZoom) {
+                map.fitBounds(results[0].geometry.viewport);
+                //aumento un po' lo zoom 
                 map.setZoom(map.getZoom() + 1);
-                //aggiorno il marker
-                updateMarker(results[0].geometry.location);
-                // imposta campi indirizzo
-                updateAddressFields(results[0].address_components);
-                $('#Location_Lng').val(results[0].geometry.location.lng());
-                $('#Location_Lat').val(results[0].geometry.location.lat());                
             }
-            loader.hide();
-        } else {
-            loader.text(errorMessage);
-        }
-    });
+            //aggiorno il marker
+            updateMarker(results[0].geometry.location);
+            // imposta campi indirizzo
+            updateAddressFields(results[0].address_components);
+            $('#Location_Lng').val(results[0].geometry.location.lng());
+            $('#Location_Lat').val(results[0].geometry.location.lat());
+            loader.text(results[0].formatted_address);
+            if (clearSearchBox) {
+                $("#searchAddressField").val("");
+            }
+        }        
+    } else {
+        loader.show();
+        loader.text(errorMessage);
+    }
 }
 
 function updateAddressFromMarker(marker) {
@@ -103,27 +101,16 @@ function updateAddressFromMarker(marker) {
     var lat = parseFloat(marker.getPosition().lat());
     var lng = parseFloat(marker.getPosition().lng());
     var latlng = new google.maps.LatLng(lat, lng);
-    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            if (results[0]) {
-                updateMarker(latlng);
-                updateAddressFields(results[0].address_components);
-                $("#searchAddressField").val("");
-            }
-            loader.hide();
-        } else {
-            loader.text(errorMessage);
-        }
-    });
+    geocoder.geocode({ 'latLng': latlng }, function (results, status) { updateMap(results, status, true, true); });
 }
 
-function updateMarker(location) {
+function updateMarker(location) {    
     cleanupMarker();
     marker = new google.maps.Marker({
         map: map,
         position: location,
         draggable: true
-    });
+    });    
     google.maps.event.addListener(marker, 'dragend', function () {
         updateAddressFromMarker(marker);
     });
@@ -159,7 +146,6 @@ function updateAddressFields(components) {
                 $("#Location_Number").val("");                
                 $("#Location_Number").val(value.long_name);
             }
-
         }
     });
 }

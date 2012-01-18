@@ -87,6 +87,7 @@
     <Compile Include="Repository\UtenteRepository.cs" />
     <Compile Include="Repository\ViaggioRepository.cs" />
     <Compile Include="UtenteManager.cs" />
+    <Compile Include="ViaggioManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
