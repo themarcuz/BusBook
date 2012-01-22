@@ -64,7 +64,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
             return View(viaggio);
         }
-         
+
+        public ActionResult EditTappeViaggio(int idViaggio) {
+            var viaggio = vr.GetById(idViaggio);            
+            return PartialView(viaggio);
+        }
 
         public ActionResult CreateTappa(int tipo, int idViaggio) {
             var viaggio = vr.GetById(idViaggio);            
@@ -80,6 +84,26 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult EditTappa(Tappa tappa)
         {
             return PartialView(tappa);
+        }
+
+        [HttpPost]
+        public ActionResult SaveTappa(Tappa tappa) 
+        {
+            if (tappa.Viaggio != null && tappa.Viaggio.Id != 0)
+            {
+                tappa.Viaggio = vr.GetById(tappa.Viaggio.Id);
+            }
+            if (!ModelState.IsValid)
+            {
+                vr.Save(tappa);
+                return RedirectToAction("EditTappeViaggio", new { idViaggio = tappa.Viaggio.Id });
+            }
+            else 
+            {
+                string msg = "Impossibile salvare la tappa modificata o creata";
+                logger.Error(msg);
+                throw new Exception(msg);
+            }
         }
 
     }

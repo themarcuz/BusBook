@@ -15,32 +15,54 @@
     #dialogTitle
     {
         padding-top: 0px;
-        line-height: normal        
-        }
+        line-height: normal;
+    }
     #salvaTappaForm
     {
         margin-top: 0px;
         padding-top: 0px;
-        }
+    }
 </style>
-@using (Html.BeginForm("SaveTappa", "Viaggio", FormMethod.Post, new { id = "salvaTappaForm" }))
+<h3 id="dialogTitle">@title</h3>
+@using (Ajax.BeginForm("SaveTappa", "Viaggio",
+                                            new AjaxOptions()
+                                            {
+                                                HttpMethod = "POST",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = "ListaTappeEditabili",
+                                                OnBegin = "ShowLoadingElement",
+                                                OnSuccess = "CloseDialog"
+                                            },
+                                            new { id = "salvaTappaForm" }))
 {
-    <h3 id="dialogTitle">@title</h3>
-    <div style="width: 100%">
+    <div style="width: 100%; margin-bottom: 20px">
         @{Html.RenderAction("Edit", "Location", new
-              {
-                  locationPartialView = new LocationPartialView()
-                  {
-                      Location = Model.Location,
-                      //CssStyleForDataFieldDiv = "display: table-cell; padding-right: 20px",
-                      MapHeight = "300px",
-                      MapWidth = "100%",
-                      CssStyleForMapDiv = "width: 100%",
-                      MapJsAlreadyLoaded = true
-                  }
-              });
+                                          {
+                                              locationPartialView = new LocationPartialView()
+                                              {
+                                                  Location = Model.Location,
+                                                  //CssStyleForDataFieldDiv = "display: table-cell; padding-right: 20px",
+                                                  MapHeight = "300px",
+                                                  MapWidth = "100%",
+                                                  CssStyleForMapDiv = "width: 100%",
+                                                  MapJsAlreadyLoaded = true
+                                              }
+                                          });
         }
     </div>
-    <br />
+    @Html.HiddenFor(m => m.IdTipo)
+    @Html.HiddenFor(m => m.Viaggio.Id)  
+    @Html.HiddenFor(m => m.Ordinamento)  
     <input type="button" value="Salva" id="submitButton" class="button" />
+    <script type="text/javascript">
+        $(function () {
+            $('#submitButton').click(function (evt) {
+                evt.preventDefault();
+                var $form = $('#salvaTappaForm');
+                if ($form.valid()) {
+                    $form.submit();
+                }
+            });
+        });
+    </script>
 }

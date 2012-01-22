@@ -74,6 +74,14 @@
         <p>
             @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
             @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
+            @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio",
+                                    new AjaxOptions()
+                                        {
+                                            Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",
+                                            HttpMethod = "POST",
+                                            OnSuccess = "alert('Pubblicazione avvenuta')"
+                                        },
+                                    new { @class = "button" })
         </p>
     </div>
 </div>

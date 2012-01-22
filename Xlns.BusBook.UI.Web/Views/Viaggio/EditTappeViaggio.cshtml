@@ -1,0 +1,38 @@
+﻿@model Xlns.BusBook.Core.Model.Viaggio
+@{
+    var partenza = Model.Tappe
+                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
+                    .FirstOrDefault();
+    var destinazione = Model.Tappe
+                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE)
+                    .FirstOrDefault();
+    var tappe = Model.Tappe
+                .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.TAPPA)
+                .ToList();
+    if (partenza == null)
+    {
+    <a href="#" onclick="aggiungiTappa(1)" class="button">Definisci partenza</a>
+    }
+    else
+    {
+    <a href="#" onclick="modificaTappa(@partenza.Id)" >@partenza.Location.City (@partenza.Location.Province) - @partenza.Location.Nation</a>
+    }
+    <br />
+    <br />
+    foreach (var t in tappe)
+    {
+    <a href="#" onclick="modificaTappa(@t.Id)" >@t.Location.City (@t.Location.Province) - @t.Location.Nation</a>
+    <br />
+    }
+    <a href="#" onclick="aggiungiTappa(2)" class="button">Aggiungi tappa</a>                            
+    <br />    
+    <br />
+    if (destinazione == null)
+    {
+    <a href="#" onclick="aggiungiTappa(3)" class="button">Definisci destinazione</a>
+    }
+    else
+    {        
+    <a href="#" onclick="modificaTappa(@destinazione.Id)" >@destinazione.Location.City (@destinazione.Location.Province) - @destinazione.Location.Nation</a>
+    }
+}

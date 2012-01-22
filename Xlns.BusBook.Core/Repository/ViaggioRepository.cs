@@ -40,5 +40,27 @@ namespace Xlns.BusBook.Core.Repository
                 }
             }
         }
+
+        public void Save(Tappa tappa)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    om.BeginOperation();
+                    base.update<Tappa>(tappa);
+                    om.CommitOperation();
+                    logger.Info("Dati della tappa {0} salvati con successo", tappa.Id);
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = "Errore nel salvataggio della tappa";
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
+
     }
 }

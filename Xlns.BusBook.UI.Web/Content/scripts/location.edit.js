@@ -35,14 +35,7 @@ $(function () {
         if (event.keyCode == 13) {
             $("#searchAddressButton").click();
         }
-    });
-    $('#submitButton').click(function (evt) {
-        evt.preventDefault();        
-        var $form = $('#salvaAgenziaForm');
-        if ($form.valid()) {
-            $form.submit();
-        }
-    });
+    });    
 });
 
 function showLoader() {
