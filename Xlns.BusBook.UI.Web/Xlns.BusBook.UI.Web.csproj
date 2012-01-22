@@ -110,6 +110,7 @@
     </Content>
     <Content Include="Content\editviaggioscroller.css" />
     <Content Include="Content\scripts\agenzia.tile.js" />
+    <Content Include="Content\scripts\facebook.js" />
     <Content Include="Content\scripts\location.edit.js" />
     <Content Include="Content\scripts\viaggio.detail.js" />
     <Content Include="Content\scripts\viaggio.lista.js" />
@@ -295,6 +296,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Viaggio\EditTappa.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fbchannel.ashx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

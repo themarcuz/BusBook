@@ -12,8 +12,8 @@ namespace Xlns.BusBook.Core.Crypto
         /// <summary>
         /// Effettua la criptazione della password sfruttando l'algoritmo di criptazione MD5
         /// </summary>
-        /// <param name="password">Stringa da criptare</param>
-        /// <returns>Stringa criptata</returns>
+        /// <param name="password">Stringa da criptare di qualsivoglia lunghezza</param>
+        /// <returns>Stringa criptata in una di 128 bit</returns>
         public string cryptPassword(string password)
         {
             try

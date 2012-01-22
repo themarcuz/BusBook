@@ -82,6 +82,7 @@
             <td>
                 <fieldset>
                     <legend>Dati di registrazione</legend>
+                    @Html.HiddenFor(model => model.Agenzia.Id)
                     <br />
                     <div>
                         @Html.LabelFor(model => model.Utente.Password)

@@ -17,5 +17,9 @@ namespace Xlns.BusBook.UI.Web.Models
 
         public Agenzia Agenzia { get; set; }
         public Utente Utente { get; set; }
+        public RegistrationView()
+        {
+            this.Agenzia = new Agenzia();
+        }
     }
 }

@@ -5,7 +5,7 @@
     @Html.EditorFor(model => model.Username)
     @Html.LabelFor(model => model.Password)
     @Html.PasswordFor(model => model.Password)
-    @Html.ActionLink("registrati", "Informativa") 
-    @Html.Label(" | ")
     @Html.ActionLink("iForgot", "ResetPassword")
 }
+<fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream">
+    </fb:login-button>
