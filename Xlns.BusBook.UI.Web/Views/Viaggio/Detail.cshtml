@@ -72,9 +72,44 @@
     </div>
     <div class="grid_16">
         <p>
+            <div class="fb-send" data-href="http://xlns.it" data-font="segoe ui">
+            </div>
+            <a href="#" onclick="graphStreamPublish(); return false;">Pubblica sulla tua bacheca</a>
+            <script type="text/javascript">
+                function graphStreamPublish() {
+                    var actionUrl = window.location;
+                    var postText = 'BB new trip: ' + actionUrl;
+                    FB.api('/me/feed', 'post', { message: postText }, function (response) {
+                        if (!response || response.error) { alert('Si è verificato un errore'); }
+                        else { alert('Post ID: ' + response.id); }
+                    });
+                }
+
+                function share() {
+                    var share = { method: 'stream.share', u: 'http://xlns.it/' };
+                    FB.ui(share, function (response) { console.log(response); });
+                }
+
+                function showStream() {
+                    FB.api('/me', function (response) {
+                        streamPublish(response.name, 'XLNS your way to be xcellent', 'xlsn', 'http://xlns.it', "visit xlns");
+                    });
+                }
+
+                function streamPublish(name, description, hrefTitle, hrefLink, userPrompt) {
+                    FB.ui({ method: 'stream.publish', message: '', attachment: { name: name, caption: '', description: (description), href: hrefLink }, action_links: [{ text: hrefTitle, href: hrefLink}], user_prompt_message: userPrompt }, function (response) { });
+                }
+            </script>
             @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
             @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
-            <a href="#" id="richiediPartecipazione" class="button">PartecipaLink</a>
+            @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio",
+                                    new AjaxOptions()
+                                        {
+                                            Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",
+                                            HttpMethod = "POST",
+                                            OnSuccess = "alert('Pubblicazione avvenuta')"
+                                        },
+                                    new { @class = "button" })
 
            @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id }, new AjaxOptions()
             {

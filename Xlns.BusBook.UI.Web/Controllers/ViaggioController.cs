@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Xlns.BusBook.Core.Model;
 using Xlns.BusBook.Core.Repository;
+using Xlns.BusBook.Core;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -12,6 +13,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private ViaggioRepository vr = new ViaggioRepository();
+        private ViaggioManager vm = new ViaggioManager();
 
         public ActionResult List()
         {
@@ -23,20 +25,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult TappaEdit(Tappa tappa)
         {
             return PartialView(tappa);
-        }
-
-        public ActionResult TappaDetailTest()
-        {
-            var viaggi = vr.GetViaggi();
-            var tappa = viaggi[0].Tappe[1];
-            return View("TappaDetail", tappa);
-        }
-        
-        [ChildActionOnly]
-        public ActionResult TappaDetail(Tappa tappa)
-        {
-            return PartialView(tappa);
-        }
+        }        
 
         [ChildActionOnly]
         public ActionResult ViaggioTiledDetail(Viaggio viaggio) {
@@ -57,7 +46,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
             else
                 viaggio = vr.GetById(id);
             return View(viaggio);
-        }
+        }       
 
         [HttpPost]
         public ActionResult Save(Viaggio viaggio)
@@ -74,6 +63,47 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 return RedirectToAction("List");
             }
             return View(viaggio);
+        }
+
+        public ActionResult EditTappeViaggio(int idViaggio) {
+            var viaggio = vr.GetById(idViaggio);            
+            return PartialView(viaggio);
+        }
+
+        public ActionResult CreateTappa(int tipo, int idViaggio) {
+            var viaggio = vr.GetById(idViaggio);            
+            var nuovaTappa = new Tappa() 
+            { 
+                Tipo = (TipoTappa)tipo, 
+                Viaggio = viaggio,
+                Ordinamento = vm.CalcolaOrdinamentoPerNuovaTappa(viaggio)
+            };
+            return PartialView("EditTappa", nuovaTappa);
+        }       
+        
+        public ActionResult EditTappa(Tappa tappa)
+        {
+            return PartialView(tappa);
+        }
+
+        [HttpPost]
+        public ActionResult SaveTappa(Tappa tappa) 
+        {
+            if (tappa.Viaggio != null && tappa.Viaggio.Id != 0)
+            {
+                tappa.Viaggio = vr.GetById(tappa.Viaggio.Id);
+            }
+            if (!ModelState.IsValid)
+            {
+                vr.Save(tappa);
+                return RedirectToAction("EditTappeViaggio", new { idViaggio = tappa.Viaggio.Id });
+            }
+            else 
+            {
+                string msg = "Impossibile salvare la tappa modificata o creata";
+                logger.Error(msg);
+                throw new Exception(msg);
+            }
         }
 
         [HttpPost]

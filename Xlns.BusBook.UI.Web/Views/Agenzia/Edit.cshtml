@@ -12,6 +12,17 @@
 }
 @section scripts{
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#submitButton').click(function (evt) {
+                evt.preventDefault();
+                var $form = $('#salvaAgenziaForm');
+                if ($form.valid()) {
+                    $form.submit();
+                }
+            });
+        });
+    </script>
 }
 <div id="content-wrapper" class="container_16">
     <div id="main" class="grid_16">
