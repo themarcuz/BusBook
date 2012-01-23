@@ -2,21 +2,5 @@
 @model Xlns.BusBook.UI.Web.Models.UtenteView
 @foreach (DettaglioUtenteView item in Model.Utente)
 {
-    <div class="tileElement" onclick="window.location='@Url.Action("Detail", new { id = item.utente.Id })'">
-        @Html.Raw(item.NomeAdv)
-        <br />
-        @Html.DisplayFor(modelItem => item.utente.Cognome)
-        <br />
-        @Html.DisplayFor(modelItem => item.utente.Nome)
-        <br />
-        @Html.DisplayFor(modelItem => item.utente.Username)
-        <br />
-         @Html.DisplayFor(modelItem => item.utente.Agenzia.Nome)
-        <br />
-        <div class="tileCommand">
-            @Html.ActionLink("Modifica", "Edit", new { id = item.utente.Id }) |
-            @Html.ActionLink("Elimina", "Delete", new { id = item.utente.Id }) |
-            @Html.ActionLink("Modifica Password", "ChangePassword", new { id = item.utente.Id })
-        </div>
-    </div>
+    Html.RenderAction("ShowTile", new { utenteVM = item });
 }

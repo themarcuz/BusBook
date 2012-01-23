@@ -25,11 +25,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult List(string q, string ini)
         {
-            logger.Debug("Caricamento utenti con iniziale='{0}' e filtro='{1}'", ini, q);
-            if (string.IsNullOrEmpty(q)) q = "";
-            if (string.IsNullOrEmpty(ini)) ini = "";
-            var myModel = ur.GetAllUtenti(q, ini);
-            var utenti = new UtenteView(myModel.ToList(), q, ini);
+            //logger.Debug("Caricamento utenti con iniziale='{0}' e filtro='{1}'", ini, q);
+            //if (string.IsNullOrEmpty(q)) q = "";
+            //if (string.IsNullOrEmpty(ini)) ini = "";
+            //var myModel = ur.GetAllUtenti(q, ini);
+            var utenti = new UtenteView(new List<Utente>(), q, ini);
             return View(utenti);
         }
 
@@ -128,6 +128,26 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 }
             }
             return View(dettaglioPassword);
+        }
+
+        [ChildActionOnly]
+        public ActionResult ShowTile(DettaglioUtenteView utenteVM)
+        {
+            return PartialView(utenteVM);
+        }
+
+        public void DeleteAjax(int id)
+        {
+            try
+            {
+                ur.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore durante l'eliminazione dell'utente con id={0}", id);
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg);
+            }
         }
     }
 }

@@ -74,6 +74,15 @@
         <p>
             @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
             @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
+            <a href="#" id="richiediPartecipazione" class="button">PartecipaLink</a>
+
+           @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id }, new AjaxOptions()
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "POST",
+                UpdateTargetId = "dialogPartecipazione"
+            },new { @class = "button" })
         </p>
     </div>
+    <div id="dialogPartecipazione"></div>
 </div>

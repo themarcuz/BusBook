@@ -10,6 +10,7 @@ using Xlns.BusBook.Core.Mailer;
 using System.Web.Security;
 using Xlns.BusBook.UI.Web.Models;
 using Microsoft.Web.Helpers;
+using Xlns.BusBook.Core.Login;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -22,10 +23,47 @@ namespace Xlns.BusBook.UI.Web.Controllers
         CryptoHelper crypto = new CryptoHelper();
         MailHelper mh = new MailHelper();
 
-        public ActionResult Login()
+        [ChildActionOnly]
+        public ActionResult ShowLogin()
         {
-            var myModel = new Utente();
-            return PartialView(myModel);
+            return ShowLogin(null);
+        }
+
+        private ActionResult ShowLogin(UtenteLoginView utente)
+        {
+            var loggedUtente = Session.getLoggedUtente();
+
+            if (loggedUtente == null)
+                return PartialView("Login", (utente == null ? new UtenteLoginView() : utente));
+            else
+                return PartialView("Logout", loggedUtente);
+        }
+
+        [HttpPost]
+        public ActionResult Login(UtenteLoginView utente)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var authResult = LoginHelper.AuthenticateUtente(utente.Username, utente.Password);
+
+                if (authResult.IsAuthenticated)
+                    Session.Login(authResult.AuthenticatedUtente);
+                else
+                {
+                    utente.LoginErrorMessage = authResult.AuthErrorMessage;
+                    utente.Password = "";
+                }
+            }
+
+            return ShowLogin(utente);
+        }
+
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            Session.Logout();
+            return ShowLogin();
         }
 
         public ActionResult ResetPassword()

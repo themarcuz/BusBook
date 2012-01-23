@@ -12,12 +12,18 @@ namespace Xlns.BusBook.UI.Web.Models
     {
         [Required(ErrorMessage = "Campo obbligatorio")]
         [StringLength(16, ErrorMessage = "Il campo può essere lungo al massimo 16 caratteri")]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [StringLength(16, ErrorMessage = "Il campo può essere lungo al massimo 16 caratteri")]
         [Display(Name = "Nuova password")]
         public string newPassword { get; set; }
         
         [Required(ErrorMessage="Campo obbligatorio")]
         [StringLength(16, ErrorMessage = "Il campo può essere lungo al massimo 16 caratteri")]   
         [Display(Name = "Conferma la nuova password")]
+        [Compare("newPassword")]
         public string repeatNewPassword { get; set; }
     }
 }

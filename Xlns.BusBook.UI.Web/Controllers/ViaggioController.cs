@@ -76,5 +76,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(viaggio);
         }
 
+        [HttpPost]
+        public ActionResult RichiestaPartecipazione(int idViaggio)
+        {
+            return PartialView("RichiestaPartecipazione");
+        }
     }
 }
