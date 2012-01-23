@@ -56,6 +56,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 }
             }
 
+            //TODO: deve funzionare anche senza la validazione lato client!
             return ShowLogin(utente);
         }
 

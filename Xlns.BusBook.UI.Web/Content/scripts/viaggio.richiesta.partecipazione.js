@@ -19,7 +19,7 @@ $("#dialogPartecipazione").dialog({
                 $(this).dialog("close");
             }
         },
-        Cancel: function () {
+        "Annulla": function () {
             $(this).dialog("close");
         }
     },

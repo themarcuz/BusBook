@@ -47,9 +47,10 @@
                     @Html.ActionLink("iForgot", "ResetPassword")*@
 
                     }
-<fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream">
-    </fb:login-button>
-
+                    <fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream" />
+                </fieldset>
+            </td>
+        </tr>
     </table>
     <div style="display: none; margin-left: 50px" id="loadingDiv">
         <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>
