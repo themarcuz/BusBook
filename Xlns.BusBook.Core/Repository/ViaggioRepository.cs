@@ -20,6 +20,11 @@ namespace Xlns.BusBook.Core.Repository
             return base.getDomainObjectById<Viaggio>(id);
         }
 
+        public Tappa GetTappaById(int id) 
+        {
+            return base.getDomainObjectById<Tappa>(id);
+        }
+
         public void Save(Viaggio viaggio)
         {
             using (var om = new OperationManager())

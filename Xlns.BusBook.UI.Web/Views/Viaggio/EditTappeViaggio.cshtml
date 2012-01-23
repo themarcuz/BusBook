@@ -22,6 +22,7 @@
     foreach (var t in tappe)
     {
     <a href="#" onclick="modificaTappa(@t.Id)" >@t.Location.City (@t.Location.Province) - @t.Location.Nation</a>
+    <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@t.Id"></a>
     <br />
     }
     <a href="#" onclick="aggiungiTappa(2)" class="button">Aggiungi tappa</a>                            

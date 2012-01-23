@@ -79,12 +79,13 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 Ordinamento = vm.CalcolaOrdinamentoPerNuovaTappa(viaggio)
             };
             return PartialView("EditTappa", nuovaTappa);
-        }       
-        
-        public ActionResult EditTappa(Tappa tappa)
-        {
-            return PartialView(tappa);
         }
+
+        public ActionResult EditTappa(int id) 
+        {
+            var tappa = vr.GetTappaById(id);
+            return PartialView(tappa);
+        }        
 
         [HttpPost]
         public ActionResult SaveTappa(Tappa tappa) 
