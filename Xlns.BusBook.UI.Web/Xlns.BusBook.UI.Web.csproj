@@ -302,13 +302,13 @@
   <ItemGroup>
     <Content Include="Views\Utente\ShowTile.cshtml" />
   </ItemGroup>
-   <ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Viaggio\EditTappa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Login\Logout.cshtml" />
-   </ItemGroup>
-   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="fbchannel.ashx" />
   </ItemGroup>
   <ItemGroup>
