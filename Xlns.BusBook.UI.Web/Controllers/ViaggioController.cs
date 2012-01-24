@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Xlns.BusBook.Core.Model;
 using Xlns.BusBook.Core.Repository;
 using Xlns.BusBook.Core;
+using Xlns.BusBook.UI.Web.Models;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -111,7 +112,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             //TODO: mi salvo sul db che ho cliccato
             var viaggio = vr.GetById(idViaggio);
-            return PartialView("RichiestaPartecipazione", viaggio);
+            var agm = new AgenziaRepository();
+
+            DettaglioAgenziaView ag = new DettaglioAgenziaView(agm.GetById(1), null);
+            return PartialView("RichiestaPartecipazione", ag);
         }
 
     }
