@@ -14,8 +14,8 @@
     <property name="DataPartenza" />
     <property name="DataChiusuraPrenotazioni" />
    
-    <bag name="Tappe" cascade="all" lazy="false" order-by="Ordinamento asc">
-      <key column="Viaggio" />
+    <bag name="Tappe" cascade="all" inverse="true" lazy="false" order-by="Ordinamento asc">
+      <key column="Viaggio" on-delete="cascade" />
       <one-to-many class="Tappa" />
     </bag>
     

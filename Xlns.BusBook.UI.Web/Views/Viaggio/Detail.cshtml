@@ -28,6 +28,10 @@
                 </div>
                 @if (Model.Tappe != null && Model.Tappe.Count > 0)
                 {
+                    if (Model.Tappe != null
+                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA) != null
+                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA).Count() > 0)
+                    {
                     <div>
                         <label>
                             Partenza</label>
@@ -39,7 +43,12 @@
                                     .First()
                                     .Location.City)
                     </div>
-                    <div>
+                    }
+                    if (Model.Tappe != null
+                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
+                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
+                    {
+                    <div>                    
                         <label>
                             Destinazione</label>
                     </div>
@@ -50,6 +59,7 @@
                                     .First()
                                     .Location.City)
                     </div>
+                    }                    
                     <div style="display: none">
                         @foreach (var tappa in Model.Tappe)
                         {

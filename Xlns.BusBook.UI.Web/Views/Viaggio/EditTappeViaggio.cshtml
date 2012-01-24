@@ -1,4 +1,5 @@
 ﻿@model Xlns.BusBook.Core.Model.Viaggio
+<link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
 @{
     var partenza = Model.Tappe
                     .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
@@ -21,9 +22,10 @@
     <br />
     foreach (var t in tappe)
     {
-    <a href="#" onclick="modificaTappa(@t.Id)" >@t.Location.City (@t.Location.Province) - @t.Location.Nation</a>
-    <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@t.Id"></a>
-    <br />
+    <div class="tappaDiv">
+        <a href="#" onclick="modificaTappa(@t.Id)" >@t.Location.City (@t.Location.Province) - @t.Location.Nation</a>
+        <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@t.Id"></a>
+    </div>    
     }
     <a href="#" onclick="aggiungiTappa(2)" class="button">Aggiungi tappa</a>                            
     <br />    
@@ -37,3 +39,22 @@
     <a href="#" onclick="modificaTappa(@destinazione.Id)" >@destinazione.Location.City (@destinazione.Location.Province) - @destinazione.Location.Nation</a>
     }
 }
+<script type="text/javascript">
+    $(function () {
+        $('[data-delete-command]').each(function () {
+            var target = $(this);
+            var idTappa = target.attr('data-delete-command');
+            target.click(function (e) {                
+                $.ajax({
+                    url: "/Viaggio/DeleteTappaAjax/" + idTappa,
+                    cache: false,
+                    context: target,
+                    success: function (data) { $(this).parents('.tappaDiv').hide('slow'); },
+                    error: function () { alert("Impossibile eliminare la tappa"); }
+                });
+                return false;
+            });
+        });
+    });
+</script>
+

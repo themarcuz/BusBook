@@ -38,6 +38,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(viaggio);
         }
 
+        public ActionResult Create() 
+        {
+            return RedirectToAction("Edit", new { id = 0 });
+        }
+
         public ActionResult Edit(int id)
         {
             Viaggio viaggio = null;
@@ -103,6 +108,21 @@ namespace Xlns.BusBook.UI.Web.Controllers
             {
                 string msg = "Impossibile salvare la tappa modificata o creata";
                 logger.Error(msg);
+                throw new Exception(msg);
+            }
+        }
+
+        public void DeleteTappaAjax(int id)
+        {
+            try
+            {
+                var tappa = vr.GetTappaById(id);
+                vr.deleteTappa(tappa);
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore durante l'eliminazione della tappa con id={0}", id);
+                logger.ErrorException(msg, ex);
                 throw new Exception(msg);
             }
         }

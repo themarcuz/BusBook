@@ -11,7 +11,8 @@ namespace Xlns.BusBook.Core.Repository
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public IList<Viaggio> GetViaggi() {
+        public IList<Viaggio> GetViaggi()
+        {
             return getAll<Viaggio>();
         }
 
@@ -20,7 +21,7 @@ namespace Xlns.BusBook.Core.Repository
             return base.getDomainObjectById<Viaggio>(id);
         }
 
-        public Tappa GetTappaById(int id) 
+        public Tappa GetTappaById(int id)
         {
             return base.getDomainObjectById<Tappa>(id);
         }
@@ -67,5 +68,18 @@ namespace Xlns.BusBook.Core.Repository
             }
         }
 
+        public void deleteTappa(Tappa tappa)
+        {
+            try
+            {
+                base.delete<Tappa>(tappa);
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore durante la cancellazione della tappa con id={0}", tappa.Id);
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg, ex);
+            }
+        }
     }
 }
