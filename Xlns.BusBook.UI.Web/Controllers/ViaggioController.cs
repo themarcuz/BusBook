@@ -109,7 +109,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
         [HttpPost]
         public ActionResult RichiestaPartecipazione(int idViaggio)
         {
-            return PartialView("RichiestaPartecipazione");
+            //TODO: mi salvo sul db che ho cliccato
+            var viaggio = vr.GetById(idViaggio);
+            return PartialView("RichiestaPartecipazione", viaggio);
         }
+
     }
 }
