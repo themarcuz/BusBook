@@ -18,7 +18,11 @@
       <key column="Viaggio" />
       <one-to-many class="Tappa" />
     </bag>
-    
+
+    <many-to-one name="Agenzia" 
+      class="Agenzia"
+      cascade="none" fetch="join"
+    lazy="false" />
   </class>
 
 </hibernate-mapping>

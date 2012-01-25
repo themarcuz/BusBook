@@ -27,5 +27,7 @@ namespace Xlns.BusBook.Core.Model
 
         public virtual IList<Tappa> Tappe { get; set; }
 
+        public virtual Agenzia Agenzia { get; set; }
+
     }
 }

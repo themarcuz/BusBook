@@ -1,8 +1,8 @@
-﻿@model Xlns.BusBook.UI.Web.Models.DettaglioAgenziaView
-<div id="dialogPartecipazione">
-    @{Html.RenderAction("ShowTile", "Agenzia", new { agenziaVM = Model });}
+﻿@model Xlns.BusBook.Core.Model.Agenzia
+@{
+    ViewBag.Title = "test";
+}
+<div id="dialogPartecipazione" style="text-align:left;">
+    @{Html.RenderAction("DetailPartial", "Agenzia", new { agenzia = Model });}
 </div>
 <script type="text/javascript" src="@Url.Content("~/Content/scripts/viaggio.richiesta.partecipazione.js")" ></script>
-@*<script type="text/javascript">
-    $("#dialogPartecipazione").dialog();
-</script>*@

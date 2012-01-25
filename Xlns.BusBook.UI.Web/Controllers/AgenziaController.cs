@@ -108,7 +108,12 @@ namespace Xlns.BusBook.UI.Web.Controllers
             else
                 agenzia = ar.GetById(id);
             return View(agenzia);
-        }        
+        }
+
+        public ActionResult DetailPartial(Agenzia agenzia)
+        {
+            return PartialView("Detail",agenzia);
+        }
        
     }    
 }

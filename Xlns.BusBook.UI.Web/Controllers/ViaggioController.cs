@@ -112,10 +112,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             //TODO: mi salvo sul db che ho cliccato
             var viaggio = vr.GetById(idViaggio);
-            var agm = new AgenziaRepository();
-
-            DettaglioAgenziaView ag = new DettaglioAgenziaView(agm.GetById(1), null);
-            return PartialView("RichiestaPartecipazione", ag);
+            
+            return PartialView("RichiestaPartecipazione", viaggio.Agenzia);
         }
 
     }
