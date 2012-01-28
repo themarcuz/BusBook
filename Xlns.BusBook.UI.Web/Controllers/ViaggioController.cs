@@ -110,10 +110,20 @@ namespace Xlns.BusBook.UI.Web.Controllers
         [HttpPost]
         public ActionResult RichiestaPartecipazione(int idViaggio)
         {
-            //TODO: mi salvo sul db che ho cliccato
-            var viaggio = vr.GetById(idViaggio);
-            
-            return PartialView("RichiestaPartecipazione", viaggio.Agenzia);
+
+            var loggedUser = Session.getLoggedUtente();
+            Agenzia agenzia = null;
+
+            if (loggedUser != null)
+            {
+                var viaggio = vr.GetById(idViaggio);
+                //registro che questo utente a visualizzato i dati
+                vm.RegistraPartecipazione(viaggio, loggedUser);
+                
+                agenzia = viaggio.Agenzia;
+               
+            }
+            return PartialView("RichiestaPartecipazione", agenzia);
         }
 
     }
