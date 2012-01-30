@@ -35,7 +35,7 @@ namespace Xlns.BusBook.Core.Repository
                     om.BeginOperation();
                     base.update<Viaggio>(viaggio);
                     om.CommitOperation();
-                    logger.Info("Dati dell'agenzia {0} salvati con successo", viaggio.Id);
+                    logger.Info("Dati del viaggio {0} salvati con successo", viaggio.Id);
                 }
                 catch (Exception ex)
                 {

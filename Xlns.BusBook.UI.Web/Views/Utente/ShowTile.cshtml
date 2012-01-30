@@ -1,0 +1,24 @@
+﻿@model Xlns.BusBook.UI.Web.Models.DettaglioUtenteView
+<div class="tileElement" id="TileDivUtente@(Model.utente.Id)" onclick="window.location='@Url.Action("Detail", new { id = Model.utente.Id })'">
+        @Html.Raw(Model.NomeAdv)
+        <br />
+        @Html.DisplayFor(modelItem => Model.utente.Cognome)
+        <br />
+        @Html.DisplayFor(modelItem => Model.utente.Nome)
+        <br />
+        @Html.DisplayFor(modelItem => Model.utente.Username)
+        <br />
+         @Html.DisplayFor(modelItem => Model.utente.Agenzia.Nome)
+        <br />
+    <div class="tileCommand">
+        @Html.ActionLink("Modifica", "Edit", new { id = Model.utente.Id }, new { @class = "ui-icon ui-icon-pencil" })
+        <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@Model.utente.Id">Elimina</a>
+        @Html.ActionLink("Cambia Password", "ChangePassword", new { id = Model.utente.Id }, new { @class = "ui-icon ui-icon-key" })
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/utente.tile.js")" ></script>
+<script type="text/javascript">
+    $(function () {
+        new Tile(@(Model.utente.Id));
+    });
+</script>

@@ -25,11 +25,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult List(string q, string ini)
         {
-            logger.Debug("Caricamento utenti con iniziale='{0}' e filtro='{1}'", ini, q);
-            if (string.IsNullOrEmpty(q)) q = "";
-            if (string.IsNullOrEmpty(ini)) ini = "";
-            var myModel = ur.GetAllUtenti(q, ini);
-            var utenti = new UtenteView(myModel.ToList(), q, ini);
+            //logger.Debug("Caricamento utenti con iniziale='{0}' e filtro='{1}'", ini, q);
+            //if (string.IsNullOrEmpty(q)) q = "";
+            //if (string.IsNullOrEmpty(ini)) ini = "";
+            //var myModel = ur.GetAllUtenti(q, ini);
+            var utenti = new UtenteView(new List<Utente>(), q, ini);
             return View(utenti);
         }
 
@@ -105,29 +105,75 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult ChangePassword(int id)
         {
             Utente utente = ur.GetById(id);
-            var password = new DettaglioPasswordView();
+            var password = new DettaglioPasswordView() { userId = id};
             return View(password);
         }
 
         [HttpPost]
         public ActionResult ChangePassword(DettaglioPasswordView dettaglioPassword, int id)
         {
+
             if (ModelState.IsValid)
             {
                 Utente utente = ur.GetById(id);
-                var newPassword = dettaglioPassword.newPassword;
-                var repeatNewPassword = dettaglioPassword.repeatNewPassword;
-                if (newPassword.Equals(repeatNewPassword))
+                var chrypto = new CryptoHelper();
+
+                if (utente.Password.Equals(chrypto.cryptPassword(dettaglioPassword.Password)))
                 {
-                    var chrypto = new CryptoHelper();
-                    utente.Password = chrypto.cryptPassword(newPassword);
-                    ur.Save(utente);
-                    MailHelper mh = new MailHelper();
-                    //mh.SendChangedPasswordEmail(utente.Agenzia.Email);
-                    return RedirectToAction("List");
+                    var newPassword = dettaglioPassword.newPassword;
+                    var repeatNewPassword = dettaglioPassword.repeatNewPassword;
+                    if (newPassword.Equals(repeatNewPassword))
+                    {
+
+                        utente.Password = chrypto.cryptPassword(newPassword);
+                        ur.Save(utente);
+                        MailHelper mh = new MailHelper();
+                        //mh.SendChangedPasswordEmail(utente.Agenzia.Email);
+                        return RedirectToAction("List");
+                    }
+                    else //questo non può mai succedere perchè c'è la validazione sul modello...
+                        ModelState.AddModelError(String.Empty, "Le password inserite non corrispondono!");
+
                 }
+                else//questo non dovrebbe mai succedere perchè c'è la validazione Remote sul modello...
+                    ModelState.AddModelError(String.Empty, "La password attuale non corrisponde con quella inserita!");
             }
             return View(dettaglioPassword);
+        }
+
+        [ChildActionOnly]
+        public ActionResult ShowTile(DettaglioUtenteView utenteVM)
+        {
+            return PartialView(utenteVM);
+        }
+
+        public void DeleteAjax(int id)
+        {
+            try
+            {
+                ur.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore durante l'eliminazione dell'utente con id={0}", id);
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg);
+            }
+        }
+
+        public JsonResult CheckPassword(String password, int userId)
+        {
+            bool valid = false;
+
+            Utente utente = ur.GetById(userId);
+            if (utente != null)
+            {
+                var chrypto = new CryptoHelper();
+                if (utente.Password.Equals(chrypto.cryptPassword(password)))
+                    valid = true;
+            }
+
+            return Json(valid, JsonRequestBehavior.AllowGet);
         }
     }
 }

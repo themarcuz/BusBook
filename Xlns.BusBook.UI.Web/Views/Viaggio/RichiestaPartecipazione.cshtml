@@ -1,0 +1,24 @@
+﻿@model Xlns.BusBook.Core.Model.Agenzia
+@{
+    String LoginRequired = "Per accedere a questa funzionalità è necessario essere registrati!";
+}
+<div id="dialogPartecipazione" style="text-align: left;">
+    @{
+        if (Model != null)
+        {
+            Html.RenderAction("DetailPartial", "Agenzia", new { agenzia = Model });
+        }
+        else
+        {
+        <div id="content-wrapper" class="container_16">
+            <div id="main" class="grid_16">
+                <div class="grid_16 alpha">
+                   <label>@Html.Raw(LoginRequired)</label> 
+                </div>
+            </div>
+        </div>
+        }
+     
+    }
+</div>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/viaggio.richiesta.partecipazione.js")" ></script>

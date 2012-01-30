@@ -120,6 +120,14 @@
                                             OnSuccess = "alert('Pubblicazione avvenuta')"
                                         },
                                     new { @class = "button" })
+
+           @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id }, new AjaxOptions()
+            {
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "POST",
+                UpdateTargetId = "dialog"
+            },new { @class = "button" })
         </p>
     </div>
+    <div id="dialog"></div>
 </div>

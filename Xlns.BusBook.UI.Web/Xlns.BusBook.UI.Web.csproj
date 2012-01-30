@@ -101,6 +101,7 @@
     <Compile Include="Controllers\Helper\SessionHelper.cs" />
     <Compile Include="Models\LocationPartialView.cs" />
     <Compile Include="Models\RegistrationView.cs" />
+    <Compile Include="Models\UtenteLoginView.cs" />
     <Compile Include="Models\UtenteView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -110,7 +111,11 @@
     </Content>
     <Content Include="Content\editviaggioscroller.css" />
     <Content Include="Content\scripts\agenzia.tile.js" />
+    <Content Include="Content\scripts\viaggio.richiesta.partecipazione.js" />
     <Content Include="Content\scripts\facebook.js" />
+    <Content Include="Content\scripts\login.js" />
+    <Content Include="Content\scripts\utente.list.js" />
+    <Content Include="Content\scripts\utente.tile.js" />
     <Content Include="Content\scripts\location.edit.js" />
     <Content Include="Content\scripts\viaggio.detail.js" />
     <Content Include="Content\scripts\viaggio.lista.js" />
@@ -295,10 +300,19 @@
     <Content Include="Views\Agenzia\ShowTile.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Utente\ShowTile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Viaggio\EditTappa.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Login\Logout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="fbchannel.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Viaggio\RichiestaPartecipazione.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Viaggio\EditTappeViaggio.cshtml" />

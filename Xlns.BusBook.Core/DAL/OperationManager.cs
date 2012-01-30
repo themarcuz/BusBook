@@ -39,7 +39,7 @@ namespace Xlns.BusBook.Core.DAL
             }
             catch (Exception ex)
             {
-                string msg = "Errore nell'aprtura dell'operazione";
+                string msg = "Errore nell'apertura dell'operazione";
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }

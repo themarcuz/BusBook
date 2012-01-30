@@ -9,16 +9,17 @@ namespace Xlns.BusBook.Core.Model
     public class Agenzia : ModelEntity
     {        
         [Required]
-        [Display(Name = "Nome Agenzia")]
+        [Display(Name = "Nome Agenzia*")]
         [StringLength(50, ErrorMessage = "Il campo può essere lungo al massimo 50 caratteri")]
         public virtual string Nome { get; set; }
 
         [Required]
-        [Display(Name = "Ragione Sociale")]
+        [Display(Name = "Ragione Sociale*")]
         [StringLength(100, ErrorMessage = "Il campo può essere lungo al massimo 100 caratteri")]
         public virtual string RagioneSociale { get; set; }
 
         [Required]
+        [Display(Name = "Partita Iva*")]
         [StringLength(13, ErrorMessage = "Il campo può essere lungo al massimo 13 caratteri")]
         public virtual string PIva { get; set; }
 
@@ -31,6 +32,7 @@ namespace Xlns.BusBook.Core.Model
         public virtual String Fax { get; set; }
         
         [Required]
+        [Display(Name = "Email*")]
         public virtual string Email { get; set; }
 
         public virtual string Skype { get; set; }

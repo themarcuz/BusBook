@@ -11,6 +11,7 @@ namespace Xlns.BusBook.Core
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private ViaggioRepository vr = new ViaggioRepository();
+        private PartecipazioneRepository pr = new PartecipazioneRepository();
 
         public int CalcolaOrdinamentoPerNuovaTappa(Viaggio viaggio) {
             logger.Debug("Calcolo ordiamento nuova tappa per viaggio {0}", viaggio.Id);
@@ -26,6 +27,12 @@ namespace Xlns.BusBook.Core
                 logger.Debug("Nessuna tappa trovata, ordinamento nuova tappa = 1");
                 return 1;
             }
+        }
+
+        public void RegistraPartecipazione(Viaggio viaggio, Utente utenteRichiedente)
+        {
+            Partecipazione richiestaPartecipazione = new Partecipazione() { Viaggio = viaggio, Utente = utenteRichiedente, DataRichiesta = DateTime.Now };
+            pr.Save(richiestaPartecipazione);
         }
     }
 }

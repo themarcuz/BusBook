@@ -11,7 +11,7 @@ namespace Xlns.BusBook.UI.Web.Models
     public class RegistrationView
     {
         [Required(ErrorMessage = "Campo obbligatorio")]
-        [Display(Name = "Conferma la password")]
+        [Display(Name = "Ripeti password*")]
         [StringLength(16, ErrorMessage = "Il campo può essere lungo al massimo 16 caratteri")]
         public string UtenteRepeatPassword { get; set; }
 
