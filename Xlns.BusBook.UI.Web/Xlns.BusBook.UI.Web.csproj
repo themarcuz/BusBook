@@ -111,6 +111,7 @@
     </Content>
     <Content Include="Content\editviaggioscroller.css" />
     <Content Include="Content\scripts\agenzia.tile.js" />
+    <Content Include="Content\scripts\viaggio.facebook.js" />
     <Content Include="Content\scripts\viaggio.richiesta.partecipazione.js" />
     <Content Include="Content\scripts\facebook.js" />
     <Content Include="Content\scripts\login.js" />

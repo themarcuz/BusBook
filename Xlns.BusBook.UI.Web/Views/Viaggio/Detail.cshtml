@@ -93,7 +93,8 @@
                                         {
                                             Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",
                                             HttpMethod = "POST",
-                                            OnSuccess = "alert('Pubblicazione avvenuta')"
+                                            OnSuccess = "alert('Pubblicazione avvenuta')",
+                                            OnFailure = "alert('Errore durante la pubblicazione del viaggio')"
                                         },
                                     new { @class = "button" })
 

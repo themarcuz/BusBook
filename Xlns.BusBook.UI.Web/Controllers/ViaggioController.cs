@@ -145,5 +145,18 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
             return PartialView("RichiestaPartecipazione", agenzia);
         }
+
+        [HttpPut]
+        public String Pubblica(int idViaggio) 
+        {
+            var viaggio = vr.GetById(idViaggio);
+            if (Session.getLoggedAgenzia() != null && viaggio.Agenzia == Session.getLoggedAgenzia()) 
+            {
+                var vm = new ViaggioManager();                
+                //vm.Pubblica(viaggio);
+            }
+            throw new Exception();
+            //return "Ok";
+        }
     }
 }

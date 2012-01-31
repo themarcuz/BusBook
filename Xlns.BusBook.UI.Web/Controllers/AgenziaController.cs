@@ -63,7 +63,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult Detail(int id) 
         {
             Agenzia agenzia = ar.GetById(id);            
-            return View(agenzia);
+            return View(agenzia);           
         }
 
         [ChildActionOnly]
