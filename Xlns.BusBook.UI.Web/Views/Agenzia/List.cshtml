@@ -17,9 +17,8 @@
 <div id="content-wrapper" class="container_16">
     <div id="main" class="grid_16">
         <h3>@ViewBag.Title</h3>
-        <p>
-            <input type="button" value="Nuova agenzia" class="button" 
-                onclick="window.location = '@Url.Content("~/Agenzia/Create")'" />
+        <p>            
+            @Html.ActionLink("Nuova agenzia", "Create", null, new { @class = "button" })
         </p>
         @using (Ajax.BeginForm("Search", null, new AjaxOptions()
                                             {
