@@ -7,7 +7,7 @@
         <tr>
             <td>
                 <fieldset>
-                    @using (Ajax.BeginForm("Login", "Login", null, new AjaxOptions()
+                    @using (Ajax.BeginForm("Login", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
             {
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "POST",
