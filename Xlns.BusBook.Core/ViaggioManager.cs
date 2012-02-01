@@ -13,7 +13,8 @@ namespace Xlns.BusBook.Core
         private ViaggioRepository vr = new ViaggioRepository();
         private PartecipazioneRepository pr = new PartecipazioneRepository();
 
-        public int CalcolaOrdinamentoPerNuovaTappa(Viaggio viaggio) {
+        public int CalcolaOrdinamentoPerNuovaTappa(Viaggio viaggio)
+        {
             logger.Debug("Calcolo ordiamento nuova tappa per viaggio {0}", viaggio.Id);
             var tappe = viaggio.Tappe.Where(t => t.Tipo == TipoTappa.TAPPA);
             if (tappe != null && tappe.Count() > 0)
@@ -34,5 +35,27 @@ namespace Xlns.BusBook.Core
             Partecipazione richiestaPartecipazione = new Partecipazione() { Viaggio = viaggio, Utente = utenteRichiedente, DataRichiesta = DateTime.Now };
             pr.Save(richiestaPartecipazione);
         }
+
+        public void Pubblica(Viaggio viaggio)
+        {
+            try
+            {
+                viaggio.DataPubblicazione = DateTime.Now;
+                vr.Save(viaggio);
+            }
+            catch (Exception ex)
+            {
+                string msg = "Impossibile pubblicare il viaggio " + viaggio.Id;
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg, ex);
+            }
+        }
+
+
+        public bool IsPubblicato(Viaggio viaggio)
+        {
+            return viaggio.DataPubblicazione.HasValue;
+        }
+
     }
 }

@@ -13,6 +13,7 @@
     <property name="Descrizione" />
     <property name="DataPartenza" />
     <property name="DataChiusuraPrenotazioni" />
+    <property name="DataPubblicazione" />
    
     <bag name="Tappe" cascade="all" inverse="true" lazy="false" order-by="Ordinamento asc">
       <key column="Viaggio" on-delete="cascade" />
