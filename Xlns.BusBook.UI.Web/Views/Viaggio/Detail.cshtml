@@ -1,6 +1,9 @@
-﻿@model Xlns.BusBook.Core.Model.Viaggio
+﻿@using Xlns.BusBook.UI.Web.Models;
+@using Xlns.BusBook.Core.Model;
+@model Xlns.BusBook.Core.Model.Viaggio           
 @{
     ViewBag.Title = Model.Nome;
+    var agenzia = HttpContext.Current.Session.getLoggedAgenzia();
 }
 @section head{
     <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
@@ -12,12 +15,12 @@
 }
 <div id="content-wrapper" class="container_16">
     <div id="main" class="grid_18">
-        <h3 style="padding-bottom: 0px">@Model.Nome</h3>
-        <h4 style="padding-top: 0px" class="tileSubTitle">
-            @Html.DisplayFor(model => model.Descrizione)
-        </h4>
-        <br />
         <div class="grid_6 alpha">
+            <h3 style="padding-bottom: 0px">@Model.Nome</h3>
+            <h4 style="padding-top: 0px" class="tileSubTitle">
+                @Html.DisplayFor(model => model.Descrizione)
+            </h4>
+            <br />
             <fieldset>
                 @Html.LabelFor(model => model.DataPartenza)
                 <div>
@@ -49,7 +52,7 @@
                         && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
                         && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
                     {
-                    <div>                    
+                    <div>
                         <label>
                             Destinazione</label>
                     </div>
@@ -85,26 +88,70 @@
         <p>
             <div class="fb-send" data-href="http://xlns.it" data-font="segoe ui">
             </div>
-            <a href="#" onclick="graphStreamPublish(); return false;">Pubblica sulla tua bacheca</a>            
-            @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
-            @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
-            @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio",
+            <a href="#" onclick="graphStreamPublish(); return false;">Pubblica sulla tua bacheca</a>
+            @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })         
+            @if (agenzia != null //si rappresenta un'agenzia
+                && Model.Agenzia.Id == agenzia.Id //il viaggio è della propria agenzia
+                && !Model.DataPubblicazione.HasValue //il viaggio non è pubblicato
+                )
+            {        
+                @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
+                <text></text>         
+                @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
                                     new AjaxOptions()
-                                        {
-                                            Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",
-                                            HttpMethod = "POST",
-                                            OnSuccess = "alert('Pubblicazione avvenuta')",
-                                            OnFailure = "alert('Errore durante la pubblicazione del viaggio')"
-                                        },
+                                    {
+                                        Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",
+                                        HttpMethod = "POST",
+                                        OnSuccess = "PubblicaSuccess",
+                                        OnFailure = "PubblicaError"
+                                    },
                                     new { @class = "button" })
-
-           @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id }, new AjaxOptions()
+            }
+            @if (agenzia != null //si rappresenta un'agenzia
+                && Model.Agenzia.Id != agenzia.Id //il viaggio non è della propria agenzia
+                && Model.DataPubblicazione.HasValue //il viaggio è pubblicato
+                )
             {
-                InsertionMode = InsertionMode.Replace,
-                HttpMethod = "POST",
-                UpdateTargetId = "dialog"
-            },new { @class = "button" })
+                @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id },
+                                    new AjaxOptions()
+                                    {
+                                        InsertionMode = InsertionMode.Replace,
+                                        HttpMethod = "POST",
+                                        UpdateTargetId = "dialog"
+                                    },
+                                    new { @class = "button" })
+            }
         </p>
     </div>
-    <div id="dialog"></div>
+    <div id="dialog">
+    </div>
+    <script type="text/javascript">        
+        var onCloseDialog;
+        $(function () {
+            $('#dialog').dialog(
+                {
+                    autoOpen: false,
+                    modal: true,
+                    buttons: {
+                        "Ok": function () {
+                            $(this).dialog("close");
+                        }
+                    }                    
+                });
+        });
+
+        function PubblicaSuccess(response, status, data) {            
+            $('#dialog').html("Il viaggio è stato pubblicato correttamente");            
+            $('#dialog').bind("dialogclose", function(event, ui) {                
+                window.location.href = '@(Url.Action("List", "Viaggio"))';
+            });
+            $('#dialog').dialog("open");
+        }
+
+        function PubblicaError(response, status, error) {            
+            $('#dialog').html(response.statusText);
+            $('#dialog').bind("dialogclose", function (event, ui) { });
+            $('#dialog').dialog("open");
+        }
+    </script>
 </div>

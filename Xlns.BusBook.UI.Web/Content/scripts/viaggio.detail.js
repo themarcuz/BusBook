@@ -1,4 +1,4 @@
-﻿var errorMessage = "L'identificazione geografica non è avvenuta";
+﻿var errorMessage = "L'identificazione geografica non è avvenuta"
 var loader;
 var geocoder;
 var map;
@@ -8,29 +8,6 @@ $(function () {
     drawTrip();
     //fakeMap();
 });
-
-/*
-function fakeMap() {
-initialize();
-    
-var locations = getAllLocations();
-var center = getCenter(locations);
-geocoder.geocode({ 'latLng': center }, function (results, status) {
-if (status == google.maps.GeocoderStatus.OK) {
-if (results[0]) {
-map.setCenter(results[0].geometry.location);
-map.fitBounds(results[0].geometry.viewport);
-//aumento un po' lo zoom
-//map.setZoom(map.getZoom() + 1);
-//setMarkers(locations);
-}
-} else {
-loader.show();
-loader.text(errorMessage);
-}
-});
-}
-*/
 
 function drawTrip() {
     initialize();

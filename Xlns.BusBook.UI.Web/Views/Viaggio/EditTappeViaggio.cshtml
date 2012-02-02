@@ -49,6 +49,7 @@
                     url: "/Viaggio/DeleteTappaAjax/" + idTappa,
                     cache: false,
                     context: target,
+                    type: "POST",
                     success: function (data) { $(this).parents('.tappaDiv').hide('slow'); },
                     error: function () { alert("Impossibile eliminare la tappa"); }
                 });

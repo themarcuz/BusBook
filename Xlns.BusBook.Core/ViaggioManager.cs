@@ -40,8 +40,17 @@ namespace Xlns.BusBook.Core
         {
             try
             {
+                var partenza = viaggio.Tappe.Where(t => t.Tipo == TipoTappa.PARTENZA).FirstOrDefault();
+                var destinazione = viaggio.Tappe.Where(t => t.Tipo == TipoTappa.DESTINAZIONE).FirstOrDefault();
+                if (partenza == null || destinazione == null)
+                    throw new NonPubblicabileException("Impossibile pubblicare un viaggio senza specificare almeno la partenza e la destinazione");
                 viaggio.DataPubblicazione = DateTime.Now;
                 vr.Save(viaggio);
+            }
+            catch (NonPubblicabileException ex)
+            {
+                logger.ErrorException("Impossibile pubblicare il viaggio", ex);
+                throw;
             }
             catch (Exception ex)
             {
@@ -57,5 +66,15 @@ namespace Xlns.BusBook.Core
             return viaggio.DataPubblicazione.HasValue;
         }
 
+
+        public Viaggio CreaNuovoViaggio()
+        {
+            var viaggio = new Viaggio() 
+            {
+                DataPartenza = DateTime.Today.AddDays(1),
+                DataChiusuraPrenotazioni = DateTime.Today
+            };
+            return viaggio;
+        }
     }
 }

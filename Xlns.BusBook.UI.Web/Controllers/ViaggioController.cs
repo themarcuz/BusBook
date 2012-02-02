@@ -49,7 +49,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             Viaggio viaggio = null;
             if (id == 0)
-                viaggio = new Viaggio();
+                viaggio = vm.CreaNuovoViaggio();
             else
                 viaggio = vr.GetById(id);
             return View(viaggio);
@@ -57,7 +57,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         [HttpPost]
         public ActionResult Save(Viaggio viaggio)
-        {
+        {            
             if (ModelState.IsValid)
             {
                 Viaggio oldViaggio = vr.GetById(viaggio.Id);
@@ -65,11 +65,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 {
                     viaggio.Tappe = oldViaggio.Tappe;
                 }
-
+                viaggio.Agenzia = Session.getLoggedAgenzia();
                 vr.Save(viaggio);
-                return RedirectToAction("List");
+                return RedirectToAction("Detail", new { id = viaggio.Id });
             }
-            return View(viaggio);
+            return RedirectToAction("Edit", new { id = viaggio.Id });
         }
 
         public ActionResult EditTappeViaggio(int idViaggio)
@@ -116,6 +116,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
         }
 
+        [HttpPost]
         public void DeleteTappaAjax(int id)
         {
             try
@@ -146,17 +147,31 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView("RichiestaPartecipazione", agenzia);
         }
 
-        [HttpPut]
-        public String Pubblica(int idViaggio) 
+        [HttpPost]
+        public ActionResult Pubblica(int idViaggio)
         {
+            System.Threading.Thread.Sleep(2000);
             var viaggio = vr.GetById(idViaggio);
-            if (Session.getLoggedAgenzia() != null && viaggio.Agenzia == Session.getLoggedAgenzia()) 
+            if (Session.getLoggedAgenzia() != null && viaggio.Agenzia.Id == Session.getLoggedAgenzia().Id)
             {
-                var vm = new ViaggioManager();                
-                //vm.Pubblica(viaggio);
+                var vm = new ViaggioManager();
+                try
+                {
+                    vm.Pubblica(viaggio);
+                    return null;
+                }
+                catch (NonPubblicabileException ex)
+                {
+                    return new HttpStatusCodeResult(403, ex.Message);
+                }
             }
-            throw new Exception();
-            //return "Ok";
+            else
+            {
+                string msg = "Impossibile pubblicare un viaggio di un'azienda che non sia la propria";
+                logger.Warn(msg);
+                return new HttpStatusCodeResult(403, msg);
+            }
+
         }
     }
 }

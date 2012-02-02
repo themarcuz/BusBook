@@ -44,12 +44,21 @@ namespace Xlns.BusBook.UI.Web.Models
             return getDataFromSession<Utente>(session, "loggedUtente");
         }
 
+        public static Utente getLoggedUtente(this HttpSessionState session)
+        {
+            return (Utente)session["loggedUtente"];
+        }
+
+        public static Agenzia getLoggedAgenzia(this HttpSessionState session)
+        {
+            var utente = getLoggedUtente(session);
+            return utente == null ? null : utente.Agenzia;
+        }
+
         public static Agenzia getLoggedAgenzia(this HttpSessionStateBase session)
         {
             var utente = getLoggedUtente(session);
-
             return utente == null ? null : utente.Agenzia;
-
         }
 
         public static void Login(this HttpSessionStateBase session, Utente utente)

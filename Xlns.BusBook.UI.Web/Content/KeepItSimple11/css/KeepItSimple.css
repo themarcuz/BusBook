@@ -136,7 +136,7 @@ form {
 	/*background: #f8f8f8;*/
 }
 form p {
-	border-bottom: 1px solid #E6E6E6;
+	/*border-bottom: 1px solid #E6E6E6;*/
 	padding: 12px 0 5px 0;	margin: 0;	
 	color: #7BA857;
 }
@@ -163,7 +163,7 @@ input:focus, select:focus, textarea:focus {
 .button { 
 	font: bold 12px Arial, Sans-serif; 
 	/*height: 30px;*/
-	margin: 0;
+	margin: 0px;
 	padding: 2px 5px; 
 	color: #fff !important;
 	background: #9CCF5F;
