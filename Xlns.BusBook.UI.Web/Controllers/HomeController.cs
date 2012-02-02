@@ -20,5 +20,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult DashBoard()
+        {
+            return View();
+        }
     }
 }
