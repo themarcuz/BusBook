@@ -1,6 +1,6 @@
 ﻿@using Xlns.BusBook.Core.Model;
 @using Xlns.BusBook.UI.Web.Models;
-@model Xlns.BusBook.Core.Model.Agenzia
+@model Xlns.BusBook.UI.Web.Models.DettaglioAgenziaView
 @{
     ViewBag.Title = "Dettaglio agenzia";
 }
@@ -11,42 +11,60 @@
         <div class="grid_6 alpha">
             <fieldset>
                 <div>
-                    @Html.LabelFor(model => model.Nome)</div>
+                    @Html.LabelFor(model => model.agenzia.Nome)</div>
                 <div>
-                    @Html.DisplayFor(model => model.Nome)
+                    @Html.DisplayFor(model => model.agenzia.Nome)
                 </div>
                 <div>
-                    @Html.LabelFor(model => model.RagioneSociale)</div>
+                    @Html.LabelFor(model => model.agenzia.RagioneSociale)</div>
                 <div>
-                    @Html.DisplayFor(model => model.RagioneSociale)
+                    @Html.DisplayFor(model => model.agenzia.RagioneSociale)
                 </div>
                 <div>
-                    @Html.LabelFor(model => model.PIva)</div>
+                    @Html.LabelFor(model => model.agenzia.PIva)</div>
                 <div>
-                    @Html.DisplayFor(model => model.PIva)
+                    @Html.DisplayFor(model => model.agenzia.PIva)
                 </div>
                 <div>
-                    @Html.LabelFor(model => model.Location)</div>
+                    @Html.LabelFor(model => model.agenzia.Location)</div>
                 <div>
-                    @Html.DisplayFor(model => model.Location.IndirizzoLeggibile)
+                    @Html.DisplayFor(model => model.agenzia.Location.IndirizzoLeggibile)
                 </div>
                 <div>
-                    @Html.LabelFor(model => model.Email)</div>
+                    @Html.LabelFor(model => model.agenzia.Email)</div>
                 <div>
-                    @Html.DisplayFor(model => model.Email)
+                    @Html.DisplayFor(model => model.agenzia.Email)
                 </div>
                 <div>
-                    @Html.LabelFor(model => model.Telefono)</div>
+                    @Html.LabelFor(model => model.agenzia.Telefono)</div>
                 <div>
-                    @Html.DisplayFor(model => model.Telefono)
+                    @Html.DisplayFor(model => model.agenzia.Telefono)
                 </div>
                 <div>
-                    @Html.LabelFor(model => model.Fax)</div>
+                    @Html.LabelFor(model => model.agenzia.Fax)</div>
                 <div>
-                    @Html.DisplayFor(model => model.Fax)
+                    @Html.DisplayFor(model => model.agenzia.Fax)
                 </div>
-                @Html.HiddenFor(model => model.Location.Lat, new { id = "hiddenLat" })
-                @Html.HiddenFor(model => model.Location.Lng, new { id = "hiddenLng" })
+                <div style="margin-top: 10px">
+                    <label>
+                        L'agenzia ha proposto
+                        @Html.DisplayFor(model => model.NumeroViaggiProposti)
+                        viaggi per un totale di
+                        @Html.DisplayFor(model => model.KmViaggiProposti)
+                        km
+                    </label>
+                </div>
+                <div style="margin-top: 10px">
+                    <label>
+                        L'agenzia ha partecipato a
+                        @Html.DisplayFor(model => model.NumeroViaggiPartecipati)
+                        viaggi per un totale di
+                        @Html.DisplayFor(model => model.KmViaggiPartecipati)
+                        km
+                    </label>
+                </div>
+                @Html.HiddenFor(model => model.agenzia.Location.Lat, new { id = "hiddenLat" })
+                @Html.HiddenFor(model => model.agenzia.Location.Lng, new { id = "hiddenLng" })
             </fieldset>
         </div>
         <div class="grid_8 omega">
@@ -55,8 +73,8 @@
                         {
                             locationPartialView = new LocationPartialView()
                                                   {
-                                                      Location = Model.Location,
-                                                      MapJsAlreadyLoaded = false                                                                                                                                                             
+                                                      Location = Model.agenzia.Location,
+                                                      MapJsAlreadyLoaded = false
                                                   }
                         });
             }
@@ -64,7 +82,7 @@
     </div>
     <div class="grid_16">
         <p>
-            @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
+            @Html.ActionLink("Modifica", "Edit", new { id = Model.agenzia.Id }, new { @class = "button" })
             @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
         </p>
     </div>

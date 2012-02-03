@@ -41,13 +41,13 @@ namespace Xlns.BusBook.Core
                         DataRichiesta = DateTime.Now
                     };
                 pr.Save(richiestaPartecipazione);
-                logger.Info("L'azienda {0} - {1} ha registrato la sua partecipazione al viaggio {2} - {3}", 
-                    utenteRichiedente.Agenzia.Id, utenteRichiedente.Agenzia.Nome, viaggio.Id, viaggio.Nome);
+                logger.Info("L'azienda {0} ha registrato la sua partecipazione al viaggio {1}", 
+                    utenteRichiedente.Agenzia, viaggio);
             }
             catch (Exception ex)
             {
-                string msg = String.Format("Impossibile registrare la partecipazione al viaggio {0} - {1} da parte dell'agenzia {2} - {3}",
-                    viaggio.Id, viaggio.Nome, utenteRichiedente.Agenzia.Id, utenteRichiedente.Agenzia.Nome);
+                string msg = String.Format("Impossibile registrare la partecipazione al viaggio {0} da parte dell'agenzia {1}",
+                    viaggio, utenteRichiedente.Agenzia);
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }
@@ -63,7 +63,7 @@ namespace Xlns.BusBook.Core
                     throw new NonPubblicabileException("Impossibile pubblicare un viaggio senza specificare almeno la partenza e la destinazione");
                 viaggio.DataPubblicazione = DateTime.Now;
                 vr.Save(viaggio);
-                logger.Info("Il viaggio {0} - {1} è stato pubblicato", viaggio.Id, viaggio.Nome);
+                logger.Info("Il viaggio {0} è stato pubblicato", viaggio);
             }
             catch (NonPubblicabileException ex)
             {
@@ -72,7 +72,7 @@ namespace Xlns.BusBook.Core
             }
             catch (Exception ex)
             {
-                string msg = "Impossibile pubblicare il viaggio " + viaggio.Id;
+                string msg = "Impossibile pubblicare il viaggio " + viaggio;
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }

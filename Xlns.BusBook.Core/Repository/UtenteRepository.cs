@@ -32,7 +32,7 @@ namespace Xlns.BusBook.Core.Repository
                 catch (Exception ex)
                 {
                     manager.RollbackOperation();
-                    string message = "Error";
+                    string message = String.Format("Impossibile recuperare l'utente con username = {0}", username);
                     logger.ErrorException(message, ex);
                     throw new Exception(message, ex);
                 }
@@ -72,7 +72,8 @@ namespace Xlns.BusBook.Core.Repository
                 catch (Exception ex)
                 {
                     manager.RollbackOperation();
-                    string message = "Error";
+                    string message = String.Format("Errore nel recupero della lista degli utenti con iniziale '{0}' e contenenti '{1}'",
+                        ini, q);
                     logger.ErrorException(message, ex);
                     throw new Exception(message, ex);
                 }
@@ -88,7 +89,7 @@ namespace Xlns.BusBook.Core.Repository
                     manager.BeginOperation();
                     base.delete<Utente>(utente);
                     manager.CommitOperation();
-                    logger.Info("Utente{0} eliminato con successo", utente.Id);
+                    logger.Info("Utente {0} eliminato con successo", utente);
                 }
                 catch (Exception ex)
                 {
@@ -114,7 +115,7 @@ namespace Xlns.BusBook.Core.Repository
                     manager.BeginOperation();
                     base.update<Utente>(utente);
                     manager.CommitOperation();
-                    logger.Info("Dati dell'utente {0} salvati con successo", utente.Id);
+                    logger.Info("Dati dell'utente {0} salvati con successo", utente);
                 }
                 catch (Exception ex)
                 {

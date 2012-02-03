@@ -51,7 +51,7 @@ namespace Xlns.BusBook.Core.Repository
                     om.BeginOperation();
                     base.update<Agenzia>(agenzia);
                     om.CommitOperation();
-                    logger.Info("Dati dell'agenzia {0} salvati con successo", agenzia.Id);
+                    logger.Info("Dati dell'agenzia {0} salvati con successo", agenzia);
                 }
                 catch (Exception ex)
                 {
@@ -80,7 +80,8 @@ namespace Xlns.BusBook.Core.Repository
                 catch (Exception ex)
                 {
                     om.RollbackOperation();
-                    string msg = "Error";
+                    string msg = String.Format("Impossibile recuperare l'elenco delle agenzie con iniziare '{0}' e contenenti '{1}'",
+                        ini, q);
                     logger.ErrorException(msg, ex);
                     throw new Exception(msg, ex);
                 }
@@ -112,7 +113,7 @@ namespace Xlns.BusBook.Core.Repository
                 catch (Exception ex)
                 {
                     om.RollbackOperation();
-                    string msg = "Error";
+                    string msg = String.Format("Impossibile recuperare l'agenzia relativa all'utente {0}", id);
                     logger.ErrorException(msg, ex);
                     throw new Exception(msg, ex);
                 }
