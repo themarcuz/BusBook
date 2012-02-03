@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Xlns.BusBook.Core.Repository;
 using Xlns.BusBook.Core.Model;
+using Xlns.BusBook.Core.DAL;
+using NHibernate.Linq;
 
 namespace Xlns.BusBook.Core
 {
@@ -41,13 +43,13 @@ namespace Xlns.BusBook.Core
                         DataRichiesta = DateTime.Now
                     };
                 pr.Save(richiestaPartecipazione);
-                logger.Info("L'azienda {0} - {1} ha registrato la sua partecipazione al viaggio {2} - {3}", 
-                    utenteRichiedente.Agenzia.Id, utenteRichiedente.Agenzia.Nome, viaggio.Id, viaggio.Nome);
+                logger.Info("L'azienda {0} ha registrato la sua partecipazione al viaggio {1}", 
+                    utenteRichiedente.Agenzia, viaggio);
             }
             catch (Exception ex)
             {
-                string msg = String.Format("Impossibile registrare la partecipazione al viaggio {0} - {1} da parte dell'agenzia {2} - {3}",
-                    viaggio.Id, viaggio.Nome, utenteRichiedente.Agenzia.Id, utenteRichiedente.Agenzia.Nome);
+                string msg = String.Format("Impossibile registrare la partecipazione al viaggio {0} da parte dell'agenzia {1}",
+                    viaggio, utenteRichiedente.Agenzia);
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }
@@ -63,7 +65,7 @@ namespace Xlns.BusBook.Core
                     throw new NonPubblicabileException("Impossibile pubblicare un viaggio senza specificare almeno la partenza e la destinazione");
                 viaggio.DataPubblicazione = DateTime.Now;
                 vr.Save(viaggio);
-                logger.Info("Il viaggio {0} - {1} è stato pubblicato", viaggio.Id, viaggio.Nome);
+                logger.Info("Il viaggio {0} è stato pubblicato", viaggio);
             }
             catch (NonPubblicabileException ex)
             {
@@ -72,7 +74,7 @@ namespace Xlns.BusBook.Core
             }
             catch (Exception ex)
             {
-                string msg = "Impossibile pubblicare il viaggio " + viaggio.Id;
+                string msg = "Impossibile pubblicare il viaggio " + viaggio;
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }
@@ -93,6 +95,59 @@ namespace Xlns.BusBook.Core
                 DataChiusuraPrenotazioni = DateTime.Today
             };
             return viaggio;
+        }
+
+        public IList<Viaggio> GetProposteAgenzia(Agenzia agenzia)
+        {
+            var ar = new AgenziaRepository();
+            using (var om = new OperationManager())
+            {
+                try
+                {                    
+                    var session = om.BeginOperation();
+                    logger.Info("Recupero dei viaggi proposti dall'agenzia {0}", agenzia);
+                    var viaggi = session.Query<Viaggio>()
+                                    .Where(v => v.Agenzia.Id == agenzia.Id)
+                                    .ToList();
+                    logger.Debug("Viaggi proposti: {0}", viaggi.Count);
+                    om.CommitOperation();
+                    return viaggi;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Impossibile recuperare i viaggi proposti dall'agenzia {0}", agenzia);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
+
+        public IList<Viaggio> GetPartecipazioniAgenzia(Agenzia agenzia)
+        {
+            var ar = new AgenziaRepository();
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    logger.Info("Recupero dei viaggi a cui l'agenzia {0} ha partecipato", agenzia);
+                    var viaggi = session.Query<Partecipazione>()
+                                    .Where(p => p.Utente.Agenzia.Id == agenzia.Id)
+                                    .Select(p => p.Viaggio)
+                                    .ToList();                    
+                    logger.Debug("Viaggi trovati: {0}",viaggi.Count);
+                    om.CommitOperation();
+                    return viaggi;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Impossibile recuperare i viaggi a cui l'agenzia {0} ha partecipato", agenzia);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
         }
     }
 }

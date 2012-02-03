@@ -35,12 +35,12 @@ namespace Xlns.BusBook.Core.Repository
                     om.BeginOperation();
                     base.update<Viaggio>(viaggio);
                     om.CommitOperation();
-                    logger.Info("Dati del viaggio {0} salvati con successo", viaggio.Id);
+                    logger.Info("Dati del viaggio {0} salvati con successo", viaggio);
                 }
                 catch (Exception ex)
                 {
                     om.RollbackOperation();
-                    string msg = "Errore nel salvataggio del viaggio";
+                    string msg = String.Format("Errore nel salvataggio del viaggio {0}", viaggio);
                     logger.ErrorException(msg, ex);
                     throw new Exception(msg, ex);
                 }
@@ -56,7 +56,7 @@ namespace Xlns.BusBook.Core.Repository
                     om.BeginOperation();
                     base.update<Tappa>(tappa);
                     om.CommitOperation();
-                    logger.Info("Dati della tappa {0} salvati con successo", tappa.Id);
+                    logger.Info("Dati della tappa {0} salvati con successo", tappa);
                 }
                 catch (Exception ex)
                 {
@@ -76,7 +76,7 @@ namespace Xlns.BusBook.Core.Repository
             }
             catch (Exception ex)
             {
-                string msg = String.Format("Errore durante la cancellazione della tappa con id={0}", tappa.Id);
+                string msg = String.Format("Errore durante la cancellazione della tappa ", tappa);
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }

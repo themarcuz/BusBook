@@ -44,6 +44,11 @@ namespace Xlns.BusBook.Core.Model
         public virtual IList<Utente> Utenti { get; set; }
 
         public virtual IList<Viaggio> Viaggi { get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("{0} - {1}", Id, Nome);
+        }
        
     }
 }

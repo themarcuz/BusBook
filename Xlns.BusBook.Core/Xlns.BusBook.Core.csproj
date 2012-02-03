@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgenziaManager.cs" />
     <Compile Include="CoreExceptions.cs" />
     <Compile Include="Crypto\CryptoHelper.cs" />
     <Compile Include="DAL\OperationManager.cs" />
