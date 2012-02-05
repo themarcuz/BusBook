@@ -38,6 +38,7 @@
                         <fieldset>
                             <div class="editor-label">
                                 @Html.LabelFor(model => model.Nome)
+                                @Html.Label("*")
                             </div>
                             <div class="editor-field">
                                 @Html.TextBoxFor(model => model.Nome, new { style = "width: 300px" })
@@ -45,6 +46,7 @@
                             </div>
                             <div class="editor-label">
                                 @Html.LabelFor(model => model.Descrizione)
+                                @Html.Label("*")
                             </div>
                             <div class="editor-field">
                                 @Html.TextAreaFor(model => model.Descrizione, 3, 50, null)
@@ -52,6 +54,7 @@
                             </div>
                             <div class="editor-label">
                                 @Html.LabelFor(model => model.DataPartenza)
+                                @Html.Label("*")
                             </div>
                             <div class="editor-field">
                                 @Html.TextBox("DataPartenza", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenza, ViewData).DisplayFormatString, Model.DataPartenza), new { @class = "datepicker" })
@@ -59,6 +62,7 @@
                             </div>
                             <div class="editor-label">
                                 @Html.LabelFor(model => model.DataChiusuraPrenotazioni)
+                                @Html.Label("*")
                             </div>
                             <div class="editor-field">
                                 @Html.TextBox("DataChiusuraPrenotazioni", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataChiusuraPrenotazioni, ViewData).DisplayFormatString, Model.DataChiusuraPrenotazioni), new { @class = "datepicker" })
