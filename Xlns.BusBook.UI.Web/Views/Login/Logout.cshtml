@@ -15,7 +15,7 @@
         </div>
         <br />
         <div>
-            @Ajax.ActionLink("Log Out", "Logout", "Login", null, new AjaxOptions()
+            @Ajax.ActionLink("Log Out", "Logout", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
             {
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "POST",

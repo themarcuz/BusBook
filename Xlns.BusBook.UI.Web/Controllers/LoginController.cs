@@ -40,7 +40,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(UtenteLoginView utente)
+        public ActionResult Login(UtenteLoginView utente, bool redirectOnSuccess)
         {
             if (ModelState.IsValid)
             {
@@ -48,22 +48,33 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 var authResult = LoginHelper.AuthenticateUtente(utente.Username, utente.Password);
 
                 if (authResult.IsAuthenticated)
+                {
                     Session.Login(authResult.AuthenticatedUtente);
+                    if (redirectOnSuccess)
+                    {
+                        ViewBag.RedirectUrl = Url.Action("DashBoard", "Home");
+                        return PartialView("Redirect");
+                    }
+                }
                 else
                 {
                     utente.LoginErrorMessage = authResult.AuthErrorMessage;
                     utente.Password = "";
                 }
             }
-
-            //TODO: deve funzionare anche senza la validazione lato client!
+            
             return ShowLogin(utente);
         }
 
         [HttpPost]
-        public ActionResult Logout()
+        public ActionResult Logout(bool redirectOnSuccess)
         {
             Session.Logout();
+            if (redirectOnSuccess)
+            {
+                ViewBag.RedirectUrl = Url.Action("Index", "Home");
+                return PartialView("Redirect");
+            }
             return ShowLogin();
         }
 

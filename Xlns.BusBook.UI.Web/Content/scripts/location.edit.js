@@ -61,7 +61,7 @@ function showLocation(address, showMarker) {
     geocoder.geocode({ 'address': address }, updateMap);
 }
 
-function updateMap(results, status, clearSearchBox, dontZoom) {
+function updateMap(results, status, clearSearchBox, dontZoom) {    
     if (status == google.maps.GeocoderStatus.OK) {
         if (results[0]) {
             map.setCenter(results[0].geometry.location);                                   

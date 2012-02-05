@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Xlns.BusBook.Core.Model"
+                   assembly="Xlns.BusBook.Core" >
+
+  <class name="Partecipazione" table="Partecipazione">
+
+    <!-- Simple mappings -->
+    <id name="Id">     
+      <generator class="native" />
+    </id>
+    <property name="DataRichiesta" />
+    
+    <many-to-one name="Utente"
+        class="Utente"
+        cascade="none" fetch="join"
+        lazy="false" />
+
+    <many-to-one name="Viaggio"
+      class="Viaggio"
+      cascade="none" fetch="join"
+      lazy="false" />
+    
+  </class>
+
+</hibernate-mapping>
+
+

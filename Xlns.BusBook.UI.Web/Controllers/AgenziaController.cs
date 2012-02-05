@@ -7,6 +7,7 @@ using Xlns.BusBook.Core.Repository;
 using Xlns.BusBook.UI.Web.Models;
 using Xlns.BusBook.UI.Web.Models.Helper;
 using Xlns.BusBook.Core.Model;
+using Xlns.BusBook.Core;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -15,9 +16,6 @@ namespace Xlns.BusBook.UI.Web.Controllers
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         AgenziaRepository ar = new AgenziaRepository();
-
-        //
-        // GET: /Agenzia/
 
         public ActionResult List(string q, string ini)
         {
@@ -32,10 +30,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult Search(string q, string ini)
         {
-            logger.Debug("Caricamento agenzie con iniziale='{0}' e filtro='{1}'", ini, q);
-            
-            // serve in sviluppo per evidenziare l'effetto del loader, altrimenti è troppo veloce e non si vede neanche
-            System.Threading.Thread.Sleep(1000);
+            logger.Debug("Caricamento agenzie con iniziale='{0}' e filtro='{1}'", ini, q);                      
             
             if (string.IsNullOrEmpty(q)) q = "";
             if (string.IsNullOrEmpty(ini)) ini = "";
@@ -62,8 +57,9 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult Detail(int id) 
         {
-            Agenzia agenzia = ar.GetById(id);            
-            return View(agenzia);
+            Agenzia agenzia = ar.GetById(id);
+            var agenziaVM = new DettaglioAgenziaView(agenzia);
+            return View(agenziaVM);           
         }
 
         [ChildActionOnly]
@@ -108,7 +104,37 @@ namespace Xlns.BusBook.UI.Web.Controllers
             else
                 agenzia = ar.GetById(id);
             return View(agenzia);
-        }        
-       
+        }
+
+        public ActionResult DetailPartial(Agenzia agenzia)
+        {
+            return PartialView("Detail",agenzia);
+        }
+
+        public ActionResult Proposte(int id) 
+        {
+            var agenzia = ar.GetById(id);
+            var vm = new ViaggioManager();
+            IList<Viaggio> viaggi = vm.GetProposteAgenzia(agenzia);
+            var proposte = new ProposteModel() 
+            {
+                AgenziaPartecipante = agenzia,
+                Viaggi = viaggi
+            };
+            return View("Viaggi", proposte);
+        }
+
+        public ActionResult Partecipazioni(int id)
+        {
+            var agenzia = ar.GetById(id);
+            var vm = new ViaggioManager();
+            IList<Viaggio> viaggi = vm.GetPartecipazioniAgenzia(agenzia);
+            var partecipazioni = new PartecipazioniModel()
+            {
+                AgenziaPartecipante = agenzia,
+                Viaggi = viaggi
+            };
+            return View("Viaggi", partecipazioni);
+        }
     }    
 }

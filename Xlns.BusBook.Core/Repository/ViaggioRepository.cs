@@ -11,13 +11,19 @@ namespace Xlns.BusBook.Core.Repository
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public IList<Viaggio> GetViaggi() {
+        public IList<Viaggio> GetViaggi()
+        {
             return getAll<Viaggio>();
         }
 
         public Viaggio GetById(int id)
         {
             return base.getDomainObjectById<Viaggio>(id);
+        }
+
+        public Tappa GetTappaById(int id)
+        {
+            return base.getDomainObjectById<Tappa>(id);
         }
 
         public void Save(Viaggio viaggio)
@@ -29,12 +35,12 @@ namespace Xlns.BusBook.Core.Repository
                     om.BeginOperation();
                     base.update<Viaggio>(viaggio);
                     om.CommitOperation();
-                    logger.Info("Dati dell'agenzia {0} salvati con successo", viaggio.Id);
+                    logger.Info("Dati del viaggio {0} salvati con successo", viaggio);
                 }
                 catch (Exception ex)
                 {
                     om.RollbackOperation();
-                    string msg = "Errore nel salvataggio del viaggio";
+                    string msg = String.Format("Errore nel salvataggio del viaggio {0}", viaggio);
                     logger.ErrorException(msg, ex);
                     throw new Exception(msg, ex);
                 }
@@ -50,7 +56,7 @@ namespace Xlns.BusBook.Core.Repository
                     om.BeginOperation();
                     base.update<Tappa>(tappa);
                     om.CommitOperation();
-                    logger.Info("Dati della tappa {0} salvati con successo", tappa.Id);
+                    logger.Info("Dati della tappa {0} salvati con successo", tappa);
                 }
                 catch (Exception ex)
                 {
@@ -62,5 +68,18 @@ namespace Xlns.BusBook.Core.Repository
             }
         }
 
+        public void deleteTappa(Tappa tappa)
+        {
+            try
+            {
+                base.delete<Tappa>(tappa);
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore durante la cancellazione della tappa ", tappa);
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg, ex);
+            }
+        }
     }
 }

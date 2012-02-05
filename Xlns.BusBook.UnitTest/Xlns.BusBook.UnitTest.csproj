@@ -40,10 +40,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Xlns.BusBook.UnitTest.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLibs\Iesi.Collections.dll</HintPath>
@@ -96,6 +107,7 @@
     <Compile Include="PagerHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConfigurationTest.cs" />
+    <Compile Include="RequestTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xlns.BusBook.ConfigurationManager\Xlns.BusBook.ConfigurationManager.csproj">
@@ -113,6 +125,10 @@
     <ProjectReference Include="..\Xlns.ConfigurationManager\Xlns.ConfigurationManager.csproj">
       <Project>{DEA9D5A7-9ED6-4B73-A56D-316AF4FDCF0C}</Project>
       <Name>Xlns.ConfigurationManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xlns.Google.Maps\Xlns.Google.Maps.csproj">
+      <Project>{8E19CFCF-1A43-44FA-9E38-3A4A25C2187D}</Project>
+      <Name>Xlns.Google.Maps</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

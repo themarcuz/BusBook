@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "DashBoard";
+}
+@section head{
+    <style type="text/css">
+        #content-wrapper
+        {
+            margin: 0 auto;
+            background: #fff url(../images/content-bg.xlns.gif) repeat-y center top;
+            padding-bottom: 35px;
+            padding-top: 5px;
+            overflow: auto;
+        }
+        #header
+        {
+            position: relative;
+            margin: 0 auto;
+            background: url(../images/border.gif) repeat-x left bottom;
+            height: 275px;
+        }
+    </style>
+}
+@section logo{
+
+    <h1 id="logo-text">
+       @Html.ActionLink("BusBook", "Index", "Home")
+    </h1>
+    <p id="intro">
+        the bus tour-aggregator...</p>
+}
+<div id="content-wrapper" class="container_16">
+    <!-- main -->
+    <div id="main" class="grid_16">
+        <div id="left-columns" class="grid_4">
+            <div class="grid_4 alpha">
+                <div class="sidemenu">
+                    @{Html.RenderAction("ShowLogin", "Login");}
+                </div>
+            </div>
+        </div>
+       <div class="grid_4 omega">
+            <h3>Testina: </h3>
+        </div>
+        <!-- main ends -->
+    </div>
+    <!-- contents end here -->
+</div>
+
+

@@ -34,5 +34,10 @@ namespace Xlns.BusBook.Core.Model
         public virtual string Email { get; set; }
         
         public virtual Agenzia Agenzia { get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("{0} - {1} {2} - {3}", Id, Nome, Cognome, Username);
+        }
     }
 }

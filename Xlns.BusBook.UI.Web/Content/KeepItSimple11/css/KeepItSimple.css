@@ -136,7 +136,7 @@ form {
 	/*background: #f8f8f8;*/
 }
 form p {
-	border-bottom: 1px solid #E6E6E6;
+	/*border-bottom: 1px solid #E6E6E6;*/
 	padding: 12px 0 5px 0;	margin: 0;	
 	color: #7BA857;
 }
@@ -163,7 +163,7 @@ input:focus, select:focus, textarea:focus {
 .button { 
 	font: bold 12px Arial, Sans-serif; 
 	/*height: 30px;*/
-	margin: 0;
+	margin: 0px;
 	padding: 2px 5px; 
 	color: #fff !important;
 	background: #9CCF5F;
@@ -182,6 +182,7 @@ input:focus, select:focus, textarea:focus {
 	padding: 5px 0;		
 	border-bottom: 1px solid #E8E8E8;	
 	text-align: left;		
+	z-index: 10;
 }
 #content-wrapper {
 	margin: 0 auto;	
@@ -236,7 +237,9 @@ input:focus, select:focus, textarea:focus {
     filter: alpha(opacity=20); /* For IE8 and earlier */
 	width: 371px;
 	height: 371px;	
-	right: 10px; top: 0;
+	right: 10px; 
+	top: 0;
+	z-index: 0;
 }
 
 /* header quick search */

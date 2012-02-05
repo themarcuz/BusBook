@@ -35,6 +35,11 @@
       <key column="Agenzia" />
       <one-to-many class="Utente" />
     </bag>
+
+    <bag name="Viaggi" cascade="all" lazy="true">
+      <key column="Agenzia" />
+      <one-to-many class="Viaggio" />
+    </bag>
       
   </class>
 

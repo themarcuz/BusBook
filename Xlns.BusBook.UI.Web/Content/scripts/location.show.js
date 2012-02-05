@@ -1,9 +1,4 @@
 ﻿var errorMsg = "L'identificazione geografica non è avvenuta";
-var hidLatId = "hiddenLat";
-var hidLngId = "hiddenLng";
-var mapId = "map_canvas";
-var loaderId = "loaderMessage";
-
 
 function initializeLocation(errorMessage, hiddenLatId, hiddenLngId, mapDivId, loaderMessageSpanId) {    
     var loader = $("#" + loaderMessageSpanId);
@@ -14,21 +9,21 @@ function initializeLocation(errorMessage, hiddenLatId, hiddenLngId, mapDivId, lo
     var options = {
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         draggable: true,
-        panControl: false,
-        zoomControl: false,
-        mapTypeControl: false,
+        panControl: true,
+        zoomControl: true,
+        mapTypeControl: true,
         scaleControl: false,
-        streetViewControl: false,
-        overviewMapControl: false
+        streetViewControl: true,
+        overviewMapControl: true
     };
-    var map = new google.maps.Map(document.getElementById(mapDivId), options);
+    var map = new google.maps.Map(document.getElementById(mapDivId), options);    
     var geocoder = new google.maps.Geocoder();
     //alert("Posizione: " + lat + " - " + lng);
     geocoder.geocode({ 'latLng': latlng }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             if (results[0]) {
                 map.setCenter(results[0].geometry.location);
-                map.fitBounds(results[0].geometry.viewport);
+                map.fitBounds(results[0].geometry.viewport);                
                 //aumento un po' lo zoom
                 map.setZoom(map.getZoom() + 1);
                 marker = new google.maps.Marker({
@@ -42,5 +37,5 @@ function initializeLocation(errorMessage, hiddenLatId, hiddenLngId, mapDivId, lo
             loader.text(errorMessage);
         }        
     });
-    
+
 }

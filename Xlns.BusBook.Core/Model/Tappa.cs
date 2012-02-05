@@ -36,6 +36,11 @@ namespace Xlns.BusBook.Core.Model
                 Tipo = (TipoTappa)value; 
             }
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0}", Id);
+        }
         
     }
 

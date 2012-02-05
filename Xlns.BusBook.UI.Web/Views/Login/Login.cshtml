@@ -7,7 +7,7 @@
         <tr>
             <td>
                 <fieldset>
-                    @using (Ajax.BeginForm("Login", "Login", null, new AjaxOptions()
+                    @using (Ajax.BeginForm("Login", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
             {
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "POST",
@@ -52,7 +52,7 @@
             </td>
         </tr>
     </table>
-    <div style="display: none; margin-left: 50px" id="loadingDiv">
+   <div style="display: none; margin-left: 50px" id="loadingDiv">
         <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>
     </div>
 </div>
