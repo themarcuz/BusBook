@@ -63,6 +63,7 @@ namespace Xlns.BusBook.Core
                 var destinazione = viaggio.Tappe.Where(t => t.Tipo == TipoTappa.DESTINAZIONE).FirstOrDefault();
                 if (partenza == null || destinazione == null)
                     throw new NonPubblicabileException("Impossibile pubblicare un viaggio senza specificare almeno la partenza e la destinazione");
+                viaggio.DistanzaPercorsa = CalcolaDistanzaPercorsa(viaggio);
                 viaggio.DataPubblicazione = DateTime.Now;
                 vr.Save(viaggio);
                 logger.Info("Il viaggio {0} è stato pubblicato", viaggio);
@@ -75,6 +76,31 @@ namespace Xlns.BusBook.Core
             catch (Exception ex)
             {
                 string msg = "Impossibile pubblicare il viaggio " + viaggio;
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg, ex);
+            }
+        }
+
+        private int CalcolaDistanzaPercorsa(Viaggio viaggio)
+        {
+            try
+            {
+                string origine = viaggio.Tappe
+                                    .Where(t => t.Tipo == TipoTappa.PARTENZA)
+                                    .Select(t => string.Format("{0},{1}", t.Location.Lat, t.Location.Lng))
+                                    .SingleOrDefault();
+                string destinazione = viaggio.Tappe
+                                    .Where(t => t.Tipo == TipoTappa.DESTINAZIONE)
+                                    .Select(t => string.Format("{0},{1}", t.Location.Lat, t.Location.Lng))
+                                    .SingleOrDefault();
+                var req = new Xlns.Google.Maps.Directions.Request(origine, destinazione);
+                var svcHelper = new Xlns.Google.Maps.Directions.Services();
+                var resp = svcHelper.CalcolaDistanzaPercorsa(req);
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Impossibile calcolare la distanza percorsa per il viaggio {0}", viaggio);
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }

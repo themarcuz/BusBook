@@ -41,6 +41,20 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Xlns.BusBook.UI.Web.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -114,10 +128,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\editviaggioscroller.css" />
+    <Content Include="Content\img\facebook.png" />
+    <Content Include="Content\img\twitter.png" />
     <Content Include="Content\scripts\agenzia.tile.js" />
     <Content Include="Content\scripts\viaggio.facebook.js" />
-    <Content Include="Content\scripts\viaggio.richiesta.partecipazione.js" />
     <Content Include="Content\scripts\facebook.js" />
+    <Content Include="Content\scripts\viaggio.richiesta.partecipazione.js" />
     <Content Include="Content\scripts\login.js" />
     <Content Include="Content\scripts\utente.list.js" />
     <Content Include="Content\scripts\utente.tile.js" />

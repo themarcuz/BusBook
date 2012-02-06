@@ -38,6 +38,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\Xlns.BusBook.Core.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -65,7 +81,6 @@
     <Compile Include="CoreExceptions.cs" />
     <Compile Include="Crypto\CryptoHelper.cs" />
     <Compile Include="DAL\OperationManager.cs" />
-    <Compile Include="Facebook\FacebookHelper.cs" />
     <Compile Include="Login\AuthenticationResult.cs" />
     <Compile Include="Login\LoginHelper.cs" />
     <Compile Include="Mailer\MailHelper.cs" />
@@ -97,6 +112,10 @@
     <ProjectReference Include="..\Xlns.ConfigurationManager\Xlns.ConfigurationManager.csproj">
       <Project>{DEA9D5A7-9ED6-4B73-A56D-316AF4FDCF0C}</Project>
       <Name>Xlns.ConfigurationManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xlns.Google.Maps\Xlns.Google.Maps.csproj">
+      <Project>{8E19CFCF-1A43-44FA-9E38-3A4A25C2187D}</Project>
+      <Name>Xlns.Google.Maps</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

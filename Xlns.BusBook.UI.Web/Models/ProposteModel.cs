@@ -11,7 +11,7 @@ namespace Xlns.BusBook.UI.Web.Models
     {
         public ProposteModel()
         {
-            TitoloRelazione = "Proposte di ";
+            TitoloRelazione = "Organizzati da ";
         }
     }
 }

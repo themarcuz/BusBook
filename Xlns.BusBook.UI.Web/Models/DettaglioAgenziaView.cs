@@ -43,10 +43,10 @@ namespace Xlns.BusBook.UI.Web.Models
 
         public DettaglioAgenziaView(Agenzia a) : this(a, null) { }
 
-        public int NumeroViaggiProposti { get { return am.CalcolaNumeroViaggiProposti(agenzia); } }
+        public int NumeroViaggiPubblicati { get { return am.CalcolaNumeroViaggiOrganizzati(agenzia); } }
         public int NumeroViaggiPartecipati { get { return am.CalcolaNumeroViaggiPartecipati(agenzia); } }
-        public int KmPercorsi { get { return KmViaggiPartecipati + KmViaggiProposti; } }
-        public int KmViaggiProposti { get { return am.CalcolaKmViaggiProposti(agenzia); } }
+        public int KmPercorsi { get { return KmViaggiPartecipati + KmViaggiPubblicati; } }
+        public int KmViaggiPubblicati { get { return am.CalcolaKmViaggiOrganizzati(agenzia); } }
         public int KmViaggiPartecipati { get { return am.CalcolaKmViaggiPartecipati(agenzia); } }
     }
 }

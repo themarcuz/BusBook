@@ -13,7 +13,7 @@ namespace Xlns.BusBook.Core
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         
-        public int CalcolaKmViaggiProposti(Agenzia agenzia)
+        public int CalcolaKmViaggiOrganizzati(Agenzia agenzia)
         {            
             using (var om = new OperationManager())
             {
@@ -59,7 +59,7 @@ namespace Xlns.BusBook.Core
             }
         }
 
-        public int CalcolaNumeroViaggiProposti(Agenzia agenzia) 
+        public int CalcolaNumeroViaggiOrganizzati(Agenzia agenzia) 
         {
             using (var om = new OperationManager())
             {

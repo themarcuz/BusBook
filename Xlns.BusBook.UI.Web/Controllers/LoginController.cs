@@ -135,5 +135,12 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
             return View(registration);
         }
+
+        public ActionResult Facebook()
+        {
+            var facebookApplicationId = ConfigurationManager.Configurator.Istance.facebookApplicationId;
+            ViewBag.Facebook = facebookApplicationId;
+            return PartialView();
+        }
     }
 }
