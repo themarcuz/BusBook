@@ -41,6 +41,7 @@
                             @Html.HiddenFor(model => model.Id)
                             <div>
                                 @Html.LabelFor(model => model.Nome)
+                                @Html.Label("*")
                             </div>
                             <div>
                                 @Html.EditorFor(model => model.Nome)
@@ -48,6 +49,7 @@
                             </div>
                             <div>
                                 @Html.LabelFor(model => model.RagioneSociale)
+                                @Html.Label("*")
                             </div>
                             <div>
                                 @Html.EditorFor(model => model.RagioneSociale)
@@ -55,6 +57,7 @@
                             </div>
                             <div>
                                 @Html.LabelFor(model => model.PIva)
+                                @Html.Label("*")
                             </div>
                             <div>
                                 @Html.EditorFor(model => model.PIva)
@@ -62,6 +65,7 @@
                             </div>
                             <div>
                                 @Html.LabelFor(model => model.Email)
+                                @Html.Label("*")
                             </div>
                             <div>
                                 @Html.EditorFor(model => model.Email)

@@ -10,7 +10,7 @@ namespace Xlns.BusBook.Core.Model
     {
         [Required]
         [StringLength(50, ErrorMessage = "Il campo può essere lungo al massimo 50 caratteri")]
-        [Display(Name="Nazione*")]
+        [Display(Name="Nazione")]
         public String Nation { get; set; }
         
         [StringLength(50, ErrorMessage = "Il campo può essere lungo al massimo 50 caratteri")]
@@ -23,7 +23,7 @@ namespace Xlns.BusBook.Core.Model
 
         [Required]
         [StringLength(50, ErrorMessage = "Il campo può essere lungo al massimo 50 caratteri")]
-        [Display(Name = "Città*")]
+        [Display(Name = "Città")]
         public String City { get; set; }
 
         [StringLength(100, ErrorMessage = "Il campo può essere lungo al massimo 100 caratteri")]
@@ -39,11 +39,11 @@ namespace Xlns.BusBook.Core.Model
         public String CAP { get; set; }
 
         [Required]
-        [Display(Name = "Latitudine*")]
+        [Display(Name = "Latitudine")]
         public String Lat { get; set; }
 
         [Required]
-        [Display(Name = "Longitudine*")]
+        [Display(Name = "Longitudine")]
         public String Lng { get; set; }
 
         public String IndirizzoLeggibile { 

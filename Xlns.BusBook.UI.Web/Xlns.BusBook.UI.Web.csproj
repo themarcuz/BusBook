@@ -107,6 +107,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AgenzieView.cs" />
+    <Compile Include="Models\DashBoardInfo.cs" />
     <Compile Include="Models\ProposteModel.cs" />
     <Compile Include="Models\ViaggiAgenziaModel.cs" />
     <Compile Include="Models\DettaglioAgenziaView.cs" />
@@ -127,10 +128,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\editviaggioscroller.css" />
+    <Content Include="Content\img\facebook.png" />
+    <Content Include="Content\img\twitter.png" />
     <Content Include="Content\scripts\agenzia.tile.js" />
     <Content Include="Content\scripts\viaggio.facebook.js" />
-    <Content Include="Content\scripts\viaggio.richiesta.partecipazione.js" />
     <Content Include="Content\scripts\facebook.js" />
+    <Content Include="Content\scripts\viaggio.richiesta.partecipazione.js" />
     <Content Include="Content\scripts\login.js" />
     <Content Include="Content\scripts\utente.list.js" />
     <Content Include="Content\scripts\utente.tile.js" />
