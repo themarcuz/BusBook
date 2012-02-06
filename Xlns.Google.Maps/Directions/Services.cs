@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using Newtonsoft.Json.Linq;
 
 namespace Xlns.Google.Maps.Directions
 {
@@ -27,19 +28,24 @@ namespace Xlns.Google.Maps.Directions
             GoogleWsDirectionApiAddress = "http://maps.googleapis.com/maps/api/directions";
         }
 
-        public String CalcolaDistanzaPercorsa(Request request) 
+        public int CalcolaDistanzaPercorsa(Request request) 
         {
             try
             {
                 string requestUrl = BuildRequestUrl(request.ToString());
                 logger.Debug("Url interrogazione servizi di google: {0}",requestUrl);
-                var response = WebRequest.Create(requestUrl).GetResponse();
-
-                return "";
+                WebClient service = new WebClient();
+                String jsonString = service.DownloadString(requestUrl);
+                JObject json = JObject.Parse(jsonString);
+                var km = (string)json.SelectToken("routes[0].legs[0].distance.text");
+                if (!string.IsNullOrEmpty(km)) 
+                {
+                    return int.Parse(km.Remove(km.IndexOf(" km"), " km".Length));
+                } else return 0;
             }
             catch (Exception ex)
             {
-                string msg = String.Format("Error {0}", null);
+                string msg = String.Format("Impossibile elaborare la richiesta di calcolo della distanza per questa request: {0}", request.ToString());
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }

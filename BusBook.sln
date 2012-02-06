@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalLibs", "ExternalLib
 		ExternalLibs\log4net.dll = ExternalLibs\log4net.dll
 		ExternalLibs\log4net.xml = ExternalLibs\log4net.xml
 		ExternalLibs\Microsoft.Web.Helpers.dll = ExternalLibs\Microsoft.Web.Helpers.dll
+		ExternalLibs\Newtonsoft.Json.dll = ExternalLibs\Newtonsoft.Json.dll
 		ExternalLibs\NHibernate.dll = ExternalLibs\NHibernate.dll
 		ExternalLibs\NHibernate.xml = ExternalLibs\NHibernate.xml
 		ExternalLibs\NLog.dll = ExternalLibs\NLog.dll
