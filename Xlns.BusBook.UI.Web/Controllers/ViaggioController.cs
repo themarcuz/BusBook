@@ -22,6 +22,12 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(viaggi);
         }
 
+        public ActionResult ListPartial()
+        {
+            var viaggi = vr.GetViaggi();
+            return PartialView("List",viaggi);
+        }
+
         [ChildActionOnly]
         public ActionResult TappaEdit(Tappa tappa)
         {

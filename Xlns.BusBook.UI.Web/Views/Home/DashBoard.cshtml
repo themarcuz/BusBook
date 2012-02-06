@@ -1,36 +1,47 @@
-﻿@{
+﻿@model Xlns.BusBook.UI.Web.Models.DashBoardInfo
+@{
     ViewBag.Title = "DashBoard";
 }
 @section head{
-    <style type="text/css">
-        #content-wrapper
-        {
-            margin: 0 auto;
-            background: #fff url(../images/content-bg.xlns.gif) repeat-y center top;
-            padding-bottom: 35px;
-            padding-top: 5px;
-            overflow: auto;
-        }
-        #header
-        {
-            position: relative;
-            margin: 0 auto;
-            background: url(../images/border.gif) repeat-x left bottom;
-            height: 275px;
-        }
-    </style>
-}
-@section logo{
 
-    <h1 id="logo-text">
-       @Html.ActionLink("BusBook", "Index", "Home")
-    </h1>
-    <p id="intro">
-        the bus tour-aggregator...</p>
+    <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
+}
+@section scripts{
+    <script src="@Url.Content("~/Content/scripts/viaggio.lista.js")" type="text/javascript"></script>
 }
 <div id="content-wrapper" class="container_16">
     <!-- main -->
     <div id="main" class="grid_16">
+        <div>
+            <table>
+                <tr>
+                    <td colspan="3">
+                        <h3>
+                            La Tua Agenzia</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @{Html.RenderAction("ShowTile", "Agenzia", new { agenziaVM = Model.DettaglioAgenzia });}
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Proposte", "Agenzia", new { id = Model.Utente.Agenzia.Id })">La
+                            tua agenzia ha proposto
+                            @Html.DisplayFor(model => model.DettaglioAgenzia.NumeroViaggiProposti)
+                            viaggi per un totale di
+                            @Html.DisplayFor(model => model.DettaglioAgenzia.KmViaggiProposti) km </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Partecipazioni", "Agenzia", new { id = Model.Utente.Agenzia.Id })">
+                            La tua agenzia ha partecipato a
+                            @Html.DisplayFor(model => model.DettaglioAgenzia.NumeroViaggiPartecipati)
+                            viaggi per un totale di
+                            @Html.DisplayFor(model => model.DettaglioAgenzia.KmViaggiPartecipati)
+                            km </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div id="left-columns" class="grid_4">
             <div class="grid_4 alpha">
                 <div class="sidemenu">
@@ -38,12 +49,10 @@
                 </div>
             </div>
         </div>
-       <div class="grid_4 omega">
-            <h3>Testina: </h3>
+        <div class="grid_4 omega">
+            @{Html.RenderAction("ListPartial", "Viaggio");}
         </div>
         <!-- main ends -->
     </div>
     <!-- contents end here -->
 </div>
-
-

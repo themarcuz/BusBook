@@ -93,6 +93,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AgenzieView.cs" />
+    <Compile Include="Models\DashBoardInfo.cs" />
     <Compile Include="Models\ProposteModel.cs" />
     <Compile Include="Models\ViaggiAgenziaModel.cs" />
     <Compile Include="Models\DettaglioAgenziaView.cs" />
