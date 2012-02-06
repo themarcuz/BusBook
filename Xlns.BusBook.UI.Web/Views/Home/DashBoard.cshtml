@@ -27,9 +27,9 @@
                     <td>
                         <a href="@Url.Action("Proposte", "Agenzia", new { id = Model.Utente.Agenzia.Id })">La
                             tua agenzia ha proposto
-                            @Html.DisplayFor(model => model.DettaglioAgenzia.NumeroViaggiProposti)
+                            @Html.DisplayFor(model => model.DettaglioAgenzia.KmViaggiPubblicati)
                             viaggi per un totale di
-                            @Html.DisplayFor(model => model.DettaglioAgenzia.KmViaggiProposti) km </a>
+                            @Html.DisplayFor(model => model.DettaglioAgenzia.KmViaggiPubblicati) km </a>
                     </td>
                     <td>
                         <a href="@Url.Action("Partecipazioni", "Agenzia", new { id = Model.Utente.Agenzia.Id })">
