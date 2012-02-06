@@ -43,7 +43,7 @@ namespace Xlns.BusBook.Core
                         DataRichiesta = DateTime.Now
                     };
                 pr.Save(richiestaPartecipazione);
-                logger.Info("L'azienda {0} ha registrato la sua partecipazione al viaggio {1}", 
+                logger.Info("L'azienda {0} ha registrato la sua partecipazione al viaggio {1}",
                     utenteRichiedente.Agenzia, viaggio);
             }
             catch (Exception ex)
@@ -94,6 +94,13 @@ namespace Xlns.BusBook.Core
                                     .Select(t => string.Format("{0},{1}", t.Location.Lat, t.Location.Lng))
                                     .SingleOrDefault();
                 var req = new Xlns.Google.Maps.Directions.Request(origine, destinazione);
+                req.Waypoints = new List<String>();
+                viaggio.Tappe
+                        .Where(t => t.Tipo != TipoTappa.DESTINAZIONE && t.Tipo != TipoTappa.PARTENZA)
+                        .ForEach(t => req.Waypoints.Add(
+                            String.Format("{0},{1}", t.Location.Lat, t.Location.Lng))
+                        );
+
                 var svcHelper = new Xlns.Google.Maps.Directions.Services();
                 var resp = svcHelper.CalcolaDistanzaPercorsa(req);
                 return 0;
@@ -115,7 +122,7 @@ namespace Xlns.BusBook.Core
 
         public Viaggio CreaNuovoViaggio()
         {
-            var viaggio = new Viaggio() 
+            var viaggio = new Viaggio()
             {
                 DataPartenza = DateTime.Today.AddDays(1),
                 DataChiusuraPrenotazioni = DateTime.Today
@@ -129,7 +136,7 @@ namespace Xlns.BusBook.Core
             using (var om = new OperationManager())
             {
                 try
-                {                    
+                {
                     var session = om.BeginOperation();
                     logger.Info("Recupero dei viaggi proposti dall'agenzia {0}", agenzia);
                     var viaggi = session.Query<Viaggio>()
@@ -161,8 +168,8 @@ namespace Xlns.BusBook.Core
                     var viaggi = session.Query<Partecipazione>()
                                     .Where(p => p.Utente.Agenzia.Id == agenzia.Id)
                                     .Select(p => p.Viaggio)
-                                    .ToList();                    
-                    logger.Debug("Viaggi trovati: {0}",viaggi.Count);
+                                    .ToList();
+                    logger.Debug("Viaggi trovati: {0}", viaggi.Count);
                     om.CommitOperation();
                     return viaggi;
                 }
