@@ -352,6 +352,9 @@
     <Content Include="Views\Agenzia\Viaggi.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Login\Facebook.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Views\Agenzia\ShowTileShort.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

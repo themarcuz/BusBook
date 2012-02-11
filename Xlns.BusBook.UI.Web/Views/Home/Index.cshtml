@@ -23,7 +23,7 @@
 }
 @section logo{
     <h1 id="logo-text">
-       @Html.ActionLink("BusBook", "Index", "Home")
+        @Html.ActionLink("BusBook", "Index", "Home")
     </h1>
     <p id="intro">
         the bus tour-aggregator...</p>
@@ -39,7 +39,6 @@
                             Html.RenderAction("ShowLogin", "Login");
                         }
                      }
-                    <fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream" />
                 </div>
             </div>
         </div>
@@ -78,4 +77,8 @@
         <div class="fb-like" data-href="http://www.xlns.it" data-send="true" data-layout="button_count"
             data-width="450" data-show-faces="true" data-font="segoe ui">
         </div>
+        <br />
+        <a href="https://twitter.com/xlnsx" class="twitter-follow-button" data-show-count="false"
+            data-lang="it">Segui @@xlnsx</a>
+        <script>            !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>
 }

@@ -18,7 +18,7 @@ namespace Xlns.BusBook.Core
         public int CalcolaOrdinamentoPerNuovaTappa(Viaggio viaggio)
         {
             logger.Debug("Calcolo ordiamento nuova tappa per viaggio {0}", viaggio.Id);
-            var tappe = viaggio.Tappe.Where(t => t.Tipo == TipoTappa.TAPPA);
+            var tappe = viaggio.Tappe.Where(t => t.Tipo != TipoTappa.DESTINAZIONE);
             if (tappe != null && tappe.Count() > 0)
             {
                 int result = tappe.Max(t => t.Ordinamento) + 1;
@@ -102,8 +102,9 @@ namespace Xlns.BusBook.Core
                         );
 
                 var svcHelper = new Xlns.Google.Maps.Directions.Services();
-                var resp = svcHelper.CalcolaDistanzaPercorsa(req);
-                return 0;
+                var distanza = svcHelper.CalcolaDistanzaPercorsa(req);                 
+                logger.Info("La distanza percorsa per il viaggio {0} è stimata in {1} km", viaggio, distanza);
+                return distanza;
             }
             catch (Exception ex)
             {

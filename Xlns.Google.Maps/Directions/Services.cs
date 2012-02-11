@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace Xlns.Google.Maps.Directions
 {
@@ -36,12 +37,10 @@ namespace Xlns.Google.Maps.Directions
                 logger.Debug("Url interrogazione servizi di google: {0}",requestUrl);
                 WebClient service = new WebClient();
                 String jsonString = service.DownloadString(requestUrl);
-                JObject json = JObject.Parse(jsonString);
-                var km = (string)json.SelectToken("routes[0].legs[0].distance.text");
-                if (!string.IsNullOrEmpty(km)) 
-                {
-                    return int.Parse(km.Remove(km.IndexOf(" km"), " km".Length));
-                } else return 0;
+                JObject json = JObject.Parse(jsonString);                
+                var result = json.SelectToken("routes[0].legs").Select(l => trimKm((String)l.SelectToken("distance.text"))).Sum();
+                logger.Info("Calcolata distanza percorsa: {0} km", result);
+                return Convert.ToInt32(result);
             }
             catch (Exception ex)
             {
@@ -49,6 +48,12 @@ namespace Xlns.Google.Maps.Directions
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }
+        }
+
+        private double trimKm(String orig) {
+            CultureInfo culture = new CultureInfo("en-US");
+            var number = double.Parse(orig.Remove(orig.IndexOf(" km"), " km".Length), culture.NumberFormat);
+            return number;
         }
 
         private String BuildRequestUrl(String request) 
