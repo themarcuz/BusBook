@@ -1,36 +1,19 @@
 ﻿@model Xlns.BusBook.Core.Model.Utente
-<script type="text/javascript" src="@Url.Content("~/Content/scripts/login.js")" ></script>
+<link type="text/css" href="@Url.Content("~/Content/logout.css")" media="screen, projection" rel="stylesheet" />
 <div id="LogoutDiv">
-    <h3>
-        Logout</h3>
-    <table id="userInfoBox">
-    <tr>
-    <td>
-    <fieldset>
+    <div id="topnav" class="topnav">
+        <a href="#" class="signin"><span>@Html.DisplayTextFor(model => model.Nome) @Html.DisplayTextFor(model => model.Cognome)</span></a>
+    </div>
+    <fieldset id="signin_menu">
         <div>
-            @Html.LabelFor(model => model.Username)
-        </div>
-        <div>
-            @Html.DisplayTextFor(model => model.Username)
-        </div>
-        <br />
-        <div>
-            @Ajax.ActionLink("Log Out", "Logout", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
+            @Ajax.ActionLink("Esci", "Logout", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
             {
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "POST",
-                OnFailure = "failure",
-                OnBegin = "startOperation",
-                OnComplete = "completeOperation",
-                LoadingElementId = "loadingDiv",
-                UpdateTargetId = "LogoutDiv"
-            },new { @class = "button" })
+                UpdateTargetId = "replaceDiv"
+            }, new { @class = "button" })
+        </div>
+        <div id="replaceDiv" style="display: none;">
         </div>
     </fieldset>
-    </td>
-    </tr>
-    </table>
-    <div style="display: none; margin-left: 50px" id="loadingDiv">
-        <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>
-    </div>
 </div>

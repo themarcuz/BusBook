@@ -12,40 +12,10 @@
 <div id="content-wrapper" class="container_16">
     <!-- main -->
     <div id="main" class="grid_16">
-        <div>
-            <table>
-                <tr>
-                    <td colspan="3">
-                        <h3>
-                            La Tua Agenzia</h3>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @{Html.RenderAction("ShowTile", "Agenzia", new { agenziaVM = Model.DettaglioAgenzia });}
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Proposte", "Agenzia", new { id = Model.Utente.Agenzia.Id })">La
-                            tua agenzia ha proposto
-                            @Html.DisplayFor(model => model.DettaglioAgenzia.KmViaggiPubblicati)
-                            viaggi per un totale di
-                            @Html.DisplayFor(model => model.DettaglioAgenzia.KmViaggiPubblicati) km </a>
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Partecipazioni", "Agenzia", new { id = Model.Utente.Agenzia.Id })">
-                            La tua agenzia ha partecipato a
-                            @Html.DisplayFor(model => model.DettaglioAgenzia.NumeroViaggiPartecipati)
-                            viaggi per un totale di
-                            @Html.DisplayFor(model => model.DettaglioAgenzia.KmViaggiPartecipati)
-                            km </a>
-                    </td>
-                </tr>
-            </table>
-        </div>
         <div id="left-columns" class="grid_4">
             <div class="grid_4 alpha">
                 <div class="sidemenu">
-                    @{Html.RenderAction("ShowLogin", "Login");}
+                    @{Html.RenderAction("ShowTileShort","Agenzia", new { agenziaVM = Model.DettaglioAgenzia} );}
                 </div>
             </div>
         </div>

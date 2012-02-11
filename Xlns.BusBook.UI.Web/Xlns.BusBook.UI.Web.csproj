@@ -128,9 +128,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\editviaggioscroller.css" />
+    <Content Include="Content\logout.css" />
     <Content Include="Content\img\facebook.png" />
+    <Content Include="Content\img\toggle_down_light.png" />
+    <Content Include="Content\img\toggle_up_dark.png" />
     <Content Include="Content\img\twitter.png" />
     <Content Include="Content\scripts\agenzia.tile.js" />
+    <Content Include="Content\scripts\logout.js" />
     <Content Include="Content\scripts\viaggio.facebook.js" />
     <Content Include="Content\scripts\facebook.js" />
     <Content Include="Content\scripts\viaggio.richiesta.partecipazione.js" />
@@ -346,6 +350,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Agenzia\Viaggi.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Agenzia\ShowTileShort.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -3,11 +3,7 @@
 <div id="LoginDiv">
     <h3>
         Hai un Account?</h3>
-    <table>
-        <tr>
-            <td>
-                <fieldset>
-                    @using (Ajax.BeginForm("Login", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
+    @using (Ajax.BeginForm("Login", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
             {
                 InsertionMode = InsertionMode.Replace,
                 HttpMethod = "POST",
@@ -17,42 +13,33 @@
                 LoadingElementId = "loadingDiv",
                 UpdateTargetId = "LoginDiv"
             }, new { id = "userInfoBox" }))
-                    {
-                        <div>
-                            @Html.DisplayTextFor(model => model.LoginErrorMessage)
-                        </div>
-                        <div>
-                            @Html.LabelFor(model => model.Username)
-                        </div>
-                        <div>
-                            @Html.EditorFor(model => model.Username)
-                        </div>
-                        <div>
-                            @Html.ValidationMessageFor(model => model.Username)
-                        </div>
-                        <div>
-                            @Html.LabelFor(model => model.Password)
-                        </div>
-                        <div>
-                            @Html.PasswordFor(model => model.Password)
-                        </div>
-                        <div>
-                            @Html.ValidationMessageFor(model => model.Password)
-                        </div>
-                        <div>
-                            <input type="submit" value="Log In" id="submitButton" class="button" />
-                        </div>
-@* @Html.ActionLink("registrati", "Informativa") 
-                    @Html.Label(" | ")
-                    @Html.ActionLink("iForgot", "ResetPassword")*@
-
-                    }
-                   
-                </fieldset>
-            </td>
-        </tr>
-    </table>
-   <div style="display: none; margin-left: 50px" id="loadingDiv">
+    {
+        <div>
+            @Html.DisplayTextFor(model => model.LoginErrorMessage)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Username)
+        </div>
+        <div>
+            @Html.EditorFor(model => model.Username)
+        </div>
+        <div>
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div>
+            @Html.PasswordFor(model => model.Password)
+        </div>
+        <div>
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+        <div>
+            <input type="submit" value="Log In" id="submitButton" class="button" />
+        </div>
+    }
+    <div style="display: none; margin-left: 50px" id="loadingDiv">
         <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>
     </div>
 </div>

@@ -51,3 +51,8 @@
     font-style: italic; 
     color: #C0C0C0;
 }
+
+.shortTileElement
+{
+    width: 200px;
+}

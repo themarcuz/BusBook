@@ -9,7 +9,7 @@ function completeOperation() {
 }
 
 function failure() {
-    alert('Errore nella procedura di Login/Logout');
+    alert('Errore nella procedura di Login');
     //showLoginBox();
 }
 

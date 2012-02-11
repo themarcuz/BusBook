@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Xlns.BusBook.UI.Web.Models
+@{
     ViewBag.Title = "Index";    
 }
 @section head{
@@ -33,7 +34,11 @@
         <div id="left-columns" class="grid_4">
             <div class="grid_4 alpha">
                 <div class="sidemenu">
-                    @{Html.RenderAction("ShowLogin", "Login");}
+                    @{
+                        if(Session.getLoggedUtente() == null){
+                            Html.RenderAction("ShowLogin", "Login");
+                        }
+                     }
                     <fb:login-button autologoutlink="true" perms="email,user_birthday,status_update,publish_stream" />
                 </div>
             </div>

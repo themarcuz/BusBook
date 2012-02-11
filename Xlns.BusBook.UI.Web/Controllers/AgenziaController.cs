@@ -68,6 +68,12 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView(agenziaVM);
         }
 
+        [ChildActionOnly]
+        public ActionResult ShowTileShort(DettaglioAgenziaView agenziaVM)
+        {
+            return PartialView(agenziaVM);
+        }
+
         public ActionResult Delete(int id) {
             try
             {
