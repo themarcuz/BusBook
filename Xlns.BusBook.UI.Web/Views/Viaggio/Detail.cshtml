@@ -120,8 +120,8 @@
             <br />
             <br />
             <a href="#" onclick="publishWallPost(); return false;">
-                <img src="../../Content/img/facebook.png" alt="Share on Facebook" /></a>
-            <img src="../../Content/img/twitter.png" />
+                <img src="@Url.Content("~/Content/img/facebook.png")" alt="Share on Facebook" /></a>
+            <img src="@Url.Content("~/Content/img/twitter.png")" alt="Share on twitter"/>
             <script type="text/javascript">
                 function publishWallPost() {
                     var date = ('@Model.DataPartenza.Date.ToString("dd MMM yyyy")');
@@ -139,7 +139,7 @@
             </script>
         </p>
     </div>
-    <div id="dialog">"
+    <div id="dialog">
     </div>
     <script type="text/javascript">
         var onCloseDialog;

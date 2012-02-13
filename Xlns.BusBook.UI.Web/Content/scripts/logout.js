@@ -7,7 +7,7 @@ $(function () {
     });
 
     $("fieldset#signin_menu").mouseup(function () {
-        return false
+        return false;
     });
 
     $(document).mouseup(function (e) {
