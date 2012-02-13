@@ -29,6 +29,13 @@
                 <div>
                     @Html.DisplayFor(model => model.DataChiusuraPrenotazioni)
                 </div>
+                @if (Model.DataPubblicazione.HasValue)
+                {
+                    @Html.LabelFor(model => model.DataPubblicazione)
+                    <div>
+                        @Html.DisplayFor(model => model.DataPubblicazione)
+                    </div>
+                }
                 @if (Model.Tappe != null && Model.Tappe.Count > 0)
                 {
                     if (Model.Tappe != null
@@ -62,7 +69,11 @@
                                     .First()
                                     .Location.City)
                     </div>
-                    }                    
+                    }
+                    <div style="margin-top: 10px">
+                        @{Html.RenderAction("ListaPartecipanti", new { idViaggio = Model.Id });
+                        }
+                    </div>
                     <div style="display: none">
                         @foreach (var tappa in Model.Tappe)
                         {

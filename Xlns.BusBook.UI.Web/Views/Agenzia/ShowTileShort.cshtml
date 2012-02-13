@@ -1,24 +1,28 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.DettaglioAgenziaView
-<div  class="tileElement shortTileElement" id="TileDivAgenzia@(Model.agenzia.Id)" onclick="window.location='@Url.Action("Detail", new { id = Model.agenzia.Id })'">
-    @Html.Raw(Model.NomeAdv)
-    <div class="tileCommand">
-        @Html.ActionLink("Modifica", "Edit", new { id = Model.agenzia.Id }, new { @class = "ui-icon ui-icon-pencil" })
-        <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@Model.agenzia.Id">
-            Elimina</a>
+<div>
+    <h3>@Model.NomeAdv</h3>
+    <div>
+        @Html.ActionLink("Modifica dati", "Edit", new { id = Model.agenzia.Id })
     </div>
     <div>
-        <a href="@Url.Action("Proposte", "Agenzia", new { id = Model.agenzia.Id })">Proposti
-            @Html.DisplayFor(model => model.KmViaggiPubblicati)
-            viaggi per
-            @Html.DisplayFor(model => model.KmViaggiPubblicati) km </a>
+        <a href="#">Rubrica</a>
     </div>
-    <div>
-        <a href="@Url.Action("Partecipazioni", "Agenzia", new { id = Model.agenzia.Id })">Partecipato
-            a
-            @Html.DisplayFor(model => model.NumeroViaggiPartecipati)
-            viaggi per
-            @Html.DisplayFor(model => model.KmViaggiPartecipati)
-            km </a>
+    <div style="margin-top: 10px">
+        <div style="font-weight: bold; font-style: italic">
+            Stato</div>
+        <div>
+            <a href="@Url.Action("Proposte", "Agenzia", new { id = Model.agenzia.Id })">Pubblicati
+                @Html.DisplayFor(model => model.KmViaggiPubblicati)
+                viaggi:
+                @Html.DisplayFor(model => model.KmViaggiPubblicati) km </a>
+        </div>
+        <div>
+            <a href="@Url.Action("Partecipazioni", "Agenzia", new { id = Model.agenzia.Id })">Partecipato
+                a
+                @Html.DisplayFor(model => model.NumeroViaggiPartecipati)
+                viaggi:
+                @Html.DisplayFor(model => model.KmViaggiPartecipati)
+                km </a>
+        </div>
     </div>
 </div>
-<script type="text/javascript" src="@Url.Content("~/Content/scripts/agenzia.tile.js")" ></script>

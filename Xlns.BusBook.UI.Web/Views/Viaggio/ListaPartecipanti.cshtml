@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Xlns.BusBook.Core.Model.Partecipazione>
+
+<a href="#" onclick="partecipantiDialog.dialog('open');">Agenzie partecipanti: @Model.Count()</a>
+
+<div id="partecipanti-dialog" style="display: none">
+@if (Model == null || Model.Count() == 0)
+{
+    <text>Nessuna partecipazione</text>
+}
+else
+{
+foreach (var item in Model)
+{
+    <div style="margin-top: 3px; margin-bottom: 3px">
+         @Html.ActionLink(item.Utente.Agenzia.Nome, "Detail", "Agenzia", new { id = @item.Utente.Agenzia.Id }, null)         
+         <div class="tileSubTitle">
+            richiesta partecipazione: @Html.DisplayFor(m => item.DataRichiesta)
+         </div>
+    </div>    
+}
+}
+</div>
+
+<script type="text/javascript">
+    var partecipantiDialog;
+    $(function () {
+        partecipantiDialog = $("#partecipanti-dialog");
+        partecipantiDialog.dialog({
+            modal: true,
+            autoOpen: false,
+            /*width: '800',*/
+            resizable: false
+        });
+    });
+</script>

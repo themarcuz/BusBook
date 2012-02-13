@@ -25,6 +25,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult ListPartial()
         {
             var viaggi = vr.GetViaggi();
+            ViewBag.IsFullPage = false;
             return PartialView("List",viaggi);
         }
 
@@ -178,6 +179,14 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 return new HttpStatusCodeResult(403, msg);
             }
 
+        }
+
+        [ChildActionOnly]
+        public ActionResult ListaPartecipanti(int idViaggio) 
+        {
+            var pr = new PartecipazioneRepository();
+            var partecipazioni = pr.GetPartecipazioniAlViaggio(idViaggio);
+            return PartialView(partecipazioni);
         }
     }
 }

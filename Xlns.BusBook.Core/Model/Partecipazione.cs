@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace Xlns.BusBook.Core.Model
 {
-    class Partecipazione : ModelEntity
+    public class Partecipazione : ModelEntity
     {
         public virtual Viaggio Viaggio { get; set; }
         /// <summary>
@@ -15,6 +16,8 @@ namespace Xlns.BusBook.Core.Model
         /// <summary>
         /// data in cui viene effettuata la richiesta di partecipazione
         /// </summary>
+        [Display(Name = "Data richiesta partecipazione")]
+        [DisplayFormat(DataFormatString = "{0:dd MMMM yyyy}", ApplyFormatInEditMode = true)]
         public virtual DateTime DataRichiesta { get; set; }
     }
 }

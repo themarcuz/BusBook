@@ -1,6 +1,13 @@
 ﻿@model IEnumerable<Xlns.BusBook.Core.Model.Viaggio>
 @{    
-    ViewBag.Title = "Viaggi";
+    ViewBag.Title = "Viaggi";    
+    int grid = 16;
+    bool needsContainer = true;
+    if (ViewBag.IsFullPage != null && ViewBag.IsFullPage == false)
+    {
+        needsContainer = false;
+        grid = 6;
+    }
 }
 @section head{
     <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
@@ -8,8 +15,17 @@
 @section scripts{
     <script src="@Url.Content("~/Content/scripts/viaggio.lista.js")" type="text/javascript"></script>
 }
-<div id="content-wrapper" class="container_16">
-    <div id="main" class="grid_16">
+
+@if (needsContainer)
+{
+    <text><div id="content-wrapper" class="container_16"></text>
+}
+else
+{
+    <text><div></text>
+}
+
+    <div id="main" class="grid_@(grid)">
         <h3>@ViewBag.Title</h3>
         <p>
             @Html.ActionLink("Proponi nuovo viaggio", "Create", null, new { @class = "button" })
@@ -18,5 +34,5 @@
         {
             Html.RenderAction("ViaggioTiledDetail", new { viaggio = item });
         }
-    </div>
-</div>
+    </div>    
+ </div>    
