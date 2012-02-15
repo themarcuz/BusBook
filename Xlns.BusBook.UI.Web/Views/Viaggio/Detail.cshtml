@@ -124,7 +124,8 @@
                                     {
                                         InsertionMode = InsertionMode.Replace,
                                         HttpMethod = "POST",
-                                        UpdateTargetId = "dialog"
+                                        UpdateTargetId = "dialog",
+                                        OnSuccess = "$('.dialog').dialog();"
                                     },
                                     new { @class = "button" })
             }
@@ -145,8 +146,6 @@
                         user_message_prompt: 'inviato da BusBook'
                     });
                 }
-
-
             </script>
         </p>
     </div>

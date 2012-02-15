@@ -114,7 +114,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult DetailPartial(Agenzia agenzia)
         {
-            return PartialView("Detail",agenzia);
+            var dav = new DettaglioAgenziaView(agenzia);
+            return PartialView("Detail", dav);
         }
 
         public ActionResult Proposte(int id) 
