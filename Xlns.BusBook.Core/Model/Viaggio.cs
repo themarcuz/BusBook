@@ -37,6 +37,11 @@ namespace Xlns.BusBook.Core.Model
 
         public virtual int DistanzaPercorsa { get; set; }
 
+        [Display(Name = "Capienza del bus")]
+        [Required(ErrorMessage="Informazione obbligatoria")]        
+        public virtual int TotalePosti { get; set; }
+
+
         public override string ToString()
         {
             return String.Format("{0} - {1}", Id, Nome);
