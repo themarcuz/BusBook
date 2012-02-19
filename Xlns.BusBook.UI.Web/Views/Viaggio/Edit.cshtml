@@ -75,6 +75,18 @@
                                 @Html.TextBoxFor(model => model.TotalePosti)
                                 @Html.ValidationMessageFor(model => model.TotalePosti)
                             </div>
+                            
+                            @if (Model.Depliant == null)
+                            {
+                                <div class="editor-label">
+                                    @Html.LabelFor(model => model.Depliant)                                                                  
+                                </div>
+                                Html.RenderAction("New", "Allegato", new { viaggio = Model, tipo = (int)Xlns.BusBook.UI.Web.Models.AllegatoViewModel.TipoAllegato.DEPLIANT });
+                            }
+                            else
+                            {
+                                Html.RenderAction("Edit", "Allegato", new { viaggio = Model});
+                            }              
                             @Html.HiddenFor(model => model.Id)
                             <p>
                                 <input type="submit" value="Salva" class="button" />
