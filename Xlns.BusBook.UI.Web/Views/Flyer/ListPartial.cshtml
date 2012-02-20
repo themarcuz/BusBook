@@ -1,0 +1,9 @@
+﻿@model Xlns.BusBook.UI.Web.Models.ListFlyerView
+<br />
+<div>
+    @Html.ActionLink("Nuovo Flyer", "Edit", new { idFlyer = 0, idAgenzia = Model.idAgenzia }, new { @class = "button" })
+</div>
+<br />
+<div>
+    @Html.ActionLink("Flyers", "List", new { idAgenzia = Model.idAgenzia }, new { @class = "button" })
+</div>

@@ -1,0 +1,7 @@
+﻿@model IEnumerable<Xlns.BusBook.UI.Web.Models.ViaggioSelectView>
+@foreach (var viaggioSelectable in Model)
+{
+    @Html.CheckBoxFor(model => viaggioSelectable.isSelected, new { id = @viaggioSelectable.viaggio.Id})
+    Html.RenderAction("ViaggioTiledDetail", new { viaggio = @viaggioSelectable.viaggio });
+}
+

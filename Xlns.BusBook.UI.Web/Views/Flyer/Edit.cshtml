@@ -1,0 +1,50 @@
+﻿@model Xlns.BusBook.UI.Web.Models.FlyerEditView
+@{
+    if (Model.Id == 0)
+    {
+        ViewBag.Title = "Crea il tuo Flyer";
+    }
+    else
+    {
+        ViewBag.Title = "Modifica il tuo Flyer";
+    }
+}
+<div id="content-wrapper" class="container_16">
+    <div id="main" class="grid_16">
+        <h3>
+            @ViewBag.Title</h3>
+        @using (Html.BeginForm("Save", "Flyer", FormMethod.Post, new { id = "salvaFlyerForm" }))
+        {
+            @Html.ValidationSummary(true)
+    
+            <div style="display: table">
+                <div style="display: table-row">
+                    <div style="display: table-cell; padding-right: 20px">
+                        <fieldset>
+                            @Html.HiddenFor(model => model.Id)
+                            @Html.HiddenFor(model => model.idAgenzia)
+                            <div>
+                                @Html.LabelFor(model => model.Titolo)
+                                @Html.Label("*")
+                            </div>
+                            <div>
+                                @Html.EditorFor(model => model.Titolo)
+                                @Html.ValidationMessageFor(model => model.Titolo)
+                            </div>
+                            <div>
+                            @{Html.RenderAction("Select", "Viaggio");}
+                            </div>
+                            <br />
+                        </fieldset>
+                    </div> <!-- chiusura cella -->
+
+                </div> <!-- chiusura riga -->
+            </div>
+            
+         
+            <input type="submit" value="Salva" id="submitButton" class="button" />
+            <input type="button" value="Annulla" id="cancelButton" class="button" 
+                    onclick="window.location='@Href("~/Home/DashBoard")'" />
+        }
+    </div>
+</div>

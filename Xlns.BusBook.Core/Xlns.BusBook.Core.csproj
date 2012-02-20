@@ -84,6 +84,7 @@
     <Compile Include="Login\AuthenticationResult.cs" />
     <Compile Include="Login\LoginHelper.cs" />
     <Compile Include="Mailer\MailHelper.cs" />
+    <Compile Include="Model\Flyer.cs" />
     <Compile Include="Model\GeoLocation.cs" />
     <Compile Include="Model\Partecipazione.cs" />
     <Compile Include="Model\Tappa.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Model\ModelEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CommonRepository.cs" />
+    <Compile Include="Repository\FlyerRepository.cs" />
     <Compile Include="Repository\PartecipazioneRepository.cs" />
     <Compile Include="Repository\UtenteRepository.cs" />
     <Compile Include="Repository\ViaggioRepository.cs" />
@@ -136,6 +138,9 @@
     <EmbeddedResource Include="Mapping\Partecipazione.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Flyer.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

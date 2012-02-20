@@ -1,0 +1,29 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Xlns.BusBook.Core.Model"
+                   assembly="Xlns.BusBook.Core" >
+
+  <class name="Flyer" table="Flyer">
+
+    <!-- Simple mappings -->
+    <id name="Id">     
+      <generator class="native" />
+    </id>
+    <property name="Titolo" />
+    <property name="Descrizione" />
+   
+    <bag name="Viaggi" table="Flyer_Viaggio" cascade="all" lazy="false">
+      <key column="Flyer"/>
+      <many-to-many column="Viaggio"
+         class="Viaggio"/>
+    </bag>
+
+    <many-to-one name="Agenzia" 
+      class="Agenzia"
+      cascade="none" fetch="join"
+    lazy="false" />
+  </class>
+
+</hibernate-mapping>
+
+

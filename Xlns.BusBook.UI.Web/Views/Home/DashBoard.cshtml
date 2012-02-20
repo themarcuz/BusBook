@@ -17,6 +17,9 @@
                 <div class="sidemenu">
                     @{Html.RenderAction("ShowTileShort","Agenzia", new { agenziaVM = Model.DettaglioAgenzia} );}
                 </div>
+                <div class="sidemenu">
+                    @{Html.RenderAction("ListPartial", "Flyer", new { idAgenzia = Model.DettaglioAgenzia.agenzia.Id });}
+                </div>
             </div>
         </div>
         <div class="grid_4 omega">

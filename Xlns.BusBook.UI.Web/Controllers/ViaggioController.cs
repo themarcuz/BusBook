@@ -188,5 +188,19 @@ namespace Xlns.BusBook.UI.Web.Controllers
             var partecipazioni = pr.GetPartecipazioniAlViaggio(idViaggio);
             return PartialView(partecipazioni);
         }
+
+        public ActionResult Select() 
+        {
+            //var viaggiPubblicati = vr.GetViaggi().Where(v => v.DataPubblicazione != null).ToList();
+            var viaggiPubblicati = vr.GetViaggi();
+            List<ViaggioSelectView> viaggiSelezionabili = new List<ViaggioSelectView>();
+
+            foreach (var viaggioPub in viaggiPubblicati)
+            {
+                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = false };
+                viaggiSelezionabili.Add(viaggioSelezionabile);
+            }
+            return PartialView(viaggiSelezionabili);
+        }
     }
 }
