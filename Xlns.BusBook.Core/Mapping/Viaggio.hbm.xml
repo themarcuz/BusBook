@@ -17,10 +17,15 @@
     <property name="DistanzaPercorsa" />
     <property name="TotalePosti" />
 
+<<<<<<< HEAD
     <many-to-one name="Depliant"
       class="AllegatoViaggio"
       cascade="all" />
     
+=======
+    <one-to-one name="Depliant" class="Allegato"/>
+
+>>>>>>> 1e9dd669bb4aed4d8ebcaced2eae34fc49b52e2c
     <bag name="Tappe" cascade="all" inverse="true" lazy="false" order-by="Ordinamento asc">
       <key column="Viaggio" on-delete="cascade" />
       <one-to-many class="Tappa" />

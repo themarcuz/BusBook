@@ -41,7 +41,11 @@ namespace Xlns.BusBook.Core.Model
         [Required(ErrorMessage="Informazione obbligatoria")]        
         public virtual int TotalePosti { get; set; }
 
+<<<<<<< HEAD
         public virtual AllegatoViaggio Depliant { get; set; }
+=======
+        public virtual Allegato Depliant { get; set; }
+>>>>>>> 1e9dd669bb4aed4d8ebcaced2eae34fc49b52e2c
 
         public override string ToString()
         {
