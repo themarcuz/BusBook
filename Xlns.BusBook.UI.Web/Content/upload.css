@@ -1,0 +1,12 @@
+﻿.button { 
+	font: bold 12px Arial, Sans-serif; 
+	/*height: 30px;*/
+	margin: 0px;
+	padding: 2px 5px; 
+	color: #fff !important;
+	background: #9CCF5F;
+	
+	border-width: 1px;
+  	border-style: solid;
+  	border-color: #B6DE8F #8DB836 #8DB836 #B6DE8F;
+}

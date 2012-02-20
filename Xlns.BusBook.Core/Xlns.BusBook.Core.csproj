@@ -84,6 +84,7 @@
     <Compile Include="Login\AuthenticationResult.cs" />
     <Compile Include="Login\LoginHelper.cs" />
     <Compile Include="Mailer\MailHelper.cs" />
+    <Compile Include="Model\Allegato.cs" />
     <Compile Include="Model\Flyer.cs" />
     <Compile Include="Model\GeoLocation.cs" />
     <Compile Include="Model\Partecipazione.cs" />
@@ -138,6 +139,9 @@
     <EmbeddedResource Include="Mapping\Partecipazione.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Allegato.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Flyer.hbm.xml" />
