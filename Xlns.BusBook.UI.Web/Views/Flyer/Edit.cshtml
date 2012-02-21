@@ -1,6 +1,6 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.FlyerEditView
 @{
-    if (Model.Id == 0)
+    if (Model.Id == 0 || ViewBag.isNew == true)
     {
         ViewBag.Title = "Crea il tuo Flyer";
     }
@@ -9,11 +9,17 @@
         ViewBag.Title = "Modifica il tuo Flyer";
     }
 }
+@section head{
+    <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
+}
+@section scripts{
+    <script src="@Url.Content("~/Content/scripts/viaggio.select.js")" type="text/javascript"></script>
+}
 <div id="content-wrapper" class="container_16">
     <div id="main" class="grid_16">
         <h3>
             @ViewBag.Title</h3>
-        @using (Html.BeginForm("Save", "Flyer", FormMethod.Post, new { id = "salvaFlyerForm" }))
+        @using (Html.BeginForm("Save", "Flyer"))
         {
             @Html.ValidationSummary(true)
     
@@ -31,14 +37,15 @@
                                 @Html.EditorFor(model => model.Titolo)
                                 @Html.ValidationMessageFor(model => model.Titolo)
                             </div>
-                            <div>
-                            @{Html.RenderAction("Select", "Viaggio");}
+                          <div>
+                            @{Html.RenderAction("Select", "Viaggio", new { idFlyer = Model.Id});}
                             </div>
-                            <br />
+                   <br />
                         </fieldset>
-                    </div> <!-- chiusura cella -->
-
-                </div> <!-- chiusura riga -->
+                    </div>
+                    <!-- chiusura cella -->
+                </div>
+                <!-- chiusura riga -->
             </div>
             
          

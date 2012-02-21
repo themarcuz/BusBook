@@ -189,15 +189,22 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView(partecipazioni);
         }
 
-        public ActionResult Select() 
+        public ActionResult Select(int idFlyer)
         {
             //var viaggiPubblicati = vr.GetViaggi().Where(v => v.DataPubblicazione != null).ToList();
             var viaggiPubblicati = vr.GetViaggi();
+            FlyerRepository flyerRepo = new FlyerRepository();
+            var flyer = flyerRepo.GetById(idFlyer);
+
             List<ViaggioSelectView> viaggiSelezionabili = new List<ViaggioSelectView>();
 
             foreach (var viaggioPub in viaggiPubblicati)
             {
-                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = false };
+                bool selected = false;
+                if(flyer.Viaggi.Any(v => v.Id == viaggioPub.Id))
+                    selected = true;
+
+                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = selected , idFlyer = idFlyer};
                 viaggiSelezionabili.Add(viaggioSelezionabile);
             }
             return PartialView(viaggiSelezionabili);

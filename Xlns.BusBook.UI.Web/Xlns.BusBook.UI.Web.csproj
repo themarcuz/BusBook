@@ -140,6 +140,7 @@
     <Content Include="Content\img\toggle_up_dark.png" />
     <Content Include="Content\img\twitter.png" />
     <Content Include="Content\scripts\agenzia.tile.js" />
+    <Content Include="Content\scripts\viaggio.select.js" />
     <Content Include="Content\scripts\logout.js" />
     <Content Include="Content\scripts\viaggio.facebook.js" />
     <Content Include="Content\scripts\facebook.js" />

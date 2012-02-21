@@ -1,7 +1,24 @@
 ﻿@model IEnumerable<Xlns.BusBook.UI.Web.Models.ViaggioSelectView>
+@if (Model.Count() > 0)
+{
+    @Html.HiddenFor(model => model.First().idFlyer, new { id = "idFlyer"})
+}
 @foreach (var viaggioSelectable in Model)
 {
-    @Html.CheckBoxFor(model => viaggioSelectable.isSelected, new { id = @viaggioSelectable.viaggio.Id})
-    Html.RenderAction("ViaggioTiledDetail", new { viaggio = @viaggioSelectable.viaggio });
+<div class="tileElement" id="TileDivViaggio@(viaggioSelectable.viaggio.Id)" > @*onclick="window.location='@Url.Action("Detail", new { id = viaggioSelectable.viaggio.Id })'">*@
+    <span class="tileTitle">
+        @Html.DisplayFor(model => viaggioSelectable.viaggio.Nome)
+    </span>
+    <br />
+    <div class="tileSubTitle">@Html.DisplayFor(model => viaggioSelectable.viaggio.Descrizione)</div>
+    @Html.LabelFor(model => viaggioSelectable.viaggio.DataPartenza) <b>@Html.DisplayFor(model => viaggioSelectable.viaggio.DataPartenza)</b>
+    <br />
+    @Html.LabelFor(model => viaggioSelectable.viaggio.DataChiusuraPrenotazioni) @Html.DisplayFor(model => viaggioSelectable.viaggio.DataChiusuraPrenotazioni)
+    <br />
+    <div class="tileCommand">
+    @Html.CheckBoxFor(model => viaggioSelectable.isSelected, new { id = viaggioSelectable.viaggio.Id })
+    </div>
+</div>
+
 }
 

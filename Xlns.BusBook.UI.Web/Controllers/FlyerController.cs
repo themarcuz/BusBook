@@ -13,6 +13,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
     {
         FlyerRepository flyerRepo = new FlyerRepository();
         AgenziaRepository agenziaRepo = new AgenziaRepository();
+        ViaggioRepository viaggiRepo = new ViaggioRepository();
 
 
         public ActionResult Index()
@@ -45,11 +46,21 @@ namespace Xlns.BusBook.UI.Web.Controllers
             Agenzia agenzia = agenziaRepo.GetById(idAgenzia);
             Flyer flyer = null;
             if (idFlyer == 0)
-                flyer = new Flyer() { Agenzia = agenzia };
-            else
+            {
+                flyer = new Flyer() { Agenzia = agenzia, Titolo = "Test" };
+                flyerRepo.Save(flyer);
+                ViewBag.isNew = true;
+            }else
                 flyer = flyerRepo.GetById(idFlyer);
 
-            return View(new FlyerEditView(flyer));
+            FlyerEditView flyerEdit = new FlyerEditView() {          
+                Id = flyer.Id,
+                Titolo = flyer.Titolo,
+                Descrizione = flyer.Descrizione,
+                idAgenzia = flyer.Agenzia.Id
+            };
+
+            return View(flyerEdit);
         }
 
         public ActionResult List(int idAgenzia)
@@ -69,5 +80,22 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
             return View("Edit",flyerEdit);
         }
+
+        [HttpPost]
+        public ActionResult ToggleViaggio(int idFlyer, int idViaggio)
+        {
+            var flyer = flyerRepo.GetById(idFlyer);
+            var viaggio = viaggiRepo.GetById(idViaggio);
+
+            if (flyer.Viaggi.Any(v => v.Id == viaggio.Id))
+                flyer.Viaggi.Remove(viaggio);
+            else
+                flyer.Viaggi.Add(viaggio);
+
+            flyerRepo.Save(flyer);
+
+            return null;
+            
+            }
     }
 }
