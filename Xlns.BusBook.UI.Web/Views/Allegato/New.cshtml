@@ -1,10 +1,6 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.AllegatoViewModel
 <iframe id="iframe@(Model.GetHashCode())" width="100%" height="200px" marginheight="0" frameborder="0" onLoad="autoResize('iframe@(Model.GetHashCode())');"
-<<<<<<< HEAD
     src="@Url.Action("Upload", new { idViaggio = Model.Viaggio.Id, tipo = (int)Model.Tipo })">
-=======
-    src="@Url.Action("Upload", new { idViaggio = Model.IdViaggio, tipo = (int)Model.Tipo })">
->>>>>>> 1e9dd669bb4aed4d8ebcaced2eae34fc49b52e2c
 </iframe>
 <script language="JavaScript" type="text/javascript">
 
