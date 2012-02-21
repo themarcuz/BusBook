@@ -1,17 +1,19 @@
 ﻿<?xml version="1.0"?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    namespace="Xlns.BusBook.Core.Model"
-                   assembly="Xlns.BusBook.Core" >
+                   assembly="Xlns.BusBook.Core" >  
 
-  <class name="Allegato" table="Allegato">
+  <class name="AllegatoViaggio" table="Allegato">
 
     <!-- Simple mappings -->
-    <id name="Id">     
+    <id name="Id">
       <generator class="native" />
     </id>
     <property name="NomeFile" />
-    <property name="RawFile" type="binary" />    
-      
+    <property name="RawFile" type="binary" />
+
+    <one-to-one name="Viaggio" class="Viaggio" cascade="all"/>
+
   </class>
 
 </hibernate-mapping>

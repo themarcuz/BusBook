@@ -15,8 +15,12 @@
             <div style="margin-bottom: 5px">
                 <input type="file" name="file" id="file" />
             </div>
-            <input type="submit" value="Carica" class="button" />
-            @Html.HiddenFor(m => m.IdViaggio)
+            <input type="submit" value="Carica" class="button" />            
+            if (!String.IsNullOrEmpty(Model.Errore))
+            {
+                <text>@Model.Errore</text>
+            }
+            @Html.HiddenFor(m => m.Viaggio.Id)
             @Html.HiddenFor(m => m.Tipo)
         }
     </div>
