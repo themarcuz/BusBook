@@ -104,30 +104,42 @@
             {        
                 @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
                 <text></text>         
-                @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
+            }  
+           
+
+
+@* AJ *@
+            @if (Model.DataChiusuraPrenotazioni > DateTime.Now)
+            {
+                if (ViewBag.HasPartecipated == false)
+                {
+                @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id },
                                     new AjaxOptions()
                                     {
-                                        Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",
+                                        Confirm = "",
                                         HttpMethod = "POST",
                                         OnSuccess = "PubblicaSuccess",
                                         OnFailure = "PubblicaError"
                                     },
                                     new { @class = "button" })
-            }
-            @if (agenzia != null //si rappresenta un'agenzia
-                && Model.Agenzia.Id != agenzia.Id //il viaggio non è della propria agenzia
-                && Model.DataPubblicazione.HasValue //il viaggio è pubblicato
-                )
-            {
-                @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id },
+                }
+                else
+                {
+                @Ajax.ActionLink("Rimuovi partecipazione", "RimuoviPartecipazione", "Viaggio", new { idViaggio = Model.Id },
                                     new AjaxOptions()
                                     {
-                                        InsertionMode = InsertionMode.Replace,
+                                        Confirm = "",
                                         HttpMethod = "POST",
-                                        UpdateTargetId = "dialog",
-                                        OnSuccess = "$('.dialog').dialog();"
+                                        OnSuccess = "SpubblicaSuccess",
+                                        OnFailure = "PubblicaError"
                                     },
                                     new { @class = "button" })
+                }
+            }
+            else
+            {
+                <br />
+                @Html.Label("Le partecipazioni a questo viaggio sono già chiuse")
             }
             <br />
             <br />
@@ -167,11 +179,11 @@
         });
 
         function PubblicaSuccess(response, status, data) {
-            $('#dialog').html("Il viaggio è stato pubblicato correttamente");
-            $('#dialog').bind("dialogclose", function (event, ui) {
-                window.location.href = '@(Url.Action("List", "Viaggio"))';
-            });
-            $('#dialog').dialog("open");
+            window.location.href = '@(Url.Action("Detail", "Viaggio"))';
+        }
+
+        function SpubblicaSuccess(response, status, data) {
+            window.location.href = '@(Url.Action("Detail", "Viaggio"))';
         }
 
         function PubblicaError(response, status, error) {

@@ -71,6 +71,7 @@ namespace Xlns.BusBook.ConfigurationManager
         public string mailBodyRegister { get { return base.getParameter("helpers.mailer.body.register"); } }
         public string mailBodyResetPassword { get { return base.getParameter("helpers.mailer.body.resetPassword"); } }
         public string mailBodyChangePassword { get { return base.getParameter("helpers.mailer.body.changePassword"); } }
+        public string messagesPartecipaMessage { get { return base.getParameter("helpers.messages.partecipaMessage"); } }
         public string recaptchaPublicKey { get { return base.getParameter("helpers.recaptcha.publickey"); } }
         public string recaptchaPrivateKey { get { return base.getParameter("helpers.recaptcha.privatekey"); } }
         public string facebookApplicationId { get { return base.getParameter("facebook.id"); } }
