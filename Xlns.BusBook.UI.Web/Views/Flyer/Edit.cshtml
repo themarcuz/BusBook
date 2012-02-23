@@ -35,10 +35,10 @@
                                 @Html.Label("*")
                             </div>
                             <div>
-                                @Html.EditorFor(model => model.Titolo, new { @class = "titolo" })
+                                @Html.TextBoxFor(model => model.Titolo, new { @class = "titolo" })
                                 @Html.ValidationMessageFor(model => model.Titolo)
                             </div>
-                            <div>
+                            <div class="scroll">
                                 @{Html.RenderAction("Select");}
                             </div>
                             <br />

@@ -1,4 +1,11 @@
 ﻿.titolo 
 {
-    width: 300px;
+    width: 700px;
+}
+
+.scroll
+{
+     height: 400px; 
+     width: 700px; 
+     overflow:auto;
 }
