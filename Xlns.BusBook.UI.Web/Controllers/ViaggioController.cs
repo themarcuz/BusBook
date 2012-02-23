@@ -44,6 +44,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult Detail(int id)
         {
             var viaggio = vr.GetById(id);
+            var loggedUser = Session.getLoggedUtente();
+            var pr = new PartecipazioneRepository();
+            var hasPartecipated = pr.HasParticipated(loggedUser.Id, id);
+            ViewBag.HasPartecipated = hasPartecipated;
             return View(viaggio);
         }
 
@@ -147,8 +151,25 @@ namespace Xlns.BusBook.UI.Web.Controllers
             if (loggedUser != null)
             {
                 var viaggio = vr.GetById(idViaggio);
-                //registro che questo utente a visualizzato i dati                
+                //registro che questo utente ha visualizzato i dati                
                 vm.RegistraPartecipazione(viaggio, loggedUser);
+                agenzia = viaggio.Agenzia;
+            }
+            return PartialView("RichiestaPartecipazione", agenzia);
+        }
+
+        [HttpPost]
+        public ActionResult RimuoviPartecipazione(int idViaggio)
+        {
+            var loggedUser = Session.getLoggedUtente();
+            Agenzia agenzia = null;
+            if (loggedUser != null)
+            {
+                var viaggio = vr.GetById(idViaggio);
+                var pr = new PartecipazioneRepository();
+                var partecipazione = pr.GetPartecipazioneUtente(loggedUser.Id, idViaggio);
+                if (partecipazione != null)
+                    pr.DeletePartecipazione(partecipazione);
                 agenzia = viaggio.Agenzia;
             }
             return PartialView("RichiestaPartecipazione", agenzia);
