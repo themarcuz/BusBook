@@ -7,6 +7,7 @@ using Xlns.BusBook.Core.Model;
 using Xlns.BusBook.Core.Repository;
 using Xlns.BusBook.Core;
 using Xlns.BusBook.UI.Web.Models;
+using Xlns.BusBook.Core.Mailer;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -26,7 +27,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             var viaggi = vr.GetViaggi();
             ViewBag.IsFullPage = false;
-            return PartialView("List",viaggi);
+            return PartialView("List", viaggi);
         }
 
         [ChildActionOnly]
@@ -68,7 +69,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         [HttpPost]
         public ActionResult Save(Viaggio viaggio)
-        {            
+        {
             if (ModelState.IsValid)
             {
                 Viaggio oldViaggio = vr.GetById(viaggio.Id);
@@ -153,6 +154,20 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 var viaggio = vr.GetById(idViaggio);
                 //registro che questo utente ha visualizzato i dati                
                 vm.RegistraPartecipazione(viaggio, loggedUser);
+                var mr = new MessaggioRepository();
+                Messaggio messaggio = new Messaggio();
+                messaggio.Mittente = loggedUser.Agenzia;
+                messaggio.Destinatario = viaggio.Agenzia;
+                var testoMessaggio = ConfigurationManager.Configurator.Istance.messagesPartecipaMessage
+                    .Replace("{agenzia}", loggedUser.Agenzia.Nome)
+                    .Replace("{viaggio}", viaggio.Nome)
+                    .Replace("{descrizioneViaggio}",viaggio.Descrizione);
+                messaggio.Testo = testoMessaggio;
+                messaggio.Stato = 1;
+                messaggio.DataInvio = DateTime.Now;
+                mr.Save(messaggio);
+                MailHelper mh = new MailHelper();
+               // mh.SendMail(viaggio.Agenzia.Email, "");
                 agenzia = viaggio.Agenzia;
             }
             return PartialView("RichiestaPartecipazione", agenzia);
@@ -203,7 +218,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult ListaPartecipanti(int idViaggio) 
+        public ActionResult ListaPartecipanti(int idViaggio)
         {
             var pr = new PartecipazioneRepository();
             var partecipazioni = pr.GetPartecipazioniAlViaggio(idViaggio);

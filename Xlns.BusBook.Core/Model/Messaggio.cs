@@ -15,7 +15,7 @@ namespace Xlns.BusBook.Core.Model
         public virtual Agenzia Destinatario { get; set; }
 
         [Required]
-        public virtual String TestoMessaggio { get; set; }
+        public virtual String Testo { get; set; }
 
         [Required]
         public virtual int Stato { get; set; }
