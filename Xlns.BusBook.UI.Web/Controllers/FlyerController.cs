@@ -15,26 +15,6 @@ namespace Xlns.BusBook.UI.Web.Controllers
         AgenziaRepository agenziaRepo = new AgenziaRepository();
         ViaggioRepository viaggiRepo = new ViaggioRepository();
 
-
-        public ActionResult Index()
-        {
-            var allFlyers = flyerRepo.GetFlyers();
-            return View(allFlyers);
-        }
-
-        public ActionResult Test()
-        {
-            
-            var viaggiRepo = new ViaggioRepository();
-            var viaggi = viaggiRepo.GetViaggi().Where(v => v.Agenzia.Id == 2).ToList();
-
-            var flyer = new Flyer() { Titolo = "test", Agenzia = Session.getLoggedAgenzia(), Viaggi = viaggi};
-
-            flyerRepo.Save(flyer);
-
-            return View("Index");
-        }
-
         public ActionResult ListPartial(int idAgenzia)
         {
             var model = new ListFlyerView() { idAgenzia = idAgenzia, flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia) };
@@ -43,24 +23,9 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult Edit(int idFlyer, int idAgenzia)
         {
-            Agenzia agenzia = agenziaRepo.GetById(idAgenzia);
-            Flyer flyer = null;
-            if (idFlyer == 0)
-            {
-                flyer = new Flyer() { Agenzia = agenzia, Titolo = "Test" };
-                flyerRepo.Save(flyer);
-                ViewBag.isNew = true;
-            }else
-                flyer = flyerRepo.GetById(idFlyer);
+            var flyer = setFlyerInEdit(idFlyer, idAgenzia);
 
-            FlyerEditView flyerEdit = new FlyerEditView() {          
-                Id = flyer.Id,
-                Titolo = flyer.Titolo,
-                Descrizione = flyer.Descrizione,
-                idAgenzia = flyer.Agenzia.Id
-            };
-
-            return View(flyerEdit);
+            return View(new FlyerEditView(flyer));
         }
 
         public ActionResult List(int idAgenzia)
@@ -73,18 +38,23 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Agenzia ag = agenziaRepo.GetById(flyerEdit.idAgenzia);
+                Flyer flyer = getFlyerInEdit();
 
-                flyerRepo.Save(new Flyer() { Id = flyerEdit.Id, Agenzia = ag, Descrizione = flyerEdit.Descrizione, Titolo = flyerEdit.Titolo});
+                //queste sono le info del flyer che posso modificare dalla pagina di edit
+                flyer.Descrizione = flyerEdit.Descrizione;
+                flyer.Titolo = flyerEdit.Titolo;
+
+                flyerRepo.Save(flyer);
                 return RedirectToAction("DashBoard","Home");
             }
             return View("Edit",flyerEdit);
         }
 
         [HttpPost]
-        public ActionResult ToggleViaggio(int idFlyer, int idViaggio)
+        public ActionResult ToggleViaggio(int idViaggio)
         {
-            var flyer = flyerRepo.GetById(idFlyer);
+            var flyer = getFlyerInEdit();
+
             var viaggio = viaggiRepo.GetById(idViaggio);
 
             if (flyer.Viaggi.Any(v => v.Id == viaggio.Id))
@@ -92,10 +62,51 @@ namespace Xlns.BusBook.UI.Web.Controllers
             else
                 flyer.Viaggi.Add(viaggio);
 
-            flyerRepo.Save(flyer);
-
             return null;
             
             }
+
+
+        private Flyer getFlyerInEdit()
+        {
+            return Session.getFlyerInModifica();
+        }
+
+        private Flyer setFlyerInEdit(int idFlyer, int idAgenzia)
+        {
+            Agenzia agenzia = agenziaRepo.GetById(idAgenzia);
+            Flyer flyer = null;
+            if (idFlyer == 0) // nuovo flyer
+                flyer = new Flyer() { Agenzia = agenzia, Viaggi = new List<Viaggio>() };
+            else //flyer già esistente
+                flyer = flyerRepo.GetById(idFlyer);
+
+            Session.setFlyerInModifica(flyer);
+
+            return flyer;
+        }
+
+        public ActionResult Select()
+        {
+            //TODO: solo viaggi pubblicati!
+            //var viaggiPubblicati = vr.GetViaggi().Where(v => v.DataPubblicazione != null).ToList();
+            var viaggiPubblicati = viaggiRepo.GetViaggi();
+
+            var flyer = getFlyerInEdit();
+
+            List<ViaggioSelectView> viaggiSelezionabili = new List<ViaggioSelectView>();
+
+            foreach (var viaggioPub in viaggiPubblicati)
+            {
+                bool selected = false;
+
+                if (flyer.Viaggi != null && flyer.Viaggi.Any(v => v.Id == viaggioPub.Id))
+                    selected = true;
+
+                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = selected, idFlyer = flyer.Id };
+                viaggiSelezionabili.Add(viaggioSelezionabile);
+            }
+            return PartialView(viaggiSelezionabili);
+        }
     }
 }

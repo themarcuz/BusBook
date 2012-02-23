@@ -134,6 +134,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\editviaggioscroller.css" />
+    <Content Include="Content\flyer.css" />
     <Content Include="Content\logout.css" />
     <Content Include="Content\img\facebook.png" />
     <Content Include="Content\img\toggle_down_light.png" />
@@ -369,9 +370,6 @@
     <Content Include="Views\Viaggio\ListaPartecipanti.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Flyer\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Flyer\ListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -381,7 +379,7 @@
     <Content Include="Views\Flyer\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Viaggio\Select.cshtml" />
+    <Content Include="Views\Flyer\Select.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Allegato\New.cshtml" />

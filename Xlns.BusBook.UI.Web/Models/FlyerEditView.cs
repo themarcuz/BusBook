@@ -18,12 +18,17 @@ namespace Xlns.BusBook.UI.Web.Models
         [StringLength(500, ErrorMessage = "La descrizione dev'essere al massimo 500 caratteri")]
         public String Descrizione { get; set; }
 
-
-        //public List<ViaggioSelectView> ViaggiSelezionabili { get; set; }
-
         public int idAgenzia { get; set; }
         public int Id { get; set; }
 
+        public FlyerEditView(Flyer flyer)
+        {
+            Id = flyer.Id;
+            Titolo = flyer.Titolo;
+            Descrizione = flyer.Descrizione;
+            idAgenzia = flyer.Agenzia.Id;
+        }
 
+        public FlyerEditView(){}
     }
 }

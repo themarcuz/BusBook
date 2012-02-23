@@ -11,7 +11,7 @@ $('input[type=checkbox]').click(function (e) {
         type: 'POST',
         url: "/Flyer/ToggleViaggio",
         cache: false,
-        data: { idFlyer: $('#idFlyer')[0].value, idViaggio: this.id },
+        data: { idViaggio: this.id },
         context: $(this),
         error: function () { alert(errMsg); }
     });

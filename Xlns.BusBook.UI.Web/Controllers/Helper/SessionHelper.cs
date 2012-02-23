@@ -70,5 +70,26 @@ namespace Xlns.BusBook.UI.Web.Models
         {
             session.Remove("loggedUtente");
         }
+
+        public static Flyer getFlyerInModifica(this HttpSessionState session)
+        {
+            return (Flyer)session["flyer"];
+        }
+
+        public static Flyer getFlyerInModifica(this HttpSessionStateBase session)
+        {
+            return (Flyer)session["flyer"];
+        }
+
+
+        public static void setFlyerInModifica(this HttpSessionState session, Flyer flyer)
+        {
+            session["flyer"] = flyer;
+        }
+
+        public static void setFlyerInModifica(this HttpSessionStateBase session, Flyer flyer)
+        {
+            session["flyer"] = flyer;
+        }
     }
 }
