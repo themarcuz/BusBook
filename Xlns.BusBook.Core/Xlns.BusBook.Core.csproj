@@ -86,6 +86,7 @@
     <Compile Include="Mailer\MailHelper.cs" />
     <Compile Include="Model\Allegato.cs" />
     <Compile Include="Model\GeoLocation.cs" />
+    <Compile Include="Model\Messaggio.cs" />
     <Compile Include="Model\Partecipazione.cs" />
     <Compile Include="Model\Tappa.cs" />
     <Compile Include="Model\Utente.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Model\ModelEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CommonRepository.cs" />
+    <Compile Include="Repository\MessaggioRepository.cs" />
     <Compile Include="Repository\PartecipazioneRepository.cs" />
     <Compile Include="Repository\UtenteRepository.cs" />
     <Compile Include="Repository\ViaggioRepository.cs" />
@@ -140,6 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Allegato.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mapping\Messaggio.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

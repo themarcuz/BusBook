@@ -179,21 +179,11 @@
         });
 
         function PubblicaSuccess(response, status, data) {
-            var message = "La tua richiesta di partecipazione è stata inviata"; 
-            $('#dialog').html(message);
-            $('#dialog').bind("dialogclose", function (event, ui) {
-                window.location.href = '@(Url.Action("Detail", "Viaggio"))';
-            });
-            $('#dialog').dialog("open");
+            window.location.href = '@(Url.Action("Detail", "Viaggio"))';
         }
 
         function SpubblicaSuccess(response, status, data) {
-            var message = "La tua richiesta di partecipazione è stata cancellata";
-            $('#dialog').html(message);
-            $('#dialog').bind("dialogclose", function (event, ui) {
-                window.location.href = '@(Url.Action("Detail", "Viaggio"))';
-            });
-            $('#dialog').dialog("open");
+            window.location.href = '@(Url.Action("Detail", "Viaggio"))';
         }
 
         function PubblicaError(response, status, error) {

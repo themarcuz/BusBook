@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Xlns.BusBook.Core.Model"
+                   assembly="Xlns.BusBook.Core" >
+
+  <class name="Messaggio" table="Messaggio">
+
+    <!-- Simple mappings -->
+    <id name="Id">
+      <generator class="native" />
+    </id>
+
+    <many-to-one name="Utente"
+        class="Utente"
+        cascade="none" fetch="join"
+        lazy="false" />
+
+    <many-to-one name="Destinatario"
+      class="Utente"
+        cascade="none" fetch="join"
+        lazy="false" />
+    
+    <property name="TestoMessaggio" />
+
+    <property name="DataInvio" />
+
+    <property name="Stato" />
+  </class>
+
+</hibernate-mapping>
