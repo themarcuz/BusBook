@@ -1,0 +1,22 @@
+﻿@model Xlns.BusBook.Core.Model.Flyer
+@{
+    String cssClass = "tileElement";
+    if(ViewBag.isShort != null && ViewBag.isShort == true){
+        cssClass += " shortTileElement";
+    }
+        
+}
+
+<div class="@cssClass" id="TileDivFlyer@(Model.Id)" onclick="window.location='@Url.Action("Detail", new { idFlyer = Model.Id })'">
+        @Html.DisplayFor(modelItem => Model.Titolo)
+    <div class="tileCommand">
+        @Html.ActionLink("Modifica", "Edit", new { idFlyer = Model.Id }, new { @class = "ui-icon ui-icon-pencil" })
+        <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@Model.Id">Elimina</a>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/flyer.tile.js")" ></script>
+<script type="text/javascript">
+    $(function () {
+        new Tile(@(Model.Id));
+    });
+</script>

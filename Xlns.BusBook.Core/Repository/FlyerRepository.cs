@@ -24,7 +24,29 @@ namespace Xlns.BusBook.Core.Repository
                 try
                 {
                     var session = om.BeginOperation();
-                    var flyers = session.Query<Flyer>().Where(p => p.Agenzia.Id == idAgenzia).ToList();                    
+                    var flyers = session.Query<Flyer>().Where(p => p.Agenzia.Id == idAgenzia).OrderByDescending(p => p.Id).ToList();                    
+                    om.CommitOperation();
+                    logger.Debug("Per l'agenzia {0} sono state trovate {1} flyers", idAgenzia, flyers.Count);
+                    return flyers;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Impossibile recuperare i flyers per l'agenzia {0}", idAgenzia);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
+
+        public IList<Flyer> GetFlyersPerAgenzia(int idAgenzia, int limtResults)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var flyers = session.Query<Flyer>().Where(p => p.Agenzia.Id == idAgenzia).OrderByDescending(p => p.Id).Take(limtResults).ToList();
                     om.CommitOperation();
                     logger.Debug("Per l'agenzia {0} sono state trovate {1} flyers", idAgenzia, flyers.Count);
                     return flyers;
@@ -63,6 +85,32 @@ namespace Xlns.BusBook.Core.Repository
                     throw new Exception(msg, ex);
                 }
             }
+        }
+
+        public void Delete(Flyer flyer)
+        {
+            using (var manager = new OperationManager())
+            {
+                try
+                {
+                    manager.BeginOperation();
+                    base.delete<Flyer>(flyer);
+                    manager.CommitOperation();
+                    logger.Info("Flyer {0} eliminato con successo", flyer.Id);
+                }
+                catch (Exception ex)
+                {
+                    string message = "Errore nella cancellazione del flyer";
+                    logger.ErrorException(message, ex);
+                    throw new Exception(message, ex);
+                }
+            }
+        }
+
+        public void Delete(int id)
+        {
+            var flyer = base.getDomainObjectById<Flyer>(id);
+            Delete(flyer);
         }
     }
 }

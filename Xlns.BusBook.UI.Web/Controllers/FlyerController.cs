@@ -11,19 +11,19 @@ namespace Xlns.BusBook.UI.Web.Controllers
 {
     public class FlyerController : Controller
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         FlyerRepository flyerRepo = new FlyerRepository();
-        AgenziaRepository agenziaRepo = new AgenziaRepository();
         ViaggioRepository viaggiRepo = new ViaggioRepository();
 
-        public ActionResult ListPartial(int idAgenzia)
+        public ActionResult ListPartial(int idAgenzia, int limitResults)
         {
-            var model = new ListFlyerView() { idAgenzia = idAgenzia, flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia) };
+            var model = new ListFlyerView() { idAgenzia = idAgenzia, flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia, limitResults) };
             return PartialView(model);
         }
 
-        public ActionResult Edit(int idFlyer, int idAgenzia)
+        public ActionResult Edit(int idFlyer)
         {
-            var flyer = setFlyerInEdit(idFlyer, idAgenzia);
+            var flyer = setFlyerInEdit(idFlyer);
 
             return View(new FlyerEditView(flyer));
         }
@@ -72,12 +72,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return Session.getFlyerInModifica();
         }
 
-        private Flyer setFlyerInEdit(int idFlyer, int idAgenzia)
+        private Flyer setFlyerInEdit(int idFlyer)
         {
-            Agenzia agenzia = agenziaRepo.GetById(idAgenzia);
             Flyer flyer = null;
             if (idFlyer == 0) // nuovo flyer
-                flyer = new Flyer() { Agenzia = agenzia, Viaggi = new List<Viaggio>() };
+                flyer = new Flyer() { Agenzia = Session.getLoggedAgenzia(), Viaggi = new List<Viaggio>() };
             else //flyer già esistente
                 flyer = flyerRepo.GetById(idFlyer);
 
@@ -107,6 +106,26 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 viaggiSelezionabili.Add(viaggioSelezionabile);
             }
             return PartialView(viaggiSelezionabili);
+        }
+
+        public ActionResult ShowTile(Flyer flyer, bool isShort)
+        {
+            ViewBag.isShort = isShort;
+            return PartialView(flyer);
+        }
+
+        public void DeleteAjax(int id)
+        {
+            try
+            {
+                flyerRepo.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore durante l'eliminazione del flyer con id={0}", id);
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg);
+            }
         }
     }
 }

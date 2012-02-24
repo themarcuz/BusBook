@@ -7,3 +7,10 @@
 <div>
     @Html.ActionLink("Flyers", "List", new { idAgenzia = Model.idAgenzia }, new { @class = "button" })
 </div>
+<br />
+<div>
+@foreach (var flyer in Model.flyers)
+{
+    Html.RenderAction("ShowTile", new { flyer = flyer, isShort = true });
+}
+</div>
