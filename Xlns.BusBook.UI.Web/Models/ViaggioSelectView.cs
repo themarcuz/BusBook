@@ -11,5 +11,6 @@ namespace Xlns.BusBook.UI.Web.Models
         public Viaggio viaggio;
         public bool isSelected;
         public int idFlyer;
+        public bool isSelectable;
     }
 }

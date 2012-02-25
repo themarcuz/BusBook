@@ -21,16 +21,22 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView(model);
         }
 
-        public ActionResult Edit(int idFlyer)
+        public ActionResult Edit(int id)
         {
-            var flyer = setFlyerInEdit(idFlyer);
+            var flyer = setFlyerInEdit(id);
 
             return View(new FlyerEditView(flyer));
         }
 
+        public ActionResult Detail(int id)
+        {
+            return View(flyerRepo.GetById(id));
+        }
+
         public ActionResult List(int idAgenzia)
         {
-            return View(flyerRepo.GetFlyersPerAgenzia(idAgenzia));
+            var model = new ListFlyerView() { idAgenzia = idAgenzia, flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia) };
+            return View(model);
         }
 
         [HttpPost]
@@ -102,10 +108,24 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 if (flyer.Viaggi != null && flyer.Viaggi.Any(v => v.Id == viaggioPub.Id))
                     selected = true;
 
-                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = selected, idFlyer = flyer.Id };
+                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = selected, isSelectable = true,  idFlyer = flyer.Id };
                 viaggiSelezionabili.Add(viaggioSelezionabile);
             }
             return PartialView(viaggiSelezionabili);
+        }
+
+        public ActionResult ShowSelected(int id)
+        {
+            var flyer = flyerRepo.GetById(id);
+
+            List<ViaggioSelectView> viaggiSelezionati = new List<ViaggioSelectView>();
+
+            foreach (var viaggioSel in flyer.Viaggi)
+            {
+                ViaggioSelectView viaggioSelezionato = new ViaggioSelectView() { viaggio = viaggioSel, isSelected = true, isSelectable = false, idFlyer = flyer.Id };
+                viaggiSelezionati.Add(viaggioSelezionato);
+            }
+            return PartialView("Select",viaggiSelezionati);
         }
 
         public ActionResult ShowTile(Flyer flyer, bool isShort)
