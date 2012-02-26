@@ -23,7 +23,7 @@
                                     });
         });
     </script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>    
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 }
 <div id="content-wrapper" class="container_16">
     <div id="main" class="grid_16">
@@ -32,7 +32,7 @@
         <div style="display: table">
             <div style="display: table-row">
                 <div style="display: table-cell">
-                    @using (Html.BeginForm("Save", "Viaggio", FormMethod.Post, new { id = "salvaViaggioForm" }))
+                    @using (Html.BeginForm("Save", "Viaggio", FormMethod.Post, new { id = "salvaViaggioForm", enctype = "multipart/form-data" }))
                     {                        
                         <fieldset>
                             <div class="editor-label">
@@ -71,21 +71,34 @@
                                 @Html.LabelFor(model => model.TotalePosti)
                                 @Html.Label("*")
                             </div>
-                           <div class="editor-field">
+                            <div class="editor-field">
                                 @Html.TextBoxFor(model => model.TotalePosti)
                                 @Html.ValidationMessageFor(model => model.TotalePosti)
-                            </div>                          
-                            @if (Model.Depliant == null)
+                            </div>
+                            @if (Model.Id != 0)
                             {
+                                if (Model.Depliant == null)
+                                {
+                                @*
                                 <div class="editor-label">
-                                    @Html.LabelFor(model => model.Depliant)                                                                  
+                                    @Html.LabelFor(model => model.Depliant)
                                 </div>
-                                Html.RenderAction("New", "Allegato", new { viaggio = Model, tipo = (int)Xlns.BusBook.UI.Web.Models.AllegatoViewModel.TipoAllegato.DEPLIANT });
+                                    Html.RenderAction("New", "Allegato", new { viaggio = Model, tipo = (int)Xlns.BusBook.UI.Web.Models.AllegatoViewModel.TipoAllegato.DEPLIANT });
+                                *@
+                                <div style="margin-bottom: 5px">
+                                    <input type="file" name="file" id="file" />
+                                </div>            
+                                <input type="submit" value="Carica" class="button" />
+                                    if (!String.IsNullOrEmpty(ViewBag.ErroreDepliant))
+                                    {
+                                        <text>@ViewBag.ErroreDepliant</text>
+                                    }
+                                }
+                                else
+                                {
+                                    Html.RenderAction("Edit", "Allegato", new { viaggio = Model });
+                                }
                             }
-                            else
-                            {
-                                Html.RenderAction("Edit", "Allegato", new { viaggio = Model});
-                            }              
                             @Html.HiddenFor(model => model.Id)
                             <p>
                                 <input type="submit" value="Salva" class="button" />
@@ -100,14 +113,13 @@
                     {
                         <div id="ListaTappeEditabili">
                             @{Html.RenderAction("EditTappeViaggio", new { idViaggio = Model.Id });
-                            }                           
+                            }
                         </div>
                         <div id="EditTappaDialog" style="display: none">
-                           
                         </div>
                         <script type="text/javascript">
                             var tappaDialog;
-                           
+
                             function ShowLoadingElement() {
                                 $('#ListaTappeEditabili').html('<img alt="loading" src="@Url.Content("~/Content/img/loading.gif")" width="24px" height="24px"/>');
                             }
@@ -116,7 +128,7 @@
                                 tappaDialog.dialog("close");
                             }
 
-                            $(function () {                                
+                            $(function () {
                                 tappaDialog = $('#EditTappaDialog');
                                 tappaDialog.dialog(
                                 {
@@ -144,7 +156,7 @@
                                 });
                             }
 
-                            function modificaTappa(idTappa){
+                            function modificaTappa(idTappa) {
                                 $.ajax({
                                     url: '@Url.Action("EditTappa")' + "?id=" + idTappa,
                                     cache: false,

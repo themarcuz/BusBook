@@ -76,10 +76,37 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 if (oldViaggio != null)
                 {
                     viaggio.Tappe = oldViaggio.Tappe;
+                    viaggio.Depliant = oldViaggio.Depliant;
                 }
                 viaggio.Agenzia = Session.getLoggedAgenzia();
+
+                // Gestione depliant e immagine promozionale
+                if (Request.Files != null)
+                {
+                    foreach (string fileName in Request.Files)
+                    {
+                        HttpPostedFileBase file = Request.Files[fileName] as HttpPostedFileBase;
+                        if (file.ContentLength == 0)
+                            continue;
+                        if (file.FileName.ToLower().EndsWith(".pdf"))
+                        {
+                            logger.Info("Caricamento allegato per il viaggio {0}", viaggio);
+                            Int32 length = file.ContentLength;
+                            byte[] rawFile = new byte[length];
+                            file.InputStream.Read(rawFile, 0, length);
+                            var allegato = new AllegatoViaggio()
+                            {
+                                RawFile = rawFile,
+                                NomeFile = file.FileName,
+                                Viaggio = viaggio
+                            };
+                            viaggio.Depliant = allegato;
+                        }
+                        //TODO: gestire anche l'immagine promozionale
+                    }
+                }
                 vr.Save(viaggio);
-                return RedirectToAction("Detail", new { id = viaggio.Id });
+                //return RedirectToAction("Detail", new { id = viaggio.Id });
             }
             return RedirectToAction("Edit", new { id = viaggio.Id });
         }
@@ -161,13 +188,13 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 var testoMessaggio = ConfigurationManager.Configurator.Istance.messagesPartecipaMessage
                     .Replace("{agenzia}", loggedUser.Agenzia.Nome)
                     .Replace("{viaggio}", viaggio.Nome)
-                    .Replace("{descrizioneViaggio}",viaggio.Descrizione);
+                    .Replace("{descrizioneViaggio}", viaggio.Descrizione);
                 messaggio.Testo = testoMessaggio;
                 messaggio.Stato = 1;
                 messaggio.DataInvio = DateTime.Now;
                 mr.Save(messaggio);
                 MailHelper mh = new MailHelper();
-               // mh.SendMail(viaggio.Agenzia.Email, "");
+                // mh.SendMail(viaggio.Agenzia.Email, "");
                 agenzia = viaggio.Agenzia;
             }
             return PartialView("RichiestaPartecipazione", agenzia);

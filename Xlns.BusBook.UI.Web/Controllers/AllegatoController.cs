@@ -73,7 +73,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 viaggio.Depliant = allegato;
 
                 vr.Save(viaggio);
-                return RedirectToAction("Edit", new { allegato = allegato });
+                //return RedirectToAction("Edit", new { allegato = allegato.Viaggio });
+                return PartialView("Edit", allegato.Viaggio);
             }
             catch (Exception ex)
             {
