@@ -9,7 +9,7 @@
 </div>
 <br />
 <script type="text/javascript" src="@Url.Content("~/Content/scripts/flyer.tile.js")" ></script>
-<div>
+<div id="topFlyers">
 @foreach (var flyer in Model.flyers)
 {
     Html.RenderAction("ShowTile", new { flyer = flyer, isShort = true });

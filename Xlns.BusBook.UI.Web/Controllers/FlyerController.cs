@@ -15,7 +15,9 @@ namespace Xlns.BusBook.UI.Web.Controllers
         FlyerRepository flyerRepo = new FlyerRepository();
         ViaggioRepository viaggiRepo = new ViaggioRepository();
 
-        public ActionResult ListPartial(int idAgenzia, int limitResults)
+        int limitResults = 5; //TODO: metterlo in configurazione
+
+        public ActionResult ListPartial(int idAgenzia)
         {
             var model = new ListFlyerView() { idAgenzia = idAgenzia, flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia, limitResults) };
             return PartialView(model);
@@ -132,6 +134,16 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             ViewBag.isShort = isShort;
             return PartialView(flyer);
+        }
+
+        public ActionResult ShowTileAjax()
+        {
+            ViewBag.isShort = true;
+            var topFlyers = flyerRepo.GetFlyersPerAgenzia(Session.getLoggedAgenzia().Id, limitResults);
+            if (topFlyers.Count >= limitResults)
+                return PartialView("ShowTile", topFlyers[topFlyers.Count - 1]);
+            else
+                return new EmptyResult();
         }
 
         public void DeleteAjax(int id)

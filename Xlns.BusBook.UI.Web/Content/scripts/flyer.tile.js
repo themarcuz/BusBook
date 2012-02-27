@@ -12,6 +12,7 @@ function Tile(IdFlyer) {
                     "Continua": function () {
                         $(this).dialog("close");
                         Delete(IdFlyer, target);
+                        Update(target);
                     },
                     "Annulla": function () {
                         $(this).dialog("close");
@@ -33,4 +34,15 @@ function Delete(IdFlyer, target) {
         error: function () { alert("Impossibile eliminare il flyer"); }
     });
 }
-    
+
+function Update(target) {
+    $.ajax({
+        url: "/Flyer/ShowTileAjax",
+        cache: false,
+        context: target,
+        success: function (data) { $('#topFlyers').append(data); },
+        error: function () { alert("Impossibile aggiornare i top flyers"); },
+         
+
+    });
+}  
