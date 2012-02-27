@@ -12,7 +12,7 @@
     <property name="Titolo" />
     <property name="Descrizione" />
    
-    <bag name="Viaggi" table="Flyer_Viaggio" cascade="all" lazy="false">
+    <bag name="Viaggi" table="Flyer_Viaggio" lazy="false">
       <key column="Flyer"/>
       <many-to-many column="Viaggio"
          class="Viaggio"/>
