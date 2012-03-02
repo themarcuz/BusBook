@@ -5,14 +5,18 @@
 </div>
 <br />
 <div>
-    @Html.ActionLink("Flyers", "List", new { idAgenzia = Model.idAgenzia }, new { @class = "button" })
+    @Html.ActionLink("Flyers", "List", new { idAgenzia = Model.agenzia.Id }, new { @class = "button" })
+</div>
+<br />
+<div>
+    @Html.ActionLink("Mini Sito", "Index", "Site", new { id = Model.agenzia.Id }, new { @class = "button" })
 </div>
 <br />
 <script type="text/javascript" src="@Url.Content("~/Content/scripts/flyer.tile.js")" ></script>
 <div id="topFlyers">
 @foreach (var flyer in Model.flyers)
 {
-    Html.RenderAction("ShowTile", new { flyer = flyer, isShort = true });
+    Html.RenderAction("ShowTile", new { flyer = flyer, isShort = true, isEditable = true, isDetailAjax = false });
 }
 </div>
 

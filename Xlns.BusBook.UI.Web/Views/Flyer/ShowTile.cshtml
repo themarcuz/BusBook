@@ -1,21 +1,30 @@
-﻿@model Xlns.BusBook.Core.Model.Flyer
+﻿@model Xlns.BusBook.UI.Web.Models.FlyerTiled
 @{
     String cssClass = "tileElement";
-    if(ViewBag.isShort != null && ViewBag.isShort == true){
+    if (Model.isShort == true)
+    {
         cssClass += " shortTileElement";
     }
-        
-}
 
-<div class="@cssClass" id="TileDivFlyer@(Model.Id)" onclick="window.location='@Url.Action("Detail", new { id = Model.Id })'">
-        @Html.DisplayFor(modelItem => Model.Titolo)
-    <div class="tileCommand">
-        @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "ui-icon ui-icon-pencil" })
-        <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@Model.Id">Elimina</a>
-    </div>
+    var onclick = "window.location='" + Url.Action("Detail", new { id = Model.flyer.Id }) + "'";
+    if (Model.isDetailAjax)
+    {
+        onclick = "javascript:DetailAjax(" + Model.flyer.Id + ")";
+    }
+}
+<div class="@cssClass" id="TileDivFlyer@(Model.flyer.Id)" onclick="@Html.Raw(onclick)">
+    @Html.DisplayFor(modelItem => Model.flyer.Titolo)
+    @if (Model.isEditable)
+    {
+        <div class="tileCommand">
+            @Html.ActionLink("Modifica", "Edit", new { id = Model.flyer.Id }, new { @class = "ui-icon ui-icon-pencil" })
+            <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@Model.flyer.Id">
+                Elimina</a>
+        </div>
+    }
 </div>
 <script type="text/javascript">
     $(function () {
-        new Tile(@(Model.Id));
+        new Tile(@(Model.flyer.Id));
     });
 </script>

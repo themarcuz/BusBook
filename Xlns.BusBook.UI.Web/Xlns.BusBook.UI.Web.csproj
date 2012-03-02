@@ -103,6 +103,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Controllers\UtenteController.cs" />
     <Compile Include="Controllers\ViaggioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -110,6 +111,7 @@
     </Compile>
     <Compile Include="Models\AgenzieView.cs" />
     <Compile Include="Models\AllegatoViewModel.cs" />
+    <Compile Include="Models\FlyerTiled.cs" />
     <Compile Include="Models\DashBoardInfo.cs" />
     <Compile Include="Models\FlyerEditView.cs" />
     <Compile Include="Models\ListFlyerView.cs" />
@@ -396,6 +398,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Flyer\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Site\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

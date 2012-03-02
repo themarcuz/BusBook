@@ -41,8 +41,16 @@ function Update(target) {
         cache: false,
         context: target,
         success: function (data) { $('#topFlyers').append(data); },
-        error: function () { alert("Impossibile aggiornare i top flyers"); },
-         
-
+        error: function () { alert("Impossibile aggiornare i top flyers"); }
     });
-}  
+}
+
+function DetailAjax(IdFlyer) {
+    $.ajax({
+        url: "/Flyer/ShowSelected/" + IdFlyer,
+        cache: false,
+        context:$('#TileDivFlyer' + IdFlyer),
+        success: function (data) {$('#viaggi').html(data); },
+        error: function () { alert("Impossibile visualizzare il dettaglio del flyer"); }
+    });
+}
