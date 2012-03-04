@@ -1,12 +1,23 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.ListFlyerView
 @{
     ViewBag.Title = "I Flyer di " + Model.agenzia.RagioneSociale;
+    var defaultFlyerId = 0;
+    if (Model.flyers != null && Model.flyers.Count > 0)
+    {
+        defaultFlyerId = Model.flyers[0].Id;
+    }
+
 }
 @section head{
     <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
 }
 @section scripts{
     <script src="@Url.Content("~/Content/scripts/flyer.tile.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#TileDivFlyer' + @defaultFlyerId).addClass('tileSelectedElement');
+        });
+    </script>
 }
 <div id="content-wrapper" class="container_16">
     <!-- main -->
@@ -29,7 +40,7 @@
             <div id="viaggi">
                 @{  if (Model.flyers != null && Model.flyers.Count > 0)
                     {
-                        Html.RenderAction("ShowSelected", "Flyer", new { id = Model.flyers[0].Id });
+                        Html.RenderAction("ShowSelected", "Flyer", new { id = defaultFlyerId });
                     }}
             </div>
         </div>

@@ -46,10 +46,14 @@ function Update(target) {
 }
 
 function DetailAjax(IdFlyer) {
-    
+
     var target = $('#TileDivFlyer' + IdFlyer);
     var content = $('#viaggi');
     var loading = $('#loadingDiv');
+
+
+    $('.tileElement').removeClass('tileSelectedElement');
+    target.addClass('tileSelectedElement');
 
     content.hide('slow', function () {
 
