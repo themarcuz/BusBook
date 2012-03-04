@@ -22,11 +22,16 @@
                 </div>
             </div>
         </div>
-        <div class="grid_4 omega" id="viaggi">
-            @{  if (Model.flyers != null && Model.flyers.Count > 0)
-                {
-                    Html.RenderAction("ShowSelected", "Flyer", new { id = Model.flyers[0].Id });
-                }}
+        <div class="grid_4 omega">
+            <div style="display: none; margin-left: 50px" id="loadingDiv">
+                <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>
+            </div>
+            <div id="viaggi">
+                @{  if (Model.flyers != null && Model.flyers.Count > 0)
+                    {
+                        Html.RenderAction("ShowSelected", "Flyer", new { id = Model.flyers[0].Id });
+                    }}
+            </div>
         </div>
         <!-- main ends -->
     </div>

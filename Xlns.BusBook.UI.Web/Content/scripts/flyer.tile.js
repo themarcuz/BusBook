@@ -46,11 +46,37 @@ function Update(target) {
 }
 
 function DetailAjax(IdFlyer) {
-    $.ajax({
-        url: "/Flyer/ShowSelected/" + IdFlyer,
-        cache: false,
-        context:$('#TileDivFlyer' + IdFlyer),
-        success: function (data) {$('#viaggi').html(data); },
-        error: function () { alert("Impossibile visualizzare il dettaglio del flyer"); }
+    
+    var target = $('#TileDivFlyer' + IdFlyer);
+    var content = $('#viaggi');
+    var loading = $('#loadingDiv');
+
+    content.hide('slow', function () {
+
+        loading.show('fast', function () {
+            $.ajax({
+                url: "/Flyer/ShowSelected/" + IdFlyer,
+                cache: false,
+                context: target,
+                success: function (data) { OnSuccessDetailAjax(data, content, loading); },
+                error: function () { OnErrorDetailAjax(content, loading); }
+            });
+        });
+    });
+}
+
+function OnSuccessDetailAjax(data, content, loading) {
+    content.html(data);
+
+    loading.hide('slow', function () {
+        content.show('fast');
+    });
+}
+
+function OnErrorDetailAjax(content, loading) {
+    alert("Impossibile visualizzare il dettaglio del flyer");
+
+    loading.hide('slow', function () {
+        content.show('fast');
     });
 }
