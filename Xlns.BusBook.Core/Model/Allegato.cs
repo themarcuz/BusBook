@@ -6,7 +6,7 @@ using System.Text;
 namespace Xlns.BusBook.Core.Model
 {
 
-    public abstract class Allegato : ModelEntity
+    public class Allegato : ModelEntity
     {
         public virtual String NomeFile { get; set; }
         public virtual byte[] RawFile { get; set; }

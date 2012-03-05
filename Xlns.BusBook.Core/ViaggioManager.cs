@@ -183,6 +183,57 @@ namespace Xlns.BusBook.Core
                 }
             }
         }
-        
+
+        public Viaggio GetViaggioByDepliant(int idDepliant) {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var viaggio = session.Query<Viaggio>()
+                                    .Where(v => v.Depliant.Id == idDepliant)
+                                    .Single();
+                    om.CommitOperation();
+                    logger.Debug("Il depliant {0} si riferisce al viaggio {1}", idDepliant, viaggio);
+                    return viaggio;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Impossibile recuperare il viaggio a cui è associato il depliant {0}", idDepliant);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
+
+
+        public void DeleteDepliant(int idDepliant)
+        {
+            logger.Debug("Richiesta di eliminazione del depliant {0}", idDepliant);
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var viaggio = GetViaggioByDepliant(idDepliant);
+                    logger.Debug("Il viaggio da cui il depliant {0} sarà rimosso è {1}", idDepliant, viaggio);
+                    var depliant = viaggio.Depliant;                    
+                    viaggio.Depliant = null;
+                    vr.Save(viaggio);
+                    vr.deleteDepliant(depliant);
+                    om.CommitOperation();
+                    logger.Info("Il depliant {0} relativo al viaggio {1} è stato eliminato", idDepliant, viaggio);
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Impossibile eliminare il depliant {0}", idDepliant);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+            
+        }
     }
 }
