@@ -184,8 +184,6 @@ namespace Xlns.BusBook.Core
                 }
             }
         }
-<<<<<<< HEAD
-=======
 
         public Viaggio GetViaggioByDepliant(int idDepliant) {
             using (var om = new OperationManager())
@@ -324,6 +322,5 @@ namespace Xlns.BusBook.Core
             }
             
         }
->>>>>>> 0db9abc7c591c7f01cdf3b4f00c4c1cd12c315fd
     }
 }
