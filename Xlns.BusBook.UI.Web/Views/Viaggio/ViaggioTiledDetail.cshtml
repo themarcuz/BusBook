@@ -7,22 +7,5 @@
     <div class="tileSubTitle">@Html.DisplayFor(model => model.Descrizione)</div>
     @Html.LabelFor(model => model.DataPartenza) <b>@Html.DisplayFor(model => model.DataPartenza)</b>
     <br />
-    @Html.LabelFor(model => model.DataChiusuraPrenotazioni) @Html.DisplayFor(model => model.DataChiusuraPrenotazioni)
-    <br />
-    @if (Model.Tappe != null && Model.Tappe.Count > 0
-        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA) != null)
-    {
-        <label>
-            Partenza</label>
-        <a data-viaggio-id="@Model.Id" href="#" class="visualizzaDettaglioTappaLink">
-            @Html.DisplayFor(model => model.Tappe
-                                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
-                                    .OrderBy(t => t.Ordinamento)
-                                    .First()
-                                    .Location.City)
-        </a>
-        <div id="hiddenTappaDetail@(Model.Id)" class="hiddenTappaDetail">
-            @Html.DisplayFor(model => model.Tappe.OrderBy(t => t.Ordinamento).First().Location.IndirizzoLeggibile)
-        </div>
-    }
+    @Html.LabelFor(model => model.DataChiusuraPrenotazioni) @Html.DisplayFor(model => model.DataChiusuraPrenotazioni)    
 </div>

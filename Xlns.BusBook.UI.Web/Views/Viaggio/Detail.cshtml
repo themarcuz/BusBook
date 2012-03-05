@@ -41,23 +41,7 @@
                     </div>
                 }
                 @if (Model.Tappe != null && Model.Tappe.Count > 0)
-                {
-                    if (Model.Tappe != null
-                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA) != null
-                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA).Count() > 0)
-                    {
-                    <div>
-                        <label>
-                            Partenza</label>
-                    </div>
-                    <div>
-                        @Html.DisplayFor(model => model.Tappe
-                                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
-                                    .OrderBy(t => t.Ordinamento)
-                                    .First()
-                                    .Location.City)
-                    </div>
-                    }
+                {                    
                     if (Model.Tappe != null
                         && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
                         && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
@@ -106,13 +90,12 @@
                 && !Model.DataPubblicazione.HasValue //il viaggio non è pubblicato
                 )
             {        
-                @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
-                <text></text>         
+                @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })                    
             }  
            
             @if (!Model.DataPubblicazione.HasValue) 
             {
-                Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
+                @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
                                    new AjaxOptions()
                                    {
                                        Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",

@@ -1,26 +1,13 @@
 ﻿@model Xlns.BusBook.Core.Model.Viaggio
 <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
 @{
-    var partenza = Model.Tappe
-                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
-                    .FirstOrDefault();
     var destinazione = Model.Tappe
                     .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE)
                     .FirstOrDefault();
-    var tappe = Model.Tappe
-                .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.TAPPA)
-                .ToList();
-    if (partenza == null)
-    {
-    <a href="#" onclick="aggiungiTappa(1)" class="button">Definisci partenza</a>
-    }
-    else
-    {
-    <a href="#" onclick="modificaTappa(@partenza.Id)" >@partenza.Location.City (@partenza.Location.Province) - @partenza.Location.Nation</a>
-    }
-    <br />
-    <br />
-    foreach (var t in tappe)
+    var pickupPoints = Model.Tappe
+                .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PICK_UP_POINT)
+                .ToList();    
+    foreach (var t in pickupPoints)
     {
     <div class="tappaDiv">
         <a href="#" onclick="modificaTappa(@t.Id)" >@t.Location.City (@t.Location.Province) - @t.Location.Nation</a>
@@ -51,7 +38,7 @@
                     context: target,
                     type: "POST",
                     success: function (data) { $(this).parents('.tappaDiv').hide('slow'); },
-                    error: function () { alert("Impossibile eliminare la tappa"); }
+                    error: function () { alert("Impossibile eliminare il punto di raccolta"); }
                 });
                 return false;
             });
