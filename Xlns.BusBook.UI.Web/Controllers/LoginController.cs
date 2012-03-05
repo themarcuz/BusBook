@@ -36,7 +36,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
             if (loggedUtente == null)
                 return PartialView("Login", (utente == null ? new UtenteLoginView() : utente));
             else
-                return PartialView("Logout", loggedUtente);
+            {
+                MenuView menuView = new MenuView(loggedUtente);
+                return PartialView("Logout", menuView);
+            }
         }
 
         [HttpPost]

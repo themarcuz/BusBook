@@ -81,6 +81,7 @@
     <Compile Include="CoreExceptions.cs" />
     <Compile Include="Crypto\CryptoHelper.cs" />
     <Compile Include="DAL\OperationManager.cs" />
+    <Compile Include="Enums\MessaggioEnumerator.cs" />
     <Compile Include="Login\AuthenticationResult.cs" />
     <Compile Include="Login\LoginHelper.cs" />
     <Compile Include="Mailer\MailHelper.cs" />

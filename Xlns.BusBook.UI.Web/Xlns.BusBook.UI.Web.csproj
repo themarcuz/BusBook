@@ -104,6 +104,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MessaggioController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Controllers\UtenteController.cs" />
     <Compile Include="Controllers\ViaggioController.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Models\DepliantViewModel.cs" />
     <Compile Include="Models\FlyerEditView.cs" />
     <Compile Include="Models\ListFlyerView.cs" />
+    <Compile Include="Models\MenuView.cs" />
     <Compile Include="Models\ProposteModel.cs" />
     <Compile Include="Models\ViaggiAgenziaModel.cs" />
     <Compile Include="Models\DettaglioAgenziaView.cs" />
@@ -145,6 +147,7 @@
     <Content Include="Content\img\toggle_up_dark.png" />
     <Content Include="Content\img\twitter.png" />
     <Content Include="Content\scripts\agenzia.tile.js" />
+    <Content Include="Content\scripts\messaggio.tile.js" />
     <Content Include="Content\scripts\flyer.tile.js" />
     <Content Include="Content\scripts\viaggio.select.js" />
     <Content Include="Content\scripts\logout.js" />
@@ -402,6 +405,13 @@
     <Content Include="Views\Depliant\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Home\Privacy.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Messaggio\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Messaggio\ShowTile.cshtml" />
     <Content Include="Views\Site\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

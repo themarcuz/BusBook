@@ -9,10 +9,10 @@ namespace Xlns.BusBook.Core.Model
     public class Messaggio : ModelEntity
     {
         [Required]
-        public virtual Agenzia Mittente { get; set; }
+        public virtual Utente Mittente { get; set; }
 
         [Required]
-        public virtual Agenzia Destinatario { get; set; }
+        public virtual Utente Destinatario { get; set; }
 
         [Required]
         public virtual String Testo { get; set; }

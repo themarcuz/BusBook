@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Xlns.BusBook.Core.Model;
 using Xlns.BusBook.Core.DAL;
+using NHibernate.Linq;
+using Xlns.BusBook.Core.Enums;
 
 namespace Xlns.BusBook.Core.Repository
 {
@@ -19,6 +21,18 @@ namespace Xlns.BusBook.Core.Repository
         public Messaggio GetById(int id)
         {
             return base.getDomainObjectById<Messaggio>(id);
+        }
+
+        public IList<Messaggio> GetMessaggiUnreadByDestinatario(int idDestinatario)
+        {
+            IList<Messaggio> messaggi = GetMessaggi();
+            return messaggi.Where(u => u.Destinatario.Id == idDestinatario).Where(r => r.Stato == (int)MessaggioEnumerator.NonLetto).ToList();
+        }
+
+        public IList<Messaggio> GetMessaggiByDestinatario(int idDestinatario)
+        {
+            IList<Messaggio> messaggi = GetMessaggi();
+            return messaggi.Where(u => u.Destinatario.Id == idDestinatario).ToList();
         }
 
         public void Save(Messaggio messaggio)
@@ -46,7 +60,7 @@ namespace Xlns.BusBook.Core.Repository
         {
             try
             {
-                base.delete<Messaggio>(messaggio);
+                
             }
             catch (Exception ex)
             {

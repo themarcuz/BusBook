@@ -8,6 +8,7 @@ using Xlns.BusBook.Core.Repository;
 using Xlns.BusBook.Core;
 using Xlns.BusBook.UI.Web.Models;
 using Xlns.BusBook.Core.Mailer;
+using Xlns.BusBook.Core.Enums;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -183,22 +184,24 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 vm.RegistraPartecipazione(viaggio, loggedUser);
                 var mr = new MessaggioRepository();
                 Messaggio messaggio = new Messaggio();
-                messaggio.Mittente = loggedUser.Agenzia;
-                messaggio.Destinatario = viaggio.Agenzia;
+                messaggio.Mittente = loggedUser;
+                messaggio.Destinatario = viaggio.Agenzia.Utenti.FirstOrDefault();
                 var testoMessaggio = ConfigurationManager.Configurator.Istance.messagesPartecipaMessage
                     .Replace("{agenzia}", loggedUser.Agenzia.Nome)
                     .Replace("{viaggio}", viaggio.Nome)
                     .Replace("{descrizioneViaggio}", viaggio.Descrizione);
                 messaggio.Testo = testoMessaggio;
-                messaggio.Stato = 1;
+                messaggio.Stato = (int)MessaggioEnumerator.NonLetto;
                 messaggio.DataInvio = DateTime.Now;
                 mr.Save(messaggio);
                 MailHelper mh = new MailHelper();
-                // mh.SendMail(viaggio.Agenzia.Email, "");
+                //mh.SendMail(viaggio.Agenzia.Email, "");
                 agenzia = viaggio.Agenzia;
             }
             return PartialView("RichiestaPartecipazione", agenzia);
         }
+
+        
 
         [HttpPost]
         public ActionResult RimuoviPartecipazione(int idViaggio)
@@ -212,6 +215,20 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 var partecipazione = pr.GetPartecipazioneUtente(loggedUser.Id, idViaggio);
                 if (partecipazione != null)
                     pr.DeletePartecipazione(partecipazione);
+                var mr = new MessaggioRepository();
+                Messaggio messaggio = new Messaggio();
+                messaggio.Mittente = loggedUser;
+                messaggio.Destinatario = viaggio.Agenzia.Utenti.FirstOrDefault();
+                var testoMessaggio = ConfigurationManager.Configurator.Istance.messagesRimuoviMessage
+                    .Replace("{agenzia}", loggedUser.Agenzia.Nome)
+                    .Replace("{viaggio}", viaggio.Nome)
+                    .Replace("{descrizioneViaggio}", viaggio.Descrizione);
+                messaggio.Testo = testoMessaggio;
+                messaggio.Stato = (int)MessaggioEnumerator.NonLetto;
+                messaggio.DataInvio = DateTime.Now;
+                mr.Save(messaggio);
+                MailHelper mh = new MailHelper();
+                //mh.SendMail(viaggio.Agenzia.Email, "");
                 agenzia = viaggio.Agenzia;
             }
             return PartialView("RichiestaPartecipazione", agenzia);
