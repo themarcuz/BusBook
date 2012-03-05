@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Xlns.BusBook.Core.Model;
 using Xlns.BusBook.Core.DAL;
+using Xlns.BusBook.ConfigurationManager;
 
 namespace Xlns.BusBook.Core.Repository
 {
@@ -28,24 +29,9 @@ namespace Xlns.BusBook.Core.Repository
 
         public void Save(Viaggio viaggio)
         {
-            using (var om = new OperationManager())
-            {
-                try
-                {
-                    om.BeginOperation();
-                    base.update<Viaggio>(viaggio);
-                    om.CommitOperation();
-                    logger.Info("Dati del viaggio {0} salvati con successo", viaggio);
-                }
-                catch (Exception ex)
-                {
-                    om.RollbackOperation();
-                    string msg = String.Format("Errore nel salvataggio del viaggio {0}", viaggio);
-                    logger.ErrorException(msg, ex);
-                    throw new Exception(msg, ex);
-                }
-            }
+            base.update<Viaggio>(viaggio);
         }
+        
 
         public void Save(Tappa tappa)
         {

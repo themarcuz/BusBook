@@ -6,6 +6,7 @@ using Xlns.BusBook.Core.Repository;
 using Xlns.BusBook.Core.Model;
 using Xlns.BusBook.Core.DAL;
 using NHibernate.Linq;
+using Xlns.BusBook.ConfigurationManager;
 
 namespace Xlns.BusBook.Core
 {
@@ -207,6 +208,89 @@ namespace Xlns.BusBook.Core
             }
         }
 
+        public void Save(Viaggio viaggio)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    vr.Save(viaggio);
+                    // serve per valorizzare gli ID generati dal DB
+                    session.Flush();
+                    if (viaggio.Depliant != null)
+                    {
+                        string fileName = String.Format("{0}.{1}", viaggio.Depliant.Id, viaggio.Depliant.NomeFile);
+                        viaggio.Depliant.NomeFile = fileName;
+                        SaveDepliant(viaggio);
+                    }
+                    om.CommitOperation();
+                    logger.Info("Dati del viaggio {0} salvati con successo", viaggio);
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Errore nel salvataggio del viaggio {0}", viaggio);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
+
+        private void SaveDepliant(Viaggio viaggio)
+        {
+            if (viaggio.Depliant.Id != 0 && viaggio.Agenzia.Id != 0)
+            {
+                string fileName = viaggio.Depliant.NomeFile;
+                logger.Debug("Nome con cui verrà salvato il depliant: {0}", fileName);
+                string fullPath = getDepliantFolder(viaggio.Agenzia);
+                logger.Debug("Il file verrà salvato in {0}", fullPath);
+                string fullPathFileName = System.IO.Path.Combine(fullPath, fileName);
+                System.IO.File.WriteAllBytes(fullPathFileName, viaggio.Depliant.RawFile);
+                logger.Info("Depliant salvato in {0}", fullPathFileName);
+            }
+            else
+            {
+                string msg = string.Format("Impossibile salvare il depliant del viaggio {0} in quanto il viaggio non è ancora stato salvato o non è associato ad un'agenzia.", viaggio);
+                logger.Warn(msg);
+                throw new Exception(msg);
+            }
+        }
+
+        internal string getDepliantFolder(Agenzia agenzia)
+        {
+            var fullPath = System.IO.Path.Combine(Configurator.Istance.rootFolder,
+                                           Configurator.Istance.companyIdPrefix + agenzia.Id.ToString(),
+                                           Configurator.Istance.depliantFolder);
+            if (!System.IO.Directory.Exists(fullPath))
+            {
+                logger.Debug("La directory {0} non esiste, quindi verrà creata", fullPath);
+                createFolder(fullPath);
+            }
+            return fullPath;
+
+        }
+
+        private void createFolder(string fullPath)
+        {
+            System.IO.Directory.CreateDirectory(fullPath);
+            /*
+            if (!Configurator.Istance.isRootFolderRelative)
+            {
+                // assegnazione permessi di scrittura per l'utente corrente
+                var user = System.Security.Principal.WindowsIdentity.GetCurrent().User;
+                var userName = user.Translate(typeof(System.Security.Principal.NTAccount));
+                var dirInfo = new System.IO.DirectoryInfo(fullPath);
+                var sec = dirInfo.GetAccessControl();
+                sec.AddAccessRule(new System.Security.AccessControl.FileSystemAccessRule(userName,
+                    System.Security.AccessControl.FileSystemRights.Modify,
+                    System.Security.AccessControl.AccessControlType.Allow)
+                    );
+                dirInfo.SetAccessControl(sec);
+            }
+            */
+            logger.Info("Directory {0} creata con successo", fullPath);
+        }
 
         public void DeleteDepliant(int idDepliant)
         {
@@ -220,6 +304,9 @@ namespace Xlns.BusBook.Core
                     logger.Debug("Il viaggio da cui il depliant {0} sarà rimosso è {1}", idDepliant, viaggio);
                     var depliant = viaggio.Depliant;                    
                     viaggio.Depliant = null;
+                    var depliantPath = getDepliantFolder(viaggio.Agenzia);
+                    var fullDepliantPath = System.IO.Path.Combine(depliantPath, depliant.NomeFile);
+                    System.IO.File.Delete(fullDepliantPath);
                     vr.Save(viaggio);
                     vr.deleteDepliant(depliant);
                     om.CommitOperation();

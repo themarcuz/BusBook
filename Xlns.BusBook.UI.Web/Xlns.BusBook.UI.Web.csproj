@@ -277,7 +277,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Logs\" />
+    <Folder Include="Storage\Adv\" />
+    <Folder Include="Storage\Depliant\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Agenzia\List.cshtml" />

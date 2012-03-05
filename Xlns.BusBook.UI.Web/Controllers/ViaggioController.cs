@@ -104,8 +104,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
                         }
                         //TODO: gestire anche l'immagine promozionale
                     }
-                }
-                vr.Save(viaggio);
+                }                
+                vm.Save(viaggio);
                 //return RedirectToAction("Detail", new { id = viaggio.Id });
             }
             return RedirectToAction("Edit", new { id = viaggio.Id });

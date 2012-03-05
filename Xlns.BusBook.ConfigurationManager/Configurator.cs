@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Xlns.ConfigurationManager;
 using System.Xml.Linq;
+using System.Web;
 
 namespace Xlns.BusBook.ConfigurationManager
 {
@@ -75,5 +76,26 @@ namespace Xlns.BusBook.ConfigurationManager
         public string recaptchaPublicKey { get { return base.getParameter("helpers.recaptcha.publickey"); } }
         public string recaptchaPrivateKey { get { return base.getParameter("helpers.recaptcha.privatekey"); } }
         public string facebookApplicationId { get { return base.getParameter("facebook.id"); } }
+
+        public string rootFolder { 
+            get 
+            {
+                if (isRootFolderRelative)
+                {
+                    return System.Web.HttpContext.Current.Server.MapPath(base.getParameter("core.files.rootFolder"));                    
+                } 
+                else
+                    return base.getParameter("core.files.rootFolder");
+            } 
+        }        
+        public bool isRootFolderRelative
+        {
+            get
+            {
+                return bool.Parse(base.getParameter("core.files.isRootFolderRelative"));
+            }
+        }
+        public string depliantFolder { get { return base.getParameter("core.files.depliantFolder"); } }
+        public string companyIdPrefix { get { return base.getParameter("core.files.companyIdPrefix"); } }
     }
 }
