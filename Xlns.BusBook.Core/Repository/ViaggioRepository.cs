@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Xlns.BusBook.Core.Model;
 using Xlns.BusBook.Core.DAL;
+using Xlns.BusBook.ConfigurationManager;
 
 namespace Xlns.BusBook.Core.Repository
 {
@@ -28,24 +29,9 @@ namespace Xlns.BusBook.Core.Repository
 
         public void Save(Viaggio viaggio)
         {
-            using (var om = new OperationManager())
-            {
-                try
-                {
-                    om.BeginOperation();
-                    base.update<Viaggio>(viaggio);
-                    om.CommitOperation();
-                    logger.Info("Dati del viaggio {0} salvati con successo", viaggio);
-                }
-                catch (Exception ex)
-                {
-                    om.RollbackOperation();
-                    string msg = String.Format("Errore nel salvataggio del viaggio {0}", viaggio);
-                    logger.ErrorException(msg, ex);
-                    throw new Exception(msg, ex);
-                }
-            }
+            base.update<Viaggio>(viaggio);
         }
+        
 
         public void Save(Tappa tappa)
         {
@@ -55,13 +41,13 @@ namespace Xlns.BusBook.Core.Repository
                 {
                     om.BeginOperation();
                     var destinazione = tappa.Viaggio.Tappe.Where(t => t.Tipo == TipoTappa.DESTINAZIONE).SingleOrDefault();
-                    if (destinazione != null) 
+                    if (destinazione != null)
                     {
                         logger.Debug("L'ordinamento della destinazione verrà incrementato di 1 per fare posto alla nuova tappa");
                         destinazione.Ordinamento = tappa.Ordinamento + 1;
                         base.update<Tappa>(destinazione);
                     }
-                    base.update<Tappa>(tappa);                    
+                    base.update<Tappa>(tappa);
                     om.CommitOperation();
                     logger.Info("Dati della tappa {0} salvati con successo", tappa);
                 }
@@ -83,7 +69,25 @@ namespace Xlns.BusBook.Core.Repository
             }
             catch (Exception ex)
             {
-                string msg = String.Format("Errore durante la cancellazione della tappa ", tappa);
+                string msg = String.Format("Errore durante la cancellazione della tappa {0}", tappa);
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg, ex);
+            }
+        }
+
+
+        public void deleteDepliant(AllegatoViaggio depliant)
+        {
+            try
+            {
+                // questo serve altrimenti cerca di cancellare anche il viaggio
+                depliant.Viaggio = null;
+
+                base.delete<AllegatoViaggio>(depliant);
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore durante la cancellazione della tappa ", depliant);
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }

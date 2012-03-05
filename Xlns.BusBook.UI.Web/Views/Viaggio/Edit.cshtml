@@ -75,30 +75,19 @@
                                 @Html.TextBoxFor(model => model.TotalePosti)
                                 @Html.ValidationMessageFor(model => model.TotalePosti)
                             </div>
+                            <div id="depliantContainer">
                             @if (Model.Id != 0)
                             {
                                 if (Model.Depliant == null)
                                 {
-                                @*
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.Depliant)
-                                </div>
-                                    Html.RenderAction("New", "Allegato", new { viaggio = Model, tipo = (int)Xlns.BusBook.UI.Web.Models.AllegatoViewModel.TipoAllegato.DEPLIANT });
-                                *@
-                                <div style="margin-bottom: 5px">
-                                    <input type="file" name="file" id="file" />
-                                </div>            
-                                <input type="submit" value="Carica" class="button" />
-                                    if (!String.IsNullOrEmpty(ViewBag.ErroreDepliant))
-                                    {
-                                        <text>@ViewBag.ErroreDepliant</text>
-                                    }
+                                    @Html.Action("New", "Depliant")
                                 }
                                 else
-                                {
-                                    Html.RenderAction("Edit", "Allegato", new { viaggio = Model });
+                                {                                    
+                                    @Html.Action("Edit", "Depliant", new { idDepliant = Model.Depliant.Id, htmlId = "depliantContainer" })                                    
                                 }
                             }
+                            </div>
                             @Html.HiddenFor(model => model.Id)
                             <p>
                                 <input type="submit" value="Salva" class="button" />
@@ -136,7 +125,7 @@
                                     autoOpen: false,
                                     width: '800',
                                     resizable: false
-                                });
+                                });                                
                             });
                             function aggiungiTappa(tipoTappa) {
                                 $.ajax({
@@ -149,7 +138,7 @@
                                         initializeMap();
                                         showLocation("Italia", true);
                                     },
-                                    failure: function () {
+                                    error: function () {
                                         tappaDialog.html("Impossibile recuperare l'editor delle tappe");
                                         $('#submitButton').hide();
                                     }

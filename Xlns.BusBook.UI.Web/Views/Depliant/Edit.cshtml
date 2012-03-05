@@ -1,0 +1,30 @@
+﻿@model Xlns.BusBook.UI.Web.Models.DepliantViewModel
+<div class="editor-label">
+    @Html.LabelFor(model => model.Viaggio.Depliant)
+    <span id="depliantGetter" class="ui-icon ui-icon-link"></span>
+    <span id="depliantDeleter" class="ui-icon ui-icon-closethick"></span>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#depliantDeleter').click(function () {
+            $.ajax({
+                url: '@(Url.Action("Delete", "Depliant", new { id = Model.Viaggio.Depliant.Id }))',
+                beforeSend: function () {
+                    $('#@(Model.HtmlContainerId)').fadeOut(100);
+                },
+                success: function (result) {
+                    $('#@(Model.HtmlContainerId)').html(result);
+                },
+                complete: function () {
+                    $('#@(Model.HtmlContainerId)').fadeIn(100);
+                },
+                error: function () {
+                    alert("Impossibile eliminare il depliant");
+                }
+            });
+        });
+        $('#depliantGetter').click(function () {
+            window.location.href = '@(Url.Action("Download", "Allegato", new { id = Model.Viaggio.Depliant.Id }))';
+        });
+    })
+</script>

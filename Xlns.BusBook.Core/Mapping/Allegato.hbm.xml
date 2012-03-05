@@ -10,7 +10,7 @@
       <generator class="native" />
     </id>
     <property name="NomeFile" />
-    <property name="RawFile" type="binary" />
+    <!-- <property name="RawFile" type="binary" /> -->
 
     <one-to-one name="Viaggio" class="Viaggio" cascade="all"/>
 

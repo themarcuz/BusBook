@@ -64,7 +64,7 @@ namespace Xlns.BusBook.UI.Web
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            ConfigurationManager.Configurator.configFileName = @"C:\Xlns\BuX\DB\BusBook.config";
+            ConfigurationManager.Configurator.configFileName = AppDomain.CurrentDomain.BaseDirectory + @"Config\BusBook.config";
 
             log4net.Config.XmlConfigurator.Configure();            
         }
