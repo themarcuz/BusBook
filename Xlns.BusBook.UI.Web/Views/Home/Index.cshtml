@@ -35,10 +35,11 @@
             <div class="grid_4 alpha">
                 <div class="sidemenu">
                     @{
-                        if(Session.getLoggedUtente() == null){
+                        if (Session.getLoggedUtente() == null)
+                        {
                             Html.RenderAction("ShowLogin", "Login");
                         }
-                     }
+                    }
                 </div>
             </div>
         </div>

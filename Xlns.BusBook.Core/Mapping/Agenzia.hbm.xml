@@ -31,7 +31,7 @@
       <property name="Lng"/>
     </component>
 
-    <bag name="Utenti" cascade="all" lazy="true">
+    <bag name="Utenti" cascade="all" lazy="false">
       <key column="Agenzia" />
       <one-to-many class="Utente" />
     </bag>

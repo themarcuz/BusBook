@@ -34,13 +34,12 @@
     </script>
 </head>
 <body>
-     @{Html.RenderAction("Facebook", "Login");}
+    @{Html.RenderAction("Facebook", "Login");}
     <!-- header starts-->
-    <div id="header-wrap">
-        <div id="header" class="container_16">
-            @RenderSection("logo", false)
-            <!-- navigation -->
-@*            <div id="nav">
+    <div id="header" class="container_16">
+        @RenderSection("logo", false)
+        <!-- navigation -->
+        @*            <div id="nav">
                 <ul>
                     <li><a href="@Href("~")">Home</a></li>
                     <li>@Html.ActionLink("Agenzie", "List", "Agenzia")</li>
@@ -48,10 +47,8 @@
                     <li>@Html.ActionLink("Viaggi", "List", "Viaggio")</li>
                     <li><a href="index.html">About</a></li>
                 </ul>
-            </div>*@
-            @*<div id="header-image">
-            </div>*@
-@*            <form id="quick-search" action="index.html" method="get">
+            </div>*@ @*<div id="header-image">
+            </div>*@ @*            <form id="quick-search" action="index.html" method="get">
             <p>
                 <label for="qsearch">
                     Cerca:</label>
@@ -59,12 +56,13 @@
                 <input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="@Href("~/Content/KeepItSimple11/images/search.gif")" />
             </p>
             </form>*@
-            @{
-                if(Session.getLoggedUtente() != null){
-                    Html.RenderAction("ShowLogin", "Login");
-                }
+        @{
+            if (Session.getLoggedUtente() != null)
+            {
+                Html.RenderAction("ShowLogin", "Login", Session.getLoggedUtente());
+                
             }
-        </div>
+        }
     </div>
     <!-- content starts -->
     <div id="content-outer">

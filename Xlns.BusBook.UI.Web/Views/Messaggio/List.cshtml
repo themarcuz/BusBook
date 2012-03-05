@@ -1,0 +1,20 @@
+﻿@using Xlns.BusBook.Core.Model
+@using Xlns.BusBook.UI.Web.Models
+@section head{
+    <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
+}
+@model MenuView
+
+@if (Model == null || Model.Messaggi.Count() == 0)
+{ <h3>
+    Nessun nuovo Messaggio</h3>
+}
+else
+{       
+    <h3>
+    Messaggi</h3>
+    foreach (Messaggio item in Model.Messaggi)
+     {
+         Html.RenderAction("ShowTile", "Messaggio", new { messaggio = item });
+     }
+}

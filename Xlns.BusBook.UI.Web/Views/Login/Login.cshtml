@@ -1,8 +1,6 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.UtenteLoginView
 <script type="text/javascript" src="@Url.Content("~/Content/scripts/login.js")" ></script>
 <div id="LoginDiv">
-    <h3>
-        Hai un Account?</h3>
     @using (Ajax.BeginForm("Login", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
             {
                 InsertionMode = InsertionMode.Replace,
@@ -16,26 +14,19 @@
     {
         <div>
             @Html.DisplayTextFor(model => model.LoginErrorMessage)
-        </div>
-        <div>
+      
             @Html.LabelFor(model => model.Username)
-        </div>
-        <div>
+        
             @Html.EditorFor(model => model.Username)
-        </div>
-        <div>
+        
             @Html.ValidationMessageFor(model => model.Username)
-        </div>
-        <div>
+        
             @Html.LabelFor(model => model.Password)
-        </div>
-        <div>
+        
             @Html.PasswordFor(model => model.Password)
-        </div>
-        <div>
+        
             @Html.ValidationMessageFor(model => model.Password)
-        </div>
-        <div>
+
             <input type="submit" value="Log In" id="submitButton" class="button" />
         </div>
     }

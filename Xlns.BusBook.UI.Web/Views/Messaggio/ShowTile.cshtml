@@ -1,0 +1,28 @@
+﻿@model Xlns.BusBook.Core.Model.Messaggio
+<div class="tileElement" id="TileDivMessaggio@(Model.Id)">
+    @Html.Label("Messaggio: ")
+    <br />
+    @Html.DisplayFor(modelItem => Model.Testo)
+    <br />
+    @Html.Label("Inviato da: ")
+    <br />
+    @Html.DisplayFor(modelItem => Model.Mittente.Nome)
+    <br />
+    @Html.Label("Agenzia: ")
+    <br />
+    @Html.DisplayFor(modelItem => Model.Mittente.Agenzia.Nome)
+    <br />
+    @Html.Label("Inviato il: ")
+    <br />
+    @Html.DisplayFor(modelItem => Model.DataInvio)
+    <br />
+    <div class="tileCommand">
+        <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@Model.Id">Elimina</a>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/Content/scripts/messaggio.tile.js")" ></script>
+<script type="text/javascript">
+    $(function () {
+        new Tile(@(Model.Id));
+    });
+</script>
