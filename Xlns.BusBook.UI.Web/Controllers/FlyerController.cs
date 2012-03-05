@@ -14,12 +14,13 @@ namespace Xlns.BusBook.UI.Web.Controllers
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         FlyerRepository flyerRepo = new FlyerRepository();
         ViaggioRepository viaggiRepo = new ViaggioRepository();
+        AgenziaRepository agenziaRepo = new AgenziaRepository();
 
         int limitResults = 5; //TODO: metterlo in configurazione
 
         public ActionResult ListPartial(int idAgenzia)
         {
-            var model = new ListFlyerView() { idAgenzia = idAgenzia, flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia, limitResults) };
+            var model = new ListFlyerView() { agenzia = agenziaRepo.GetById(idAgenzia), flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia, limitResults) };
             return PartialView(model);
         }
 
@@ -37,7 +38,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult List(int idAgenzia)
         {
-            var model = new ListFlyerView() { idAgenzia = idAgenzia, flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia) };
+            var model = new ListFlyerView() { agenzia = agenziaRepo.GetById(idAgenzia), flyers = flyerRepo.GetFlyersPerAgenzia(idAgenzia) };
             return View(model);
         }
 
@@ -130,18 +131,16 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView("Select",viaggiSelezionati);
         }
 
-        public ActionResult ShowTile(Flyer flyer, bool isShort)
+        public ActionResult ShowTile(Flyer flyer, bool isShort, bool isEditable, bool isDetailAjax)
         {
-            ViewBag.isShort = isShort;
-            return PartialView(flyer);
+            return PartialView(new FlyerTiled() { flyer = flyer, isShort = isShort, isEditable = isEditable, isDetailAjax = isDetailAjax });
         }
 
         public ActionResult ShowTileAjax()
         {
-            ViewBag.isShort = true;
             var topFlyers = flyerRepo.GetFlyersPerAgenzia(Session.getLoggedAgenzia().Id, limitResults);
             if (topFlyers.Count >= limitResults)
-                return PartialView("ShowTile", topFlyers[topFlyers.Count - 1]);
+                return PartialView("ShowTile", new FlyerTiled() { flyer = topFlyers[topFlyers.Count - 1], isShort = true, isEditable = true, isDetailAjax = false});
             else
                 return new EmptyResult();
         }
@@ -159,5 +158,6 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 throw new Exception(msg);
             }
         }
+
     }
 }

@@ -16,7 +16,7 @@
         </p>
         @foreach (var flyer in Model.flyers)
         {
-            Html.RenderAction("ShowTile", new { flyer = flyer, isShort = false });
+            Html.RenderAction("ShowTile", new { flyer = flyer, isShort = false, isEditable = true, isDetailAjax = false });
         }
     </div>
 </div>

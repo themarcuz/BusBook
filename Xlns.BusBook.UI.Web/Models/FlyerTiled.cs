@@ -6,9 +6,11 @@ using Xlns.BusBook.Core.Model;
 
 namespace Xlns.BusBook.UI.Web.Models
 {
-    public class ListFlyerView
+    public class FlyerTiled
     {
-        public Agenzia agenzia;
-        public IList<Flyer> flyers;
+        public Flyer flyer;
+        public bool isShort;
+        public bool isEditable;
+        public bool isDetailAjax;
     }
 }
