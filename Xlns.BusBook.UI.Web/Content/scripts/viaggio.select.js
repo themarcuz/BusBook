@@ -13,6 +13,7 @@ $('input[type=checkbox]').click(function (e) {
         cache: false,
         data: { idViaggio: this.id },
         context: $(this),
-        error: function () { alert(errMsg); }
+        error: function () { alert(errMsg); },
+        success: function (data) { $('#hasViaggiSelected').val(parseInt($('#hasViaggiSelected').val()) + 1); }
     });
 });

@@ -159,5 +159,13 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
         }
 
+       public JsonResult CheckViaggiSelected(int hasViaggiSelected)
+        {
+            var flyer = getFlyerInEdit();
+
+            bool valid = (flyer.Viaggi.Count > 0);
+
+            return Json(valid, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -38,6 +38,10 @@
                                 @Html.TextBoxFor(model => model.Titolo, new { @class = "titolo" })
                                 @Html.ValidationMessageFor(model => model.Titolo)
                             </div>
+                                @Html.HiddenFor(model => model.hasViaggiSelected, new { id = "hasViaggiSelected" })
+                                @Html.ValidationMessageFor(model => model.hasViaggiSelected)
+                            <div>
+                            </div>
                             <div class="scroll">
                                @{Html.RenderAction("Select");}
                             </div>

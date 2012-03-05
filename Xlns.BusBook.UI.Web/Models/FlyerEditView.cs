@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Xlns.BusBook.Core.Model;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,6 +21,9 @@ namespace Xlns.BusBook.UI.Web.Models
 
         public int idAgenzia { get; set; }
         public int Id { get; set; }
+
+        [Remote("CheckViaggiSelected", "Flyer", ErrorMessage = "Selezionare almeno un viaggio!")]
+        public int hasViaggiSelected { get; set; }
 
         public FlyerEditView(Flyer flyer)
         {
