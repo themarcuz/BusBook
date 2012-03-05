@@ -219,9 +219,7 @@ namespace Xlns.BusBook.Core
                     // serve per valorizzare gli ID generati dal DB
                     session.Flush();
                     if (viaggio.Depliant != null)
-                    {
-                        string fileName = String.Format("{0}.{1}", viaggio.Depliant.Id, viaggio.Depliant.NomeFile);
-                        viaggio.Depliant.NomeFile = fileName;
+                    {                        
                         SaveDepliant(viaggio);
                     }
                     om.CommitOperation();
@@ -241,13 +239,14 @@ namespace Xlns.BusBook.Core
         {
             if (viaggio.Depliant.Id != 0 && viaggio.Agenzia.Id != 0)
             {
-                string fileName = viaggio.Depliant.NomeFile;
+                string fileName = String.Format("{0}.{1}", viaggio.Depliant.Id, viaggio.Depliant.NomeFile);                
                 logger.Debug("Nome con cui verrà salvato il depliant: {0}", fileName);
                 string fullPath = getDepliantFolder(viaggio.Agenzia);
                 logger.Debug("Il file verrà salvato in {0}", fullPath);
                 string fullPathFileName = System.IO.Path.Combine(fullPath, fileName);
                 System.IO.File.WriteAllBytes(fullPathFileName, viaggio.Depliant.RawFile);
                 logger.Info("Depliant salvato in {0}", fullPathFileName);
+                viaggio.Depliant.NomeFile = fullPathFileName;
             }
             else
             {
