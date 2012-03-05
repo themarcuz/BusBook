@@ -219,8 +219,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         [HttpPost]
         public ActionResult Pubblica(int idViaggio)
-        {
-            System.Threading.Thread.Sleep(2000);
+        {            
             var viaggio = vr.GetById(idViaggio);
             if (Session.getLoggedAgenzia() != null && viaggio.Agenzia.Id == Session.getLoggedAgenzia().Id)
             {
