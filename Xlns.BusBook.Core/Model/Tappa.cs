@@ -45,7 +45,7 @@ namespace Xlns.BusBook.Core.Model
     }
 
     public enum TipoTappa {
-        PARTENZA=1, TAPPA=2, DESTINAZIONE=3
+        PICK_UP_POINT=2, DESTINAZIONE=3
     }
 
 }

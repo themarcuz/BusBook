@@ -16,11 +16,9 @@ namespace Xlns.BusBook.UI.Web.Controllers
         AllegatoRepository ar = new AllegatoRepository();
 
         public ActionResult Download(int id) {
-            var allegato = ar.GetAllegatoById(id);
+            var allegato = ar.GetAllegatoWithFileById(id);
+            Response.AddHeader("content-disposition", "attachment; filename=" + allegato.NomeFile);
             return File(allegato.RawFile, "application/octet-stream");
         }
-
-       
-
     }
 }

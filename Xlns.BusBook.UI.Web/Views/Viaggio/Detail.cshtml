@@ -41,23 +41,7 @@
                     </div>
                 }
                 @if (Model.Tappe != null && Model.Tappe.Count > 0)
-                {
-                    if (Model.Tappe != null
-                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA) != null
-                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA).Count() > 0)
-                    {
-                    <div>
-                        <label>
-                            Partenza</label>
-                    </div>
-                    <div>
-                        @Html.DisplayFor(model => model.Tappe
-                                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
-                                    .OrderBy(t => t.Ordinamento)
-                                    .First()
-                                    .Location.City)
-                    </div>
-                    }
+                {                    
                     if (Model.Tappe != null
                         && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
                         && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
@@ -106,13 +90,24 @@
                 && !Model.DataPubblicazione.HasValue //il viaggio non è pubblicato
                 )
             {        
-                @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
-                <text></text>         
+                @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })                    
             }  
            
+            @if (!Model.DataPubblicazione.HasValue) 
+            {
+                @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
+                                   new AjaxOptions()
+                                   {
+                                       Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",
+                                       HttpMethod = "POST",
+                                       OnSuccess = "OnSuccess",
+                                       OnFailure = "PubblicaError"
+                                   },
+                                   new { @class = "button" });
+            }
+           
+            
 
-
-@* AJ *@
             @if (Model.DataChiusuraPrenotazioni > DateTime.Now)
             {
                 if (ViewBag.HasPartecipated == false)
@@ -122,7 +117,7 @@
                                     {
                                         Confirm = "",
                                         HttpMethod = "POST",
-                                        OnSuccess = "PubblicaSuccess",
+                                        OnSuccess = "OnSuccess",
                                         OnFailure = "PubblicaError"
                                     },
                                     new { @class = "button" })
@@ -134,7 +129,7 @@
                                     {
                                         Confirm = "",
                                         HttpMethod = "POST",
-                                        OnSuccess = "SpubblicaSuccess",
+                                        OnSuccess = "OnSuccess",
                                         OnFailure = "PubblicaError"
                                     },
                                     new { @class = "button" })
@@ -182,13 +177,9 @@
                 });
         });
 
-        function PubblicaSuccess(response, status, data) {
+        function OnSuccess(response, status, data) {
             window.location.href = '@(Url.Action("Detail", "Viaggio"))';
-        }
-
-        function SpubblicaSuccess(response, status, data) {
-            window.location.href = '@(Url.Action("Detail", "Viaggio"))';
-        }
+        }        
 
         function PubblicaError(response, status, error) {
             $('#dialog').html(response.statusText);

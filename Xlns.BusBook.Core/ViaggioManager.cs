@@ -60,10 +60,10 @@ namespace Xlns.BusBook.Core
         {
             try
             {
-                var partenza = viaggio.Tappe.Where(t => t.Tipo == TipoTappa.PARTENZA).FirstOrDefault();
+                var pickupPoint = viaggio.Tappe.Where(t => t.Tipo == TipoTappa.PICK_UP_POINT).FirstOrDefault();
                 var destinazione = viaggio.Tappe.Where(t => t.Tipo == TipoTappa.DESTINAZIONE).FirstOrDefault();
-                if (partenza == null || destinazione == null)
-                    throw new NonPubblicabileException("Impossibile pubblicare un viaggio senza specificare almeno la partenza e la destinazione");
+                if (pickupPoint == null || destinazione == null)
+                    throw new NonPubblicabileException("Impossibile pubblicare un viaggio senza specificare almeno una partenza e la destinazione");
                 viaggio.DistanzaPercorsa = CalcolaDistanzaPercorsa(viaggio);
                 viaggio.DataPubblicazione = DateTime.Now;
                 vr.Save(viaggio);
@@ -86,10 +86,11 @@ namespace Xlns.BusBook.Core
         {
             try
             {
-                string origine = viaggio.Tappe
-                                    .Where(t => t.Tipo == TipoTappa.PARTENZA)
-                                    .Select(t => string.Format("{0},{1}", t.Location.Lat, t.Location.Lng))
-                                    .SingleOrDefault();
+                var firstPickupPoint = viaggio.Tappe
+                                    .Where(t => t.Tipo == TipoTappa.PICK_UP_POINT)
+                                    .OrderBy(t => t.Ordinamento)                                    
+                                    .FirstOrDefault();
+                string origine = string.Format("{0},{1}", firstPickupPoint.Location.Lat, firstPickupPoint.Location.Lng);
                 string destinazione = viaggio.Tappe
                                     .Where(t => t.Tipo == TipoTappa.DESTINAZIONE)
                                     .Select(t => string.Format("{0},{1}", t.Location.Lat, t.Location.Lng))
@@ -97,7 +98,7 @@ namespace Xlns.BusBook.Core
                 var req = new Xlns.Google.Maps.Directions.Request(origine, destinazione);
                 req.Waypoints = new List<String>();
                 viaggio.Tappe
-                        .Where(t => t.Tipo != TipoTappa.DESTINAZIONE && t.Tipo != TipoTappa.PARTENZA)
+                        .Where(t => t.Tipo == TipoTappa.PICK_UP_POINT && t.Id != firstPickupPoint.Id)
                         .ForEach(t => req.Waypoints.Add(
                             String.Format("{0},{1}", t.Location.Lat, t.Location.Lng))
                         );
@@ -115,12 +116,10 @@ namespace Xlns.BusBook.Core
             }
         }
 
-
         public bool IsPubblicato(Viaggio viaggio)
         {
             return viaggio.DataPubblicazione.HasValue;
         }
-
 
         public Viaggio CreaNuovoViaggio()
         {
@@ -218,10 +217,8 @@ namespace Xlns.BusBook.Core
                     vr.Save(viaggio);
                     // serve per valorizzare gli ID generati dal DB
                     session.Flush();
-                    if (viaggio.Depliant != null)
-                    {
-                        string fileName = String.Format("{0}.{1}", viaggio.Depliant.Id, viaggio.Depliant.NomeFile);
-                        viaggio.Depliant.NomeFile = fileName;
+                    if (viaggio.Depliant != null && viaggio.Depliant.RawFile != null)
+                    {                        
                         SaveDepliant(viaggio);
                     }
                     om.CommitOperation();
@@ -241,13 +238,14 @@ namespace Xlns.BusBook.Core
         {
             if (viaggio.Depliant.Id != 0 && viaggio.Agenzia.Id != 0)
             {
-                string fileName = viaggio.Depliant.NomeFile;
+                string fileName = String.Format("{0}.{1}", viaggio.Depliant.Id, viaggio.Depliant.NomeFile);                
                 logger.Debug("Nome con cui verrà salvato il depliant: {0}", fileName);
                 string fullPath = getDepliantFolder(viaggio.Agenzia);
                 logger.Debug("Il file verrà salvato in {0}", fullPath);
                 string fullPathFileName = System.IO.Path.Combine(fullPath, fileName);
                 System.IO.File.WriteAllBytes(fullPathFileName, viaggio.Depliant.RawFile);
                 logger.Info("Depliant salvato in {0}", fullPathFileName);
+                viaggio.Depliant.FullName = fullPathFileName;
             }
             else
             {
@@ -303,9 +301,8 @@ namespace Xlns.BusBook.Core
                     var viaggio = GetViaggioByDepliant(idDepliant);
                     logger.Debug("Il viaggio da cui il depliant {0} sarà rimosso è {1}", idDepliant, viaggio);
                     var depliant = viaggio.Depliant;                    
-                    viaggio.Depliant = null;
-                    var depliantPath = getDepliantFolder(viaggio.Agenzia);
-                    var fullDepliantPath = System.IO.Path.Combine(depliantPath, depliant.NomeFile);
+                    viaggio.Depliant = null;                    
+                    var fullDepliantPath = depliant.FullName;
                     System.IO.File.Delete(fullDepliantPath);
                     vr.Save(viaggio);
                     vr.deleteDepliant(depliant);
