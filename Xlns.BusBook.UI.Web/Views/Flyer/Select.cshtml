@@ -2,8 +2,19 @@
 @foreach (var viaggioItem in Model)
 {
     var location = "";
-    if (!viaggioItem.isSelectable) { location = "window.location = '" + Url.Action("Detail","Viaggio", new { id = viaggioItem.viaggio.Id }) + "'"; }
-     
+    if (!viaggioItem.isSelectable) {
+        if (viaggioItem.isDetailExternal) 
+        {
+            location = "window.location = '" + Url.Action("DetailViaggio", "Site", new { id = viaggioItem.viaggio.Id }) + "'";
+        }
+        else
+        {
+            location = "window.location = '" + Url.Action("Detail", "Viaggio", new { id = viaggioItem.viaggio.Id }) + "'";
+        }
+    
+    }
+
+    
     <div class="tileElement" id="TileDivViaggio@(viaggioItem.viaggio.Id)"  onclick="@location">
         <span class="tileTitle">
             @Html.DisplayFor(model => viaggioItem.viaggio.Nome)

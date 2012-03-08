@@ -111,7 +111,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 if (flyer.Viaggi != null && flyer.Viaggi.Any(v => v.Id == viaggioPub.Id))
                     selected = true;
 
-                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = selected, isSelectable = true,  idFlyer = flyer.Id };
+                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = selected, isSelectable = true,  idFlyer = flyer.Id, isDetailExternal = false };
                 viaggiSelezionabili.Add(viaggioSelezionabile);
             }
             return PartialView(viaggiSelezionabili);
@@ -119,16 +119,27 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult ShowSelected(int id)
         {
+            return ShowSelectedViaggi(id, false);
+        }
+
+
+        public ActionResult ShowSelectedExternal(int id)
+        {
+            return ShowSelectedViaggi(id, true);
+        }
+
+        private ActionResult ShowSelectedViaggi(int id, bool isDetailExternal)
+        {
             var flyer = flyerRepo.GetById(id);
 
             List<ViaggioSelectView> viaggiSelezionati = new List<ViaggioSelectView>();
 
             foreach (var viaggioSel in flyer.Viaggi)
             {
-                ViaggioSelectView viaggioSelezionato = new ViaggioSelectView() { viaggio = viaggioSel, isSelected = true, isSelectable = false, idFlyer = flyer.Id };
+                ViaggioSelectView viaggioSelezionato = new ViaggioSelectView() { viaggio = viaggioSel, isSelected = true, isSelectable = false, idFlyer = flyer.Id, isDetailExternal = isDetailExternal };
                 viaggiSelezionati.Add(viaggioSelezionato);
             }
-            return PartialView("Select",viaggiSelezionati);
+            return PartialView("Select", viaggiSelezionati);
         }
 
         public ActionResult ShowTile(Flyer flyer, bool isShort, bool isEditable, bool isDetailAjax)

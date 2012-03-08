@@ -21,5 +21,13 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return View(model);
         }
 
+        public ActionResult DetailViaggio(int id)
+        {
+            var vr = new ViaggioRepository();
+            var viaggio = vr.GetById(id);
+
+            return View(viaggio);
+        }
+
     }
 }

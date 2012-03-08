@@ -59,7 +59,7 @@ function DetailAjax(IdFlyer) {
 
         loading.show('fast', function () {
             $.ajax({
-                url: "/Flyer/ShowSelected/" + IdFlyer,
+                url: "/Flyer/ShowSelectedExternal/" + IdFlyer,
                 cache: false,
                 context: target,
                 success: function (data) { OnSuccessDetailAjax(data, content, loading); },

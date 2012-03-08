@@ -1,5 +1,6 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.ListFlyerView
 @{
+    Layout = "~/Views/Site/_Layout.cshtml";
     ViewBag.Title = "I Flyer di " + Model.agenzia.RagioneSociale;
     var defaultFlyerId = 0;
     if (Model.flyers != null && Model.flyers.Count > 0)
@@ -23,6 +24,7 @@
     <!-- main -->
     <div id="main" class="grid_16">
         <h3>@ViewBag.Title</h3>
+        <hr />
         <div id="left-columns" class="grid_4">
             <div class="grid_4 alpha">
                 <div class="sidemenu">
@@ -40,7 +42,7 @@
             <div id="viaggi">
                 @{  if (Model.flyers != null && Model.flyers.Count > 0)
                     {
-                        Html.RenderAction("ShowSelected", "Flyer", new { id = defaultFlyerId });
+                        Html.RenderAction("ShowSelectedExternal", "Flyer", new { id = defaultFlyerId });
                     }}
             </div>
         </div>
