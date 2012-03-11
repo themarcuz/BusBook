@@ -5,7 +5,7 @@
     if (!viaggioItem.isSelectable) {
         if (viaggioItem.isDetailExternal) 
         {
-            location = "window.location = '" + Url.Action("DetailViaggio", "Site", new { id = viaggioItem.viaggio.Id }) + "'";
+            location = "window.location = '" + Url.Action("DetailViaggio", "Site", new { id = viaggioItem.viaggio.Id, idFlyer = viaggioItem.idFlyer }) + "'";
         }
         else
         {

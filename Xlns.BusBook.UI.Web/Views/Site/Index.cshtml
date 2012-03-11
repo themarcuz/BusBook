@@ -2,8 +2,13 @@
 @{
     Layout = "~/Views/Site/_Layout.cshtml";
     ViewBag.Title = "I Flyer di " + Model.agenzia.RagioneSociale;
-    var defaultFlyerId = 0;
-    if (Model.flyers != null && Model.flyers.Count > 0)
+
+    int defaultFlyerId = 0;
+    
+    if(ViewBag.DefaultFlyerId != null){
+        defaultFlyerId = ViewBag.DefaultFlyerId;
+    }
+    else if (Model.flyers != null && Model.flyers.Count > 0)
     {
         defaultFlyerId = Model.flyers[0].Id;
     }

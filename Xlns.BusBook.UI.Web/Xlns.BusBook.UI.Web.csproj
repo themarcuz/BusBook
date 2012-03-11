@@ -113,6 +113,7 @@
     </Compile>
     <Compile Include="Models\AgenzieView.cs" />
     <Compile Include="Models\AllegatoViewModel.cs" />
+    <Compile Include="Models\DetailViaggio.cs" />
     <Compile Include="Models\FlyerTiled.cs" />
     <Compile Include="Models\DashBoardInfo.cs" />
     <Compile Include="Models\DepliantViewModel.cs" />

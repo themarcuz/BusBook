@@ -1,9 +1,8 @@
-﻿@using Xlns.BusBook.UI.Web.Models;
-@using Xlns.BusBook.Core.Model;
-@model Xlns.BusBook.Core.Model.Viaggio           
+﻿
+@model Xlns.BusBook.UI.Web.Models.DetailViaggio      
 @{
     Layout = "~/Views/Site/_Layout.cshtml";
-    ViewBag.Title = Model.Nome;
+    ViewBag.Title = Model.viaggio.Nome;
 }
 @section head{
     <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
@@ -15,43 +14,43 @@
 <div id="content-wrapper" class="container_16">
     <div id="main" class="grid_18">
         <div class="grid_6 alpha">
-            <h3 style="padding-bottom: 0px">@Model.Nome</h3>
+            <h3 style="padding-bottom: 0px">@Model.viaggio.Nome</h3>
             <h4 style="padding-top: 0px" class="tileSubTitle">
-                @Html.DisplayFor(model => model.Descrizione)
+                @Html.DisplayFor(model => model.viaggio.Descrizione)
             </h4>
             <br />
             <fieldset>
-                @Html.LabelFor(model => model.DataPartenza)
+                @Html.LabelFor(model => model.viaggio.DataPartenza)
                 <div>
-                    @Html.DisplayFor(model => model.DataPartenza)
+                    @Html.DisplayFor(model => model.viaggio.DataPartenza)
                 </div>
-                @Html.LabelFor(model => model.TotalePosti)
+                @Html.LabelFor(model => model.viaggio.TotalePosti)
                 <div>
-                    @Html.DisplayFor(model => model.TotalePosti)
+                    @Html.DisplayFor(model => model.viaggio.TotalePosti)
                 </div>
-                @Html.LabelFor(model => model.DataChiusuraPrenotazioni)
+                @Html.LabelFor(model => model.viaggio.DataChiusuraPrenotazioni)
                 <div>
-                    @Html.DisplayFor(model => model.DataChiusuraPrenotazioni)
+                    @Html.DisplayFor(model => model.viaggio.DataChiusuraPrenotazioni)
                 </div>
-                @if (Model.DataPubblicazione.HasValue)
+                @if (Model.viaggio.DataPubblicazione.HasValue)
                 {
-                    @Html.LabelFor(model => model.DataPubblicazione)
+                    @Html.LabelFor(model => model.viaggio.DataPubblicazione)
                     <div>
-                        @Html.DisplayFor(model => model.DataPubblicazione)
+                        @Html.DisplayFor(model => model.viaggio.DataPubblicazione)
                     </div>
                 }
-                @if (Model.Tappe != null && Model.Tappe.Count > 0)
+                @if (Model.viaggio.Tappe != null && Model.viaggio.Tappe.Count > 0)
                 {                    
-                    if (Model.Tappe != null
-                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
-                        && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
+                    if (Model.viaggio.Tappe != null
+                        && Model.viaggio.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
+                        && Model.viaggio.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
                     {
                     <div>
                         <label>
                             Destinazione</label>
                     </div>
                     <div>
-                        @Html.DisplayFor(model => model.Tappe
+                        @Html.DisplayFor(model => model.viaggio.Tappe
                                     .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE)
                                     .OrderByDescending(t => t.Ordinamento)
                                     .First()
@@ -59,11 +58,11 @@
                     </div>
                     }
                     <div style="margin-top: 10px">
-                        @{Html.RenderAction("ListaPartecipanti", "Viaggio", new { idViaggio = Model.Id });
+                        @{Html.RenderAction("ListaPartecipanti", "Viaggio", new { idViaggio = Model.viaggio.Id });
                         }
                     </div>
                     <div style="display: none">
-                        @foreach (var tappa in Model.Tappe)
+                        @foreach (var tappa in Model.viaggio.Tappe)
                         {
                             <div class="tappaLocationInfo" data-tappa-id="@tappa.Id">
                                 @Html.TextBox(String.Format("tbTappa{0}Lat", tappa.Id), tappa.Location.Lat)
@@ -84,12 +83,12 @@
     </div>
     <div class="grid_16">
         <p>
-            @Html.ActionLink("Torna alla lista", "Index",  new { id = Model.Agenzia.Id }, new { @class = "button" })
+            @Html.ActionLink("Torna alla lista", "IndexFromFlyer", new { id = Model.idFlyer }, new { @class = "button" })
 
-            @if (Model.DataChiusuraPrenotazioni > DateTime.Now)
+            @if (Model.viaggio.DataChiusuraPrenotazioni > DateTime.Now)
             {
                 <br />
-                @Html.Label("Le partecipazioni a questo viaggio si chiuderanno il " + @Model.DataPartenza.Date.ToString("dd MMM yyyy"));
+                @Html.Label("Le partecipazioni a questo viaggio si chiuderanno il " + @Model.viaggio.DataPartenza.Date.ToString("dd MMM yyyy"));
             }
             else
             {
@@ -103,9 +102,9 @@
             <img src="@Url.Content("~/Content/img/twitter.png")" alt="Share on twitter"/>
             <script type="text/javascript">
                 function publishWallPost() {
-                    var date = ('@Model.DataPartenza.Date.ToString("dd MMM yyyy")');
-                    var nomeViaggio = '@Model.Nome';
-                    var descrizione = '@Model.Descrizione';
+                    var date = ('@Model.viaggio.DataPartenza.Date.ToString("dd MMM yyyy")');
+                    var nomeViaggio = '@Model.viaggio.Nome';
+                    var descrizione = '@Model.viaggio.Descrizione';
                     var attachment = { 'name': nomeViaggio, 'description': nomeViaggio + ' partenza il ' + date };
                     FB.ui({
                         method: 'stream.publish',

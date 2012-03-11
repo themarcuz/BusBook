@@ -18,15 +18,24 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult Index(int id)
         {
             var model = new ListFlyerView() { agenzia = agenziaRepo.GetById(id), flyers = flyerRepo.GetFlyersPerAgenzia(id) };
-            return View(model);
+            return View("Index",model);
         }
 
-        public ActionResult DetailViaggio(int id)
+        public ActionResult IndexFromFlyer(int id)
+        {
+            ViewBag.DefaultFlyerId = id;
+            var flyer = flyerRepo.GetById(id);
+            return Index(flyer.Agenzia.Id);
+        }
+
+        public ActionResult DetailViaggio(int id, int idFlyer)
         {
             var vr = new ViaggioRepository();
             var viaggio = vr.GetById(id);
 
-            return View(viaggio);
+            var detailViaggio = new DetailViaggio() { viaggio = viaggio, idFlyer = idFlyer };
+
+            return View(detailViaggio);
         }
 
     }
