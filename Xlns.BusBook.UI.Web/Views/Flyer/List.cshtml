@@ -18,6 +18,9 @@
         {
             Html.RenderAction("ShowTile", new { flyer = flyer, isShort = false, isEditable = true, isDetailAjax = false });
         }
+        <p>
+            @Html.ActionLink("DashBoard", "DashBoard", "Home", null, new { @class = "button"})
+        </p>
     </div>
 </div>
 <div style="visibility: hidden; ">
@@ -25,3 +28,4 @@
 	    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Sicuro di voler cancellare il Flyer?</p>
     </div>
 </div>
+

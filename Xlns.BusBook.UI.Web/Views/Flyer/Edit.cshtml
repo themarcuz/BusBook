@@ -55,8 +55,9 @@
             
          
             <input type="submit" value="Salva" id="submitButton" class="button" />
-            <input type="button" value="Annulla" id="cancelButton" class="button" 
-                    onclick="window.location='@Href("~/Home/DashBoard")'" />
+            <a class="button" href="@Request.UrlReferrer">Annulla</a>
+            
+            @Html.HiddenFor(model => model.RedirectOnSave);
         }
     </div>
 </div>

@@ -27,8 +27,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult Edit(int id)
         {
             var flyer = setFlyerInEdit(id);
+            var flyerEdit = new FlyerEditView(flyer);
+            flyerEdit.RedirectOnSave = Request.UrlReferrer.OriginalString;
 
-            return View(new FlyerEditView(flyer));
+            return View(flyerEdit);
         }
 
         public ActionResult Detail(int id)
@@ -54,7 +56,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 flyer.Titolo = flyerEdit.Titolo;
 
                 flyerRepo.Save(flyer);
-                return RedirectToAction("DashBoard","Home");
+                return Redirect(flyerEdit.RedirectOnSave);
+       
             }
             return View("Edit",flyerEdit);
         }

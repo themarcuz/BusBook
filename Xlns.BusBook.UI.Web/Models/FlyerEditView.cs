@@ -34,5 +34,7 @@ namespace Xlns.BusBook.UI.Web.Models
         }
 
         public FlyerEditView(){}
+
+        public String RedirectOnSave { get; set; }
     }
 }
