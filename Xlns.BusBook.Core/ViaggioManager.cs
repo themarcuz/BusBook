@@ -88,7 +88,7 @@ namespace Xlns.BusBook.Core
             {
                 var firstPickupPoint = viaggio.Tappe
                                     .Where(t => t.Tipo == TipoTappa.PICK_UP_POINT)
-                                    .OrderBy(t => t.Ordinamento)                                    
+                                    .OrderBy(t => t.Ordinamento)
                                     .FirstOrDefault();
                 string origine = string.Format("{0},{1}", firstPickupPoint.Location.Lat, firstPickupPoint.Location.Lng);
                 string destinazione = viaggio.Tappe
@@ -104,7 +104,7 @@ namespace Xlns.BusBook.Core
                         );
 
                 var svcHelper = new Xlns.Google.Maps.Directions.Services();
-                var distanza = svcHelper.CalcolaDistanzaPercorsa(req);                 
+                var distanza = svcHelper.CalcolaDistanzaPercorsa(req);
                 logger.Info("La distanza percorsa per il viaggio {0} è stimata in {1} km", viaggio, distanza);
                 return distanza;
             }
@@ -184,7 +184,8 @@ namespace Xlns.BusBook.Core
             }
         }
 
-        public Viaggio GetViaggioByDepliant(int idDepliant) {
+        public Viaggio GetViaggioByDepliant(int idDepliant)
+        {
             using (var om = new OperationManager())
             {
                 try
@@ -242,12 +243,12 @@ namespace Xlns.BusBook.Core
                     // serve per valorizzare gli ID generati dal DB
                     session.Flush();
                     if (viaggio.Depliant != null && viaggio.Depliant.RawFile != null)
-                    {                        
+                    {
                         SaveDepliant(viaggio);
                     }
                     if (viaggio.PromoImage != null && viaggio.PromoImage.RawFile != null)
                     {
-                        SaveDepliant(viaggio);
+                        SavePromoImage(viaggio);
                     }
                     om.CommitOperation();
                     logger.Info("Dati del viaggio {0} salvati con successo", viaggio);
@@ -266,14 +267,7 @@ namespace Xlns.BusBook.Core
         {
             if (viaggio.Depliant.Id != 0 && viaggio.Agenzia.Id != 0)
             {
-                string fileName = String.Format("{0}.{1}", viaggio.Depliant.Id, viaggio.Depliant.NomeFile);                
-                logger.Debug("Nome con cui verrà salvato il depliant: {0}", fileName);
-                string fullPath = getDepliantFolder(viaggio.Agenzia);
-                logger.Debug("Il file verrà salvato in {0}", fullPath);
-                string fullPathFileName = System.IO.Path.Combine(fullPath, fileName);
-                System.IO.File.WriteAllBytes(fullPathFileName, viaggio.Depliant.RawFile);
-                logger.Info("Depliant salvato in {0}", fullPathFileName);
-                viaggio.Depliant.FullName = fullPathFileName;
+                SaveAllegato(viaggio.Depliant, () => { return getDepliantFolder(viaggio.Agenzia); });
             }
             else
             {
@@ -283,20 +277,30 @@ namespace Xlns.BusBook.Core
             }
         }
 
-        private void SaveAllegato(AllegatoViaggio allegato, Func<string> getFolder) 
+        private void SavePromoImage(Viaggio viaggio)
         {
-            // verifica che allegato e viaggio siano già salvati su db
-            if (allegato.Id != 0 && allegato.Viaggio.Id != 0)
+            if (viaggio.PromoImage.Id != 0 && viaggio.Agenzia.Id != 0)
             {
-                string fileName = String.Format("{0}.{1}", allegato.Id, allegato.NomeFile);
-                logger.Debug("Nome con cui verrà salvato l'allegato: {0}", fileName);
-                string fullPath = getFolder();
-                logger.Debug("Il file verrà salvato in {0}", fullPath);
-                string fullPathFileName = System.IO.Path.Combine(fullPath, fileName);
-                System.IO.File.WriteAllBytes(fullPathFileName, allegato.RawFile);
-                logger.Info("Allegato salvato in {0}", fullPathFileName);
-                allegato.FullName = fullPathFileName;
+                SaveAllegato(viaggio.PromoImage, () => { return getPromoImageFolder(viaggio.Agenzia); });
             }
+            else
+            {
+                string msg = string.Format("Impossibile salvare l'immagine promozionale del viaggio {0} in quanto il viaggio non è ancora stato salvato o non è associato ad un'agenzia.", viaggio);
+                logger.Warn(msg);
+                throw new Exception(msg);
+            }
+        }
+
+        private void SaveAllegato(AllegatoViaggio allegato, Func<string> getFolder)
+        {
+            string fileName = String.Format("{0}.{1}", allegato.Id, allegato.NomeFile);
+            logger.Debug("Nome con cui verrà salvato l'allegato: {0}", fileName);
+            string fullPath = getFolder();
+            logger.Debug("Il file verrà salvato in {0}", fullPath);
+            string fullPathFileName = System.IO.Path.Combine(fullPath, fileName);
+            System.IO.File.WriteAllBytes(fullPathFileName, allegato.RawFile);
+            logger.Info("Allegato salvato in {0}", fullPathFileName);
+            allegato.FullName = fullPathFileName;
         }
 
         internal string getDepliantFolder(Agenzia agenzia)
@@ -304,12 +308,12 @@ namespace Xlns.BusBook.Core
             return getAllegatoFolder(agenzia.Id, Configurator.Istance.depliantFolder);
         }
 
-        internal string getPromoImageFolder(Agenzia agenzia) 
-        {            
+        internal string getPromoImageFolder(Agenzia agenzia)
+        {
             return getAllegatoFolder(agenzia.Id, Configurator.Istance.promoImageFolder);
         }
 
-        private string getAllegatoFolder(int idAgenzia, string baseTypeFolder ) 
+        private string getAllegatoFolder(int idAgenzia, string baseTypeFolder)
         {
             var fullPath = System.IO.Path.Combine(Configurator.Istance.rootFolder,
                                            Configurator.Istance.companyIdPrefix + idAgenzia.ToString(),
@@ -353,7 +357,7 @@ namespace Xlns.BusBook.Core
                     var session = om.BeginOperation();
                     var viaggio = GetViaggioByDepliant(idDepliant);
                     logger.Debug("Il viaggio da cui il depliant {0} sarà rimosso è {1}", idDepliant, viaggio);
-                    var depliant = viaggio.Depliant;                    
+                    var depliant = viaggio.Depliant;
                     viaggio.Depliant = null;
                     DeleteAllegato(viaggio, depliant);
                     om.CommitOperation();
@@ -367,7 +371,7 @@ namespace Xlns.BusBook.Core
                     throw new Exception(msg, ex);
                 }
             }
-            
+
         }
 
         private void DeleteAllegato(Viaggio viaggio, AllegatoViaggio targetAllegato)
@@ -376,12 +380,12 @@ namespace Xlns.BusBook.Core
             {
                 try
                 {
-                    var session = om.BeginOperation();                    
+                    var session = om.BeginOperation();
                     var fullImgPath = targetAllegato.FullName;
                     System.IO.File.Delete(fullImgPath);
                     vr.Save(viaggio);
                     vr.deleteAllegato(targetAllegato);
-                    om.CommitOperation();                    
+                    om.CommitOperation();
                 }
                 catch (Exception ex)
                 {
