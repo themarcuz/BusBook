@@ -1,0 +1,30 @@
+﻿@model Xlns.BusBook.UI.Web.Models.PromoImageViewModel
+<div class="editor-label">
+    @Html.LabelFor(model => model.Viaggio.PromoImage)
+    <span id="promoImgGetter" class="ui-icon ui-icon-link"></span>
+    <span id="promoImgDeleter" class="ui-icon ui-icon-closethick"></span>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#promoImgDeleter').click(function () {
+            $.ajax({
+                url: '@(Url.Action("Delete", "PromoImage", new { id = Model.Viaggio.PromoImage.Id }))',
+                beforeSend: function () {
+                    $('#@(Model.HtmlContainerId)').fadeOut(100);
+                },
+                success: function (result) {
+                    $('#@(Model.HtmlContainerId)').html(result);
+                },
+                complete: function () {
+                    $('#@(Model.HtmlContainerId)').fadeIn(100);
+                },
+                error: function () {
+                    alert("Impossibile eliminare l'immagine promozionale");
+                }
+            });
+        });
+        $('#promoImgGetter').click(function () {
+            window.location.href = '@(Url.Action("Download", "Allegato", new { id = Model.Viaggio.PromoImage.Id }))';
+        });
+    })
+</script>

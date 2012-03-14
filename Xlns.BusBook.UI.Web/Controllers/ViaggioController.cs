@@ -27,7 +27,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult ListPartial()
         {
             var viaggi = vr.GetViaggi();
-            ViewBag.IsFullPage = false;
+            ViewBag.IsFullPage = false;            
             return PartialView("List", viaggi);
         }
 
@@ -89,9 +89,9 @@ namespace Xlns.BusBook.UI.Web.Controllers
                         HttpPostedFileBase file = Request.Files[fileName] as HttpPostedFileBase;
                         if (file.ContentLength == 0)
                             continue;
-                        if (file.FileName.ToLower().EndsWith(".pdf"))
+                        if (vm.isValidDepliantMimeType(file.FileName))
                         {
-                            logger.Info("Caricamento allegato per il viaggio {0}", viaggio);
+                            logger.Info("Caricamento depliant per il viaggio {0}", viaggio);
                             Int32 length = file.ContentLength;
                             byte[] rawFile = new byte[length];
                             file.InputStream.Read(rawFile, 0, length);
@@ -103,7 +103,20 @@ namespace Xlns.BusBook.UI.Web.Controllers
                             };
                             viaggio.Depliant = allegato;
                         }
-                        //TODO: gestire anche l'immagine promozionale
+                        if (vm.isValidImageMimeType(file.FileName))
+                        {
+                            logger.Info("Caricamento immagine promozionale per il viaggio {0}", viaggio);
+                            Int32 length = file.ContentLength;
+                            byte[] rawFile = new byte[length];
+                            file.InputStream.Read(rawFile, 0, length);
+                            var allegato = new AllegatoViaggio()
+                            {
+                                RawFile = rawFile,
+                                NomeFile = file.FileName,
+                                Viaggio = viaggio
+                            };
+                            viaggio.PromoImage = allegato;
+                        }                       
                     }
                 }                
                 vm.Save(viaggio);
@@ -111,6 +124,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
             return RedirectToAction("Edit", new { id = viaggio.Id });
         }
+
+        
 
         public ActionResult EditTappeViaggio(int idViaggio)
         {

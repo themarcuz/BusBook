@@ -88,6 +88,19 @@
                                 }
                             }
                             </div>
+                            <div id="promoImgContainer" style="margin-top: 20px">
+                            @if (Model.Id != 0)
+                            {
+                                if (Model.PromoImage == null)
+                                {
+                                    @Html.Action("New", "PromoImage")
+                                }
+                                else
+                                {                                    
+                                    @Html.Action("Edit", "PromoImage", new { idPromoImage = Model.PromoImage.Id, htmlId = "promoImgContainer" })                                    
+                                }
+                            }
+                            </div>
                             @Html.HiddenFor(model => model.Id)
                             <p>
                                 <input type="submit" value="Salva" class="button" />

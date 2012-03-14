@@ -207,6 +207,30 @@ namespace Xlns.BusBook.Core
             }
         }
 
+        public Viaggio GetViaggioByPromoImage(int idPromoImage)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var viaggio = session.Query<Viaggio>()
+                                    .Where(v => v.PromoImage.Id == idPromoImage)
+                                    .Single();
+                    om.CommitOperation();
+                    logger.Debug("L'immagine promozionale {0} si riferisce al viaggio {1}", idPromoImage, viaggio);
+                    return viaggio;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Impossibile recuperare il viaggio a cui è associata l'immagine promozionale {0}", idPromoImage);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
+
         public void Save(Viaggio viaggio)
         {
             using (var om = new OperationManager())
@@ -219,6 +243,10 @@ namespace Xlns.BusBook.Core
                     session.Flush();
                     if (viaggio.Depliant != null && viaggio.Depliant.RawFile != null)
                     {                        
+                        SaveDepliant(viaggio);
+                    }
+                    if (viaggio.PromoImage != null && viaggio.PromoImage.RawFile != null)
+                    {
                         SaveDepliant(viaggio);
                     }
                     om.CommitOperation();
@@ -255,18 +283,43 @@ namespace Xlns.BusBook.Core
             }
         }
 
+        private void SaveAllegato(AllegatoViaggio allegato, Func<string> getFolder) 
+        {
+            // verifica che allegato e viaggio siano già salvati su db
+            if (allegato.Id != 0 && allegato.Viaggio.Id != 0)
+            {
+                string fileName = String.Format("{0}.{1}", allegato.Id, allegato.NomeFile);
+                logger.Debug("Nome con cui verrà salvato l'allegato: {0}", fileName);
+                string fullPath = getFolder();
+                logger.Debug("Il file verrà salvato in {0}", fullPath);
+                string fullPathFileName = System.IO.Path.Combine(fullPath, fileName);
+                System.IO.File.WriteAllBytes(fullPathFileName, allegato.RawFile);
+                logger.Info("Allegato salvato in {0}", fullPathFileName);
+                allegato.FullName = fullPathFileName;
+            }
+        }
+
         internal string getDepliantFolder(Agenzia agenzia)
         {
+            return getAllegatoFolder(agenzia.Id, Configurator.Istance.depliantFolder);
+        }
+
+        internal string getPromoImageFolder(Agenzia agenzia) 
+        {            
+            return getAllegatoFolder(agenzia.Id, Configurator.Istance.promoImageFolder);
+        }
+
+        private string getAllegatoFolder(int idAgenzia, string baseTypeFolder ) 
+        {
             var fullPath = System.IO.Path.Combine(Configurator.Istance.rootFolder,
-                                           Configurator.Istance.companyIdPrefix + agenzia.Id.ToString(),
-                                           Configurator.Istance.depliantFolder);
+                                           Configurator.Istance.companyIdPrefix + idAgenzia.ToString(),
+                                           baseTypeFolder);
             if (!System.IO.Directory.Exists(fullPath))
             {
                 logger.Debug("La directory {0} non esiste, quindi verrà creata", fullPath);
                 createFolder(fullPath);
             }
             return fullPath;
-
         }
 
         private void createFolder(string fullPath)
@@ -301,11 +354,8 @@ namespace Xlns.BusBook.Core
                     var viaggio = GetViaggioByDepliant(idDepliant);
                     logger.Debug("Il viaggio da cui il depliant {0} sarà rimosso è {1}", idDepliant, viaggio);
                     var depliant = viaggio.Depliant;                    
-                    viaggio.Depliant = null;                    
-                    var fullDepliantPath = depliant.FullName;
-                    System.IO.File.Delete(fullDepliantPath);
-                    vr.Save(viaggio);
-                    vr.deleteDepliant(depliant);
+                    viaggio.Depliant = null;
+                    DeleteAllegato(viaggio, depliant);
                     om.CommitOperation();
                     logger.Info("Il depliant {0} relativo al viaggio {1} è stato eliminato", idDepliant, viaggio);
                 }
@@ -318,6 +368,74 @@ namespace Xlns.BusBook.Core
                 }
             }
             
+        }
+
+        private void DeleteAllegato(Viaggio viaggio, AllegatoViaggio targetAllegato)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();                    
+                    var fullImgPath = targetAllegato.FullName;
+                    System.IO.File.Delete(fullImgPath);
+                    vr.Save(viaggio);
+                    vr.deleteAllegato(targetAllegato);
+                    om.CommitOperation();                    
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Impossibile eliminare l'allegato {0}", targetAllegato.Id);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
+
+        public void DeletePromoImage(int idPromoImage)
+        {
+            logger.Debug("Richiesta di eliminazione dell'immagine promozionale {0}", idPromoImage);
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var viaggio = GetViaggioByPromoImage(idPromoImage);
+                    logger.Debug("Il viaggio da cui l'immagine promozionale {0} sarà rimossa è {1}", idPromoImage, viaggio);
+                    var promoImg = viaggio.PromoImage;
+                    viaggio.PromoImage = null;
+                    DeleteAllegato(viaggio, promoImg);
+                    om.CommitOperation();
+                    logger.Info("L'immagine promozionale {0} relativa al viaggio {1} è stata eliminato", idPromoImage, viaggio);
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Impossibile eliminare l'immagine promozionale {0}", idPromoImage);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+
+        }
+
+        public Boolean isValidDepliantMimeType(string fileName)
+        {
+            var result = false;
+            result = (fileName.ToLower().EndsWith(".pdf")) || (fileName.ToLower().EndsWith(".doc"));
+            logger.Debug("Il file {0} non è stato ritenuto valido come depliant", fileName);
+            return result;
+        }
+
+        public bool isValidImageMimeType(string fileName)
+        {
+            var result = false;
+            result = (fileName.ToLower().EndsWith(".gif"))
+                    || (fileName.ToLower().EndsWith(".jpg"))
+                    || (fileName.ToLower().EndsWith(".png"));
+            logger.Debug("Il file {0} non è stato ritenuto valido come immagine", fileName);
+            return result;
         }
     }
 }

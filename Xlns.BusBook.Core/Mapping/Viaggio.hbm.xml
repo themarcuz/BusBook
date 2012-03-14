@@ -20,6 +20,10 @@
     <many-to-one name="Depliant"
       class="AllegatoViaggio"
       cascade="save-update" />
+
+    <many-to-one name="PromoImage"
+      class="AllegatoViaggio"
+      cascade="save-update" />
     
     <bag name="Tappe" cascade="all" inverse="true" lazy="false" order-by="Ordinamento asc">
       <key column="Viaggio" on-delete="cascade" />

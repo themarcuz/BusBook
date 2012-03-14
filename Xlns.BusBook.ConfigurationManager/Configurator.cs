@@ -98,5 +98,6 @@ namespace Xlns.BusBook.ConfigurationManager
         }
         public string depliantFolder { get { return base.getParameter("core.files.depliantFolder"); } }
         public string companyIdPrefix { get { return base.getParameter("core.files.companyIdPrefix"); } }
+        public string promoImageFolder { get { return base.getParameter("core.files.promoImageFolder"); } }
     }
 }
