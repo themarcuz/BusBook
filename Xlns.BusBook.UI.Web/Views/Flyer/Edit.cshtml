@@ -1,4 +1,5 @@
-﻿@model Xlns.BusBook.UI.Web.Models.FlyerEditView
+﻿@using Xlns.BusBook.UI.Web.Models
+@model Xlns.BusBook.UI.Web.Models.FlyerEditView
 @{
     if (Model.Id == 0)
     {
@@ -20,6 +21,7 @@
     <div id="main" class="grid_16">
         <h3>
             @ViewBag.Title</h3>
+        <div> @{Html.RenderPartial("SearchViaggi", new ViaggioSearch() { searchString = "", idDivToUpdate = "elencoViaggi" });} </div>
         @using (Html.BeginForm("Save", "Flyer"))
         {
             @Html.ValidationSummary(true)
@@ -42,7 +44,7 @@
                                 @Html.ValidationMessageFor(model => model.hasViaggiSelected)
                             <div>
                             </div>
-                            <div class="scroll">
+                            <div id="elencoViaggi" class="scroll">
                                @{Html.RenderAction("Select");}
                             </div>
                             <br />

@@ -15,5 +15,4 @@ function hideResult() {
 
 function showResult() {
     $("#elencoUtenti").show('fast');
-    handleTilesCommands();
 }

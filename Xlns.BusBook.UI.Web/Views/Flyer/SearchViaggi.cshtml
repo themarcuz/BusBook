@@ -1,0 +1,22 @@
+﻿@model Xlns.BusBook.UI.Web.Models.ViaggioSearch
+@using (Ajax.BeginForm("SearchViaggi", Model.searchString, new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = @Model.idDivToUpdate,
+            LoadingElementId = "loadingDiv",
+            OnComplete = "showResult('" + @Model.idDivToUpdate + "')",
+            OnBegin = "hideResult('" + @Model.idDivToUpdate +"')",
+            OnFailure = "onFailure"
+        }, new { id = "searchViaggi" }))
+{
+    <div style="margin: 10px">
+        @Html.TextBoxFor(model => model.searchString)
+        <input type="submit" value="Cerca" class="button" />
+    </div>
+}
+    <div style="display: none; margin-left: 50px" id="loadingDiv">
+        <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")" />
+    </div>
+<script src="@Url.Content("~/Content/scripts/viaggio.search.js")" type="text/javascript"></script>
+

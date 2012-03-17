@@ -15,5 +15,4 @@ function hideResult() {
 
 function showResult() {
     $("#elencoAgenzie").show('fast');
-    handleTilesCommands();
 }

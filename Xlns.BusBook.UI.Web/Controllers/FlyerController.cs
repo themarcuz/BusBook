@@ -101,22 +101,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             //TODO: solo viaggi pubblicati!
             //var viaggiPubblicati = vr.GetViaggi().Where(v => v.DataPubblicazione != null).ToList();
-            var viaggiPubblicati = viaggiRepo.GetViaggi();
+            var viaggiPubblicati = viaggiRepo.GetViaggi().ToList();
 
-            var flyer = getFlyerInEdit();
+            var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(getFlyerInEdit() ,viaggiPubblicati);
 
-            List<ViaggioSelectView> viaggiSelezionabili = new List<ViaggioSelectView>();
-
-            foreach (var viaggioPub in viaggiPubblicati)
-            {
-                bool selected = false;
-
-                if (flyer.Viaggi != null && flyer.Viaggi.Any(v => v.Id == viaggioPub.Id))
-                    selected = true;
-
-                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = selected, isSelectable = true,  idFlyer = flyer.Id, isDetailExternal = false };
-                viaggiSelezionabili.Add(viaggioSelezionabile);
-            }
             return PartialView(viaggiSelezionabili);
         }
 
@@ -181,5 +169,18 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
             return Json(valid, JsonRequestBehavior.AllowGet);
         }
+
+       public ActionResult SearchViaggi(ViaggioSearch param)
+       {
+           //TODO: solo viaggi pubblicati!
+           //var viaggiPubblicati = vr.GetViaggi().Where(v => v.DataPubblicazione != null).ToList();
+           var viaggiFinded = viaggiRepo.GetViaggi().Where(v => v.Nome.ToUpper().StartsWith(param.searchString.ToUpper())).ToList();
+
+           var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(getFlyerInEdit(), viaggiFinded);
+
+           return PartialView("Select", viaggiSelezionabili);
+       }
+
+
     }
 }
