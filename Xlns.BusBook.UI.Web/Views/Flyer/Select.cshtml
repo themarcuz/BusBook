@@ -2,8 +2,9 @@
 @foreach (var viaggioItem in Model)
 {
     var location = "";
-    if (!viaggioItem.isSelectable) {
-        if (viaggioItem.isDetailExternal) 
+    if (!viaggioItem.isSelectable)
+    {
+        if (viaggioItem.isDetailExternal)
         {
             location = "window.location = '" + Url.Action("DetailViaggio", "Site", new { id = viaggioItem.viaggio.Id, idFlyer = viaggioItem.idFlyer }) + "'";
         }
@@ -11,7 +12,7 @@
         {
             location = "window.location = '" + Url.Action("Detail", "Viaggio", new { id = viaggioItem.viaggio.Id }) + "'";
         }
-    
+
     }
 
     
@@ -30,6 +31,12 @@
             <div class="tileCommand">
                 @Html.CheckBoxFor(model => viaggioItem.isSelected, new { id = viaggioItem.viaggio.Id })
             </div>
+            
+            <script type="text/javascript">
+             $(function () {
+                new SelectViaggio(@(viaggioItem.viaggio.Id));
+             });
+            </script>
         }
     </div>
 

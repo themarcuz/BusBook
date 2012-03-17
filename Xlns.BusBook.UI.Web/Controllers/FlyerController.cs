@@ -172,13 +172,18 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
        public ActionResult SearchViaggi(ViaggioSearch param)
        {
-           //TODO: solo viaggi pubblicati!
-           //var viaggiPubblicati = vr.GetViaggi().Where(v => v.DataPubblicazione != null).ToList();
-           var viaggiFinded = viaggiRepo.GetViaggi().Where(v => v.Nome.ToUpper().StartsWith(param.searchString.ToUpper())).ToList();
+           if (String.IsNullOrWhiteSpace(param.searchString))
+               return Select();
+           else
+           {
+               //TODO: solo viaggi pubblicati!
+               //var viaggiPubblicati = vr.GetViaggi().Where(v => v.DataPubblicazione != null).ToList();
+               var viaggiFinded = viaggiRepo.GetViaggi().Where(v => v.Nome.ToUpper().StartsWith(param.searchString.ToUpper())).ToList();
 
-           var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(getFlyerInEdit(), viaggiFinded);
+               var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(getFlyerInEdit(), viaggiFinded);
 
-           return PartialView("Select", viaggiSelezionabili);
+               return PartialView("Select", viaggiSelezionabili);
+           }
        }
 
 
