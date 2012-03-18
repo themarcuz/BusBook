@@ -8,11 +8,11 @@
             OnComplete = "showResult('" + @Model.idDivToUpdate + "')",
             OnBegin = "hideResult('" + @Model.idDivToUpdate +"')",
             OnFailure = "onFailure"
-        }, new { id = "searchViaggi" }))
+        }, new { id = "searchViaggi"}))
 {
-    <div style="margin: 10px">
-        @Html.TextBoxFor(model => model.searchString)
-        <input type="submit" value="Cerca" class="button" />
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.searchString, new { @class = "search" })
+        <input type="submit" value="Cerca viaggi" class="button" />
     </div>
 }
     <div style="display: none; margin-left: 50px" id="loadingDiv">

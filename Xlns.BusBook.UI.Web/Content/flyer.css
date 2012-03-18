@@ -5,7 +5,11 @@
 
 .scroll
 {
-     height: 400px; 
-     width: 700px; 
+     max-height: 400px;
      overflow:auto;
+}
+
+.search 
+{
+    width: 400px;
 }
