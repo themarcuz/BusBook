@@ -173,7 +173,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
        public ActionResult SearchViaggi(ViaggioSearch param)
        {
            if (String.IsNullOrWhiteSpace(param.searchString))
-               return Select();
+               return RedirectToAction("Select");
            else
            {
                //TODO: solo viaggi pubblicati!
