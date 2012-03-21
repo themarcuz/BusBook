@@ -10,14 +10,25 @@ namespace Xlns.BusBook.UI.Web.Controllers
     public class DepliantController : Controller
     {
         ViaggioManager vm = new ViaggioManager();
-        
+
+        public ActionResult View(int idDepliant)
+        {
+            var viaggio = vm.GetViaggioByDepliant(idDepliant);
+            var dvm = new Models.DepliantViewModel()
+            {                
+                Viaggio = viaggio
+            };
+            return PartialView("Edit", dvm);
+        }
+
         public ActionResult Edit(int idDepliant, String htmlId)
         {            
             var viaggio = vm.GetViaggioByDepliant(idDepliant);
             var dvm = new Models.DepliantViewModel() 
             {
                 HtmlContainerId = htmlId,
-                Viaggio = viaggio
+                Viaggio = viaggio,
+                ShowDeleteCommand = true
             };
             return PartialView(dvm);
         }

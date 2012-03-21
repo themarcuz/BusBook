@@ -19,7 +19,9 @@
             <h4 style="padding-top: 0px" class="tileSubTitle">
                 @Html.DisplayFor(model => model.Descrizione)
             </h4>
-            <br />
+            <div style="margin: 10px 0px;">
+                <img src="@Url.Action("View", "PromoImage", new { id = Model.PromoImage.Id })" width="300px" height="150px" alt="promo image" />
+            </div>
             <fieldset>
                 @Html.LabelFor(model => model.DataPartenza)
                 <div>
@@ -58,6 +60,7 @@
                                     .Location.City)
                     </div>
                     }
+                   @Html.Action("View", "Depliant", new { idDepliant = Model.Depliant.Id })
                     <div style="margin-top: 10px">
                         @{Html.RenderAction("ListaPartecipanti", new { idViaggio = Model.Id });
                         }
@@ -70,7 +73,7 @@
                                 @Html.TextBox(String.Format("tbTappa{0}Lng", tappa.Id), tappa.Location.Lng)
                             </div>
                         }
-                    </div>
+                    </div>                    
                 }
             </fieldset>
         </div>
@@ -93,7 +96,7 @@
                 @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })                    
             }  
            
-            @if (!Model.DataPubblicazione.HasValue) 
+            @if (!Model.DataPubblicazione.HasValue)
             {
                 @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
                                    new AjaxOptions()
