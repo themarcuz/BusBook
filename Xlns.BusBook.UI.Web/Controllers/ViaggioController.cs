@@ -309,7 +309,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
             }
 
-            return PartialView(viaggi);
+            return PartialView("Select",viaggi);
         }
 
         public ActionResult ShowSelected(int idFlyer, bool isDetailExternal)
