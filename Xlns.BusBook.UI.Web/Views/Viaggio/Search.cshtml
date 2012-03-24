@@ -1,7 +1,7 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.ViaggioSearch
-@using (Ajax.BeginForm("SearchViaggi", Model.searchString, new AjaxOptions()
+@using (Ajax.BeginForm("Search", Model, new AjaxOptions()
         {
-            HttpMethod = "GET",
+            HttpMethod = "POST",
             InsertionMode = InsertionMode.Replace,
             UpdateTargetId = @Model.idDivToUpdate,
             LoadingElementId = "loadingDiv",

@@ -21,7 +21,7 @@
     <div id="main" class="grid_16">
         <h3>
             @ViewBag.Title</h3>
-        @{Html.RenderPartial("SearchViaggi", new ViaggioSearch() { searchString = "", idDivToUpdate = "elencoViaggi" });}
+        @{Html.RenderAction("Search", "Viaggio", new ViaggioSearch() { searchString = "", idDivToUpdate = "elencoViaggi" });}
         @using (Html.BeginForm("Save", "Flyer"))
         {
             @Html.ValidationSummary(true)
@@ -45,7 +45,7 @@
                             <div>
                             </div>
                             <div id="elencoViaggi" class="scroll">
-                               @{Html.RenderAction("Select");}
+                               @{Html.RenderAction("Select", "Viaggio");}
                             </div>
                             <br />
                         </fieldset>

@@ -282,5 +282,44 @@ namespace Xlns.BusBook.UI.Web.Controllers
             var partecipazioni = pr.GetPartecipazioniAlViaggio(idViaggio);
             return PartialView(partecipazioni);
         }
+
+        [HttpPost]
+        public ActionResult Search(ViaggioSearch searchParams)
+        {
+            var viaggiFound = vm.Search(searchParams.searchString);
+
+            var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
+
+            return Select(viaggiSelezionabili);
+        }
+
+        public ActionResult Search(String idDivToUpdate)
+        {
+            return PartialView(new ViaggioSearch() { idDivToUpdate = idDivToUpdate });
+        }
+
+
+        public ActionResult Select(List<ViaggioSelectView> viaggi)
+        {
+            if (viaggi == null)
+            {
+                //con questa ricerca li becco tutti
+                List<Viaggio> viaggiFound = vm.Search(null);
+
+                viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
+            }
+
+            return PartialView(viaggi);
+        }
+
+        public ActionResult ShowSelected(int idFlyer, bool isDetailExternal)
+        {
+            return Select(FlyerHelper.getViaggiSelezionati(idFlyer, isDetailExternal));
+        }
+
+
+
+
+
     }
 }
