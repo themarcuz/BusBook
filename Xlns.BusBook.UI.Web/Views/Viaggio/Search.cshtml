@@ -1,22 +1,57 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.ViaggioSearch
 @using (Ajax.BeginForm("Search", Model, new AjaxOptions()
-        {
-            HttpMethod = "POST",
-            InsertionMode = InsertionMode.Replace,
-            UpdateTargetId = @Model.idDivToUpdate,
-            LoadingElementId = "loadingDiv",
-            OnComplete = "showResult('" + @Model.idDivToUpdate + "')",
-            OnBegin = "hideResult('" + @Model.idDivToUpdate +"')",
-            OnFailure = "onFailure"
-        }, new { id = "searchViaggi"}))
 {
-    <div class="editor-field">
-        @Html.TextBoxFor(model => model.searchString, new { @class = "search" })
-        <input type="submit" value="Cerca viaggi" class="button" />
-    </div>
+    HttpMethod = "POST",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = @Model.idDivToUpdate,
+    LoadingElementId = "loadingDiv",
+    OnComplete = "showResult('" + @Model.idDivToUpdate + "')",
+    OnBegin = "hideResult('" + @Model.idDivToUpdate + "')",
+    OnFailure = "onFailure"
+}, new { id = "searchViaggi" }))
+{
+    <fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SearchString)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.SearchString, new { @class = "search" })
+            @Html.ValidationMessageFor(model => model.SearchString)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DataPartenzaMin)
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("DataPartenzaMin", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMin, ViewData).DisplayFormatString, Model.DataPartenzaMin), new { @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.DataPartenzaMin)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DataPartenzaMax)
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("DataPartenzaMax", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMax, ViewData).DisplayFormatString, Model.DataPartenzaMax), new { @class = "datepicker" })
+            @Html.ValidationMessageFor(model => model.DataPartenzaMax)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrezzoMin)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrezzoMin)
+            @Html.ValidationMessageFor(model => model.PrezzoMin)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PrezzoMax)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.PrezzoMax)
+            @Html.ValidationMessageFor(model => model.PrezzoMax)
+        </div>
+        <p>
+            <input type="submit" value="Cerca viaggi" class="button" />
+        </p>
+    </fieldset>
 }
-    <div style="display: none; margin-left: 50px" id="loadingDiv">
-        <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")" />
-    </div>
+<div style="display: none; margin-left: 50px" id="loadingDiv">
+    <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")" />
+</div>
 <script src="@Url.Content("~/Content/scripts/viaggio.search.js")" type="text/javascript"></script>
-

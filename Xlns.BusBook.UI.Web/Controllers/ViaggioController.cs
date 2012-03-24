@@ -286,7 +286,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         [HttpPost]
         public ActionResult Search(ViaggioSearch searchParams)
         {
-            var viaggiFound = vm.Search(searchParams.searchString);
+            var viaggiFound = vm.Search(searchParams.SearchString);
 
             var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
 
