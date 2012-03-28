@@ -286,7 +286,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         [HttpPost]
         public ActionResult Search(ViaggioSearch searchParams)
         {
-            var viaggiFound = vm.Search(searchParams.SearchString);
+            var viaggiFound = vm.Search(searchParams);
 
             var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
 
@@ -295,16 +295,18 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult Search(String idDivToUpdate)
         {
-            return PartialView(new ViaggioSearch() { idDivToUpdate = idDivToUpdate });
+            //TODO: Solo Pubblicati!
+            return PartialView(new ViaggioSearch() { onlyPubblicati = false, idDivToUpdate = idDivToUpdate });
         }
 
 
         public ActionResult Select(List<ViaggioSelectView> viaggi)
         {
+            //TODO: Solo Pubblicati!
             if (viaggi == null)
             {
                 //con questa ricerca li becco tutti
-                List<Viaggio> viaggiFound = vm.Search(null);
+                List<Viaggio> viaggiFound = vm.Search(new ViaggioSearch() { onlyPubblicati = false });
 
                 viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
             }
