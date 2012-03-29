@@ -441,5 +441,40 @@ namespace Xlns.BusBook.Core
             logger.Debug("Il file {0} non è stato ritenuto valido come immagine", fileName);
             return result;
         }
+
+        public void DeleteTappa(int idTappa)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var tappa = vr.GetTappaById(idTappa);
+                    var viaggio = tappa.Viaggio;                    
+                    viaggio.Tappe.Remove(tappa);
+                    vr.deleteTappa(tappa);
+                    Reorder(viaggio.Tappe);
+                    vr.Save(viaggio);
+                    om.CommitOperation();
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Errore durante l'eliminazione della tappa {0}", idTappa);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
+        }
+
+        private void Reorder(IList<Tappa> Tappe)
+        {
+            int order = 1;
+            foreach (var t in Tappe.OrderBy(t => t.Ordinamento))
+            {
+                t.Ordinamento = order;
+                order++;
+            }
+        }
     }
 }

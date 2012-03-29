@@ -1,7 +1,7 @@
 ﻿<div style="margin-bottom: 5px">
     <input type="file" name="promoImgFile" id="promoImgFile" />
 </div>
-<input type="submit" value="Carica immagine promozionale" class="button" />
 @if (!String.IsNullOrEmpty(ViewBag.ErrorePromoImage)) {
     <text>@ViewBag.ErrorePromoImage</text>
 }
+<div style="font-size: x-small; color: Gray">* per una visualizzazione ottimale caricare un immagine di 300x150 pixel</div>

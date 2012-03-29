@@ -20,7 +20,10 @@
                 @Html.DisplayFor(model => model.Descrizione)
             </h4>
             <div style="margin: 10px 0px;">
-                <img src="@Url.Action("View", "PromoImage", new { id = Model.PromoImage.Id })" width="300px" height="150px" alt="promo image" />
+                @if (Model.PromoImage != null)
+                {
+                    <img src="@Url.Action("View", "PromoImage", new { id = Model.PromoImage.Id })" width="300px" height="150px" alt="promo image" />
+                }
             </div>
             <fieldset>
                 @Html.LabelFor(model => model.DataPartenza)
@@ -43,7 +46,7 @@
                     </div>
                 }
                 @if (Model.Tappe != null && Model.Tappe.Count > 0)
-                {                    
+                {
                     if (Model.Tappe != null
                         && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
                         && Model.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
@@ -60,7 +63,10 @@
                                     .Location.City)
                     </div>
                     }
-                   @Html.Action("View", "Depliant", new { idDepliant = Model.Depliant.Id })
+                    if (Model.Depliant != null)
+                    {
+                        Html.Action("View", "Depliant", new { idDepliant = Model.Depliant.Id });
+                    }
                     <div style="margin-top: 10px">
                         @{Html.RenderAction("ListaPartecipanti", new { idViaggio = Model.Id });
                         }
@@ -94,10 +100,9 @@
                 )
             {        
                 @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })                    
-            }  
-           
+            }
             @if (!Model.DataPubblicazione.HasValue)
-            {
+            {                
                 @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
                                    new AjaxOptions()
                                    {
@@ -108,9 +113,6 @@
                                    },
                                    new { @class = "button" });
             }
-           
-            
-
             @if (Model.DataChiusuraPrenotazioni > DateTime.Now)
             {
                 if (ViewBag.HasPartecipated == false)
@@ -182,7 +184,7 @@
 
         function OnSuccess(response, status, data) {
             window.location.href = '@(Url.Action("Detail", "Viaggio"))';
-        }        
+        }
 
         function PubblicaError(response, status, error) {
             $('#dialog').html(response.statusText);

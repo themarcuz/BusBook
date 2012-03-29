@@ -78,6 +78,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 {
                     viaggio.Tappe = oldViaggio.Tappe;
                     viaggio.Depliant = oldViaggio.Depliant;
+                    viaggio.PromoImage = oldViaggio.PromoImage;
                 }
                 viaggio.Agenzia = Session.getLoggedAgenzia();
 
@@ -176,8 +177,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             try
             {
-                var tappa = vr.GetTappaById(id);
-                vr.deleteTappa(tappa);
+                vm.DeleteTappa(id);                
             }
             catch (Exception ex)
             {
@@ -281,6 +281,20 @@ namespace Xlns.BusBook.UI.Web.Controllers
             var pr = new PartecipazioneRepository();
             var partecipazioni = pr.GetPartecipazioniAlViaggio(idViaggio);
             return PartialView(partecipazioni);
+        }
+
+        [HttpPost]
+        public ActionResult ReorderTappe(int[] reorderedIds, int idViaggio)
+        {
+            var viaggio = vr.GetById(idViaggio);
+            int order = 1;
+            foreach (var id in reorderedIds)
+            {
+                viaggio.Tappe.Single(t => t.Id == id).Ordinamento = order;
+                order++;
+            }
+            vr.Save(viaggio);
+            return RedirectToAction("EditTappeViaggio", new { idViaggio = idViaggio });
         }
     }
 }
