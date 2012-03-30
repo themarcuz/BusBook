@@ -47,7 +47,7 @@
             <div id="viaggi">
                 @{  if (Model.flyers != null && Model.flyers.Count > 0)
                     {
-                        Html.RenderAction("ShowSelectedExternal", "Flyer", new { id = defaultFlyerId });
+                        Html.RenderAction("ShowSelected", "Viaggio", new { idFlyer = defaultFlyerId, isDetailExternal = true });
                     }}
             </div>
         </div>

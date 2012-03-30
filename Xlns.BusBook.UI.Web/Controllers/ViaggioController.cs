@@ -286,7 +286,6 @@ namespace Xlns.BusBook.UI.Web.Controllers
             var partecipazioni = pr.GetPartecipazioniAlViaggio(idViaggio);
             return PartialView(partecipazioni);
         }
-
         [HttpPost]
         public ActionResult ReorderTappe(int[] reorderedIds, int idViaggio)
         {
@@ -299,6 +298,40 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
             vr.Save(viaggio);
             return new HttpStatusCodeResult(200);
+        }
+
+        [HttpPost]
+        public ActionResult Search(ViaggioSearch searchParams)
+        {
+            var viaggiFound = vm.Search(searchParams.SearchString);
+
+            var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
+
+            return Select(viaggiSelezionabili);
+        }
+
+        public ActionResult Search(String idDivToUpdate)
+        {
+            return PartialView(new ViaggioSearch() { idDivToUpdate = idDivToUpdate });
+        }
+
+
+        public ActionResult Select(List<ViaggioSelectView> viaggi)
+        {
+            if (viaggi == null)
+            {
+                //con questa ricerca li becco tutti
+                List<Viaggio> viaggiFound = vm.Search(null);
+
+                viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
+            }
+
+            return PartialView("Select",viaggi);
+        }
+
+        public ActionResult ShowSelected(int idFlyer, bool isDetailExternal)
+        {
+            return Select(FlyerHelper.getViaggiSelezionati(idFlyer, isDetailExternal));
         }
     }
 }

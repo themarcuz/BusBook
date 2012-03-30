@@ -442,6 +442,20 @@ namespace Xlns.BusBook.Core
             return result;
         }
 
+        public List<Viaggio> Search(String searchString)
+        {
+            //TODO: solo viaggi pubblicati!
+
+            List<Viaggio> viaggiFound = null;
+
+            if (String.IsNullOrEmpty(searchString))
+                viaggiFound = vr.GetViaggi().ToList();
+            else
+                viaggiFound = vr.GetViaggi().Where(v => v.Nome.ToUpper().StartsWith(searchString.ToUpper())).ToList();
+
+            return viaggiFound;
+        }
+
         public void DeleteTappa(int idTappa)
         {
             using (var om = new OperationManager())

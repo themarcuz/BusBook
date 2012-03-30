@@ -31,5 +31,30 @@ namespace Xlns.BusBook.UI.Web.Models
 
             return viaggiSelezionabili;
         }
+
+        public static void ToggleViaggio(Flyer flyer, Viaggio viaggio){
+
+            if (flyer.Viaggi.Any(v => v.Id == viaggio.Id))
+                flyer.Viaggi.Remove(viaggio);
+            else
+                flyer.Viaggi.Add(viaggio);
+        }
+
+        public static List<ViaggioSelectView> getViaggiSelezionati(int idFlyer, bool isDetailExternal)
+        {
+            var flyerRepo = new FlyerRepository();
+            var flyer = flyerRepo.GetById(idFlyer);
+
+            List<ViaggioSelectView> viaggiSelezionati = new List<ViaggioSelectView>();
+
+            foreach (var viaggioSel in flyer.Viaggi)
+            {
+                ViaggioSelectView viaggioSelezionato = new ViaggioSelectView() { viaggio = viaggioSel, isSelected = true, isSelectable = false, idFlyer = flyer.Id, isDetailExternal = isDetailExternal };
+                viaggiSelezionati.Add(viaggioSelezionato);
+            }
+
+            return viaggiSelezionati;
+        }
+
     }
 }
