@@ -121,7 +121,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
                     }
                 }                
                 vm.Save(viaggio);
-                //return RedirectToAction("Detail", new { id = viaggio.Id });
+                if (viaggio.Tappe.Count > 1 && viaggio.Tappe.SingleOrDefault(t => t.Tipo == TipoTappa.DESTINAZIONE) != null)
+                {
+                    logger.Debug("Il percorso del viaggio è stato definito, per cui lo si redirige alla pagina di dettaglio per verifica");
+                    return RedirectToAction("Detail", new { id = viaggio.Id });
+                }
             }
             return RedirectToAction("Edit", new { id = viaggio.Id });
         }
@@ -294,7 +298,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 order++;
             }
             vr.Save(viaggio);
-            return RedirectToAction("EditTappeViaggio", new { idViaggio = idViaggio });
+            return new HttpStatusCodeResult(200);
         }
     }
 }
