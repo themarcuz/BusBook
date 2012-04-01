@@ -88,7 +88,7 @@
                                 }
                             }
                             </div>
-                            <div id="promoImgContainer" style="margin-top: 20px">
+                            <div id="promoImgContainer" style="margin-top: 5px">
                             @if (Model.Id != 0)
                             {
                                 if (Model.PromoImage == null)
@@ -114,8 +114,7 @@
                     @if (Model.Id != 0)
                     {
                         <div id="ListaTappeEditabili">
-                            @{Html.RenderAction("EditTappeViaggio", new { idViaggio = Model.Id });
-                            }
+                            @{Html.RenderAction("EditTappeViaggio", new { idViaggio = Model.Id });}
                         </div>
                         <div id="EditTappaDialog" style="display: none">
                         </div>

@@ -3,9 +3,14 @@
     <span class="tileTitle">
         @Html.DisplayFor(model => model.Nome)
     </span>
-    <br />
+    @if (Model.PromoImage != null)
+    {
+        <div style="margin: 0px 0px;">
+            <img src="@Url.Action("View", "PromoImage", new { id = Model.PromoImage.Id })" width="300px" height="150px" alt="promo image" />
+        </div>
+    }    
     <div class="tileSubTitle">@Html.DisplayFor(model => model.Descrizione)</div>
     @Html.LabelFor(model => model.DataPartenza) <b>@Html.DisplayFor(model => model.DataPartenza)</b>
     <br />
-    @Html.LabelFor(model => model.DataChiusuraPrenotazioni) @Html.DisplayFor(model => model.DataChiusuraPrenotazioni)    
+    @Html.LabelFor(model => model.DataChiusuraPrenotazioni) @Html.DisplayFor(model => model.DataChiusuraPrenotazioni)
 </div>
