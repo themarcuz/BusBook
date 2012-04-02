@@ -442,18 +442,28 @@ namespace Xlns.BusBook.Core
             return result;
         }
 
-        public List<Viaggio> Search(String searchString)
+        public List<Viaggio> Search(ViaggioSearch searchParams)
         {
-            //TODO: solo viaggi pubblicati!
 
-            List<Viaggio> viaggiFound = null;
+            IEnumerable<Viaggio> viaggiFound = vr.GetViaggi();
 
-            if (String.IsNullOrEmpty(searchString))
-                viaggiFound = vr.GetViaggi().ToList();
-            else
-                viaggiFound = vr.GetViaggi().Where(v => v.Nome.ToUpper().StartsWith(searchString.ToUpper())).ToList();
+            if (searchParams != null)
+            {
+                if(searchParams.onlyPubblicati)
+                    viaggiFound = viaggiFound.Where(v => v.DataPubblicazione != null);
+                if(!String.IsNullOrEmpty(searchParams.SearchString))
+                    viaggiFound = viaggiFound.Where(v => v.Nome.ToUpper().StartsWith(searchParams.SearchString.ToUpper()));
+                if(searchParams.DataPartenzaMin != null)
+                    viaggiFound = viaggiFound.Where( v => v.DataPartenza >= searchParams.DataPartenzaMin);
+                if(searchParams.DataPartenzaMax != null)
+                    viaggiFound = viaggiFound.Where(v => v.DataPartenza <= searchParams.DataPartenzaMax);
+                //if (searchParams.PrezzoMin != null)
+                //    //viaggiFound = viaggiFound.Where(v =>);
+                //if (searchParams.PrezzoMax != null)
+                //    //viaggiFound = viaggiFound.Where(v =>);
 
-            return viaggiFound;
+            }
+            return viaggiFound.ToList();
         }
 
         public void DeleteTappa(int idTappa)

@@ -1,4 +1,4 @@
-﻿@model Xlns.BusBook.UI.Web.Models.ViaggioSearch
+﻿@model Xlns.BusBook.Core.Model.ViaggioSearch
 @using (Ajax.BeginForm("Search", Model, new AjaxOptions()
 {
     HttpMethod = "POST",
@@ -11,45 +11,70 @@
 }, new { id = "searchViaggi" }))
 {
     <fieldset>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SearchString)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.SearchString, new { @class = "search" })
-            @Html.ValidationMessageFor(model => model.SearchString)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DataPartenzaMin)
-        </div>
-        <div class="editor-field">
-            @Html.TextBox("DataPartenzaMin", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMin, ViewData).DisplayFormatString, Model.DataPartenzaMin), new { @class = "datepicker" })
-            @Html.ValidationMessageFor(model => model.DataPartenzaMin)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DataPartenzaMax)
-        </div>
-        <div class="editor-field">
-            @Html.TextBox("DataPartenzaMax", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMax, ViewData).DisplayFormatString, Model.DataPartenzaMax), new { @class = "datepicker" })
-            @Html.ValidationMessageFor(model => model.DataPartenzaMax)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PrezzoMin)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.PrezzoMin)
-            @Html.ValidationMessageFor(model => model.PrezzoMin)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PrezzoMax)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.PrezzoMax)
-            @Html.ValidationMessageFor(model => model.PrezzoMax)
-        </div>
-        <p>
-            <input type="submit" value="Cerca viaggi" class="button" />
-        </p>
+        <legend><h4>Ricerca Viaggi</h4></legend>
+        <table>
+            <tr>
+                <td colspan='2'>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.SearchString)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.SearchString, new { @class = "search" })
+                        @Html.ValidationMessageFor(model => model.SearchString)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DataPartenzaMin)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBox("DataPartenzaMin", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMin, ViewData).DisplayFormatString, Model.DataPartenzaMin), new { @class = "datepicker" })
+                        @Html.ValidationMessageFor(model => model.DataPartenzaMin)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DataPartenzaMax)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBox("DataPartenzaMax", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMax, ViewData).DisplayFormatString, Model.DataPartenzaMax), new { @class = "datepicker" })
+                        @Html.ValidationMessageFor(model => model.DataPartenzaMax)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.PrezzoMin)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.PrezzoMin)
+                        @Html.ValidationMessageFor(model => model.PrezzoMin)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.PrezzoMax)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.PrezzoMax)
+                        @Html.ValidationMessageFor(model => model.PrezzoMax)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan='2'>
+                    <p>
+                        <input type="submit" value="Cerca viaggi" class="button" />
+                        @Html.HiddenFor(model => model.onlyPubblicati)
+                    </p>
+                </td>
+            </tr>
+        </table>
     </fieldset>
+
 }
 <div style="display: none; margin-left: 50px" id="loadingDiv">
     <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")" />

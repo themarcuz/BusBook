@@ -93,6 +93,7 @@
     <Compile Include="Model\Tappa.cs" />
     <Compile Include="Model\Utente.cs" />
     <Compile Include="Model\Viaggio.cs" />
+    <Compile Include="Model\ViaggioSearch.cs" />
     <Compile Include="Repository\AgenziaRepository.cs" />
     <Compile Include="DAL\PersistenceManager.cs" />
     <Compile Include="Model\Agenzia.cs" />

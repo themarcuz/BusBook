@@ -5,7 +5,7 @@ using System.Web;
 using Xlns.BusBook.Core.Model;
 using System.ComponentModel.DataAnnotations;
 
-namespace Xlns.BusBook.UI.Web.Models
+namespace Xlns.BusBook.Core.Model
 {
     public class ViaggioSearch 
     {
@@ -23,6 +23,9 @@ namespace Xlns.BusBook.UI.Web.Models
         public Decimal? PrezzoMin { get; set; }
         [Display(Name = "Prezzo massimo")]
         public Decimal? PrezzoMax { get; set; }
+
+
+        public bool onlyPubblicati { get; set; }
 
         public String idDivToUpdate { get; set; }
     }

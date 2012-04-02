@@ -115,7 +115,6 @@
     </Compile>
     <Compile Include="Models\AgenzieView.cs" />
     <Compile Include="Models\AllegatoViewModel.cs" />
-    <Compile Include="Models\ViaggioSearch.cs" />
     <Compile Include="Models\PromoImageViewModel.cs" />
     <Compile Include="Models\DetailViaggio.cs" />
     <Compile Include="Models\FlyerTiled.cs" />
