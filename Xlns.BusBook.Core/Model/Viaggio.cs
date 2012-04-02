@@ -47,6 +47,13 @@ namespace Xlns.BusBook.Core.Model
         [Display(Name = "Immagine promozionale")]
         public virtual AllegatoViaggio PromoImage { get; set; }
 
+        [Required]
+        public virtual decimal PrezzoStandard { get; set; }
+        public virtual decimal DeltaCameraSingola { get; set; }
+        public virtual decimal DeltaCameraTripla { get; set; }
+        public virtual decimal DeltaMezzaPensione { get; set; }
+        public virtual decimal DeltaPensioneCompleta { get; set; }
+
         public override string ToString()
         {
             return String.Format("{0} - {1}", Id, Nome);

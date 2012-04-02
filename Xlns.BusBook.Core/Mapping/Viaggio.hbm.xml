@@ -17,6 +17,12 @@
     <property name="DistanzaPercorsa" />
     <property name="TotalePosti" />
 
+    <property name="PrezzoStandard" />
+    <property name="DeltaCameraSingola" />
+    <property name="DeltaCameraTripla" />
+    <property name="DeltaMezzaPensione" />
+    <property name="DeltaPensioneCompleta" />
+    
     <many-to-one name="Depliant"
       class="AllegatoViaggio"
       cascade="save-update" />

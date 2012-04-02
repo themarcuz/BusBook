@@ -11,9 +11,9 @@
         @foreach (var t in pickupPoints) {
         <li data-tappa-id="@t.Id">
             <div class="tappaDiv">
-                <a href="#" onclick="modificaTappa(@t.Id)" >@t.Location.City (@t.Location.Province)
-                    - @t.Location.Nation</a> <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@t.Id">
-                    </a>
+                <a href="#" class="ui-icon ui-icon-closethick" data-delete-command="@t.Id" style="vertical-align: bottom">
+                    </a> <a href="#" onclick="modificaTappa(@t.Id)" >@t.Location.City (@t.Location.Province)
+                    - @t.Location.Nation</a> 
             </div>
         </li>
         }
