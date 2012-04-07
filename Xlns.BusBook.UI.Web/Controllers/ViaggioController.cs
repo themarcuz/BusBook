@@ -301,9 +301,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(ViaggioSearch searchParams)
+        public ActionResult Search(ViaggioSearchView searchParams)
         {
-            var viaggiFound = vm.Search(searchParams);
+            //TODO: Solo Pubblicati!
+
+            var viaggiFound = vm.Search(ViaggioHelper.getViaggioSearchParams(searchParams, false));
 
             var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
 
@@ -312,8 +314,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult Search(String idDivToUpdate)
         {
-            //TODO: Solo Pubblicati!
-            return PartialView(new ViaggioSearch() { onlyPubblicati = false, idDivToUpdate = idDivToUpdate });
+            return PartialView(new ViaggioSearchView() { idDivToUpdate = idDivToUpdate });
         }
 
 
@@ -329,6 +330,15 @@ namespace Xlns.BusBook.UI.Web.Controllers
             }
 
             return PartialView("Select",viaggi);
+        }
+
+        public ActionResult SearchTappa(int tipo)
+        {
+            var tappaSearch = new Tappa()
+            {
+                Tipo = (TipoTappa)tipo,  
+            };
+            return PartialView("SearchTappa", tappaSearch);
         }
 
         public ActionResult ShowSelected(int idFlyer, bool isDetailExternal)

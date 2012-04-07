@@ -457,10 +457,10 @@ namespace Xlns.BusBook.Core
                     viaggiFound = viaggiFound.Where( v => v.DataPartenza >= searchParams.DataPartenzaMin);
                 if(searchParams.DataPartenzaMax != null)
                     viaggiFound = viaggiFound.Where(v => v.DataPartenza <= searchParams.DataPartenzaMax);
-                //if (searchParams.PrezzoMin != null)
-                //    //viaggiFound = viaggiFound.Where(v =>);
-                //if (searchParams.PrezzoMax != null)
-                //    //viaggiFound = viaggiFound.Where(v =>);
+                if (searchParams.PrezzoMin != null)
+                    viaggiFound = viaggiFound.Where(v => v.PrezzoStandard >= searchParams.PrezzoMin);
+                if (searchParams.PrezzoMax != null)
+                    viaggiFound = viaggiFound.Where(v => v.PrezzoStandard <= searchParams.PrezzoMax);
 
             }
             return viaggiFound.ToList();
