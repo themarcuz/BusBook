@@ -10,8 +10,11 @@
     OnFailure = "onFailure"
 }, new { id = "searchViaggi" }))
 {
-    <fieldset>
-        <legend><h4>Ricerca Viaggi</h4></legend>
+
+    <h4><label>
+            Ricerca Viaggi
+    </label></h4>
+    <div>
         @Html.ValidationSummary(true)
         @Html.ValidationMessageFor(model => model.SearchString)
         @Html.ValidationMessageFor(model => model.PassaDa)
@@ -20,100 +23,93 @@
         @Html.ValidationMessageFor(model => model.DataPartenzaMax)
         @Html.ValidationMessageFor(model => model.PrezzoMin)
         @Html.ValidationMessageFor(model => model.PrezzoMax)
-        <table>
-            <tr>
-                <td colspan='2'>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.SearchString)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.SearchString, new { @class = "search" })
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        <a href="#" onclick="aggiungiTappa('@Url.Action("SearchTappa")',2)" class="button">Passa da</a>
-                    </div>
-                    <div class="editor-field" id="PassaDa_Div" style="margin-top: 10px; display:none;">
-                        <a href="#" class="ui-icon ui-icon-closethick" onclick="cancellaTappa('PassaDa_')" style="vertical-align: bottom"></a>
-                        <span id="PassaDa_Link" ></span>
-                        @Html.HiddenFor(m => m.PassaDa.CAP)
-                        @Html.HiddenFor(m => m.PassaDa.City)
-                        @Html.HiddenFor(m => m.PassaDa.Lat)
-                        @Html.HiddenFor(m => m.PassaDa.Lng)
-                        @Html.HiddenFor(m => m.PassaDa.Nation)
-                        @Html.HiddenFor(m => m.PassaDa.Number)
-                        @Html.HiddenFor(m => m.PassaDa.Province)
-                        @Html.HiddenFor(m => m.PassaDa.Region)
-                        @Html.HiddenFor(m => m.PassaDa.Street)
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-label">
-                        <a href="#" onclick="aggiungiTappa('@Url.Action("SearchTappa")',3)" class="button">Arriva a</a>
-                    </div>
-                    <div class="editor-field" id="ArrivaA_Div" style="margin-top: 10px; display:none;">
-                        <a href="#" class="ui-icon ui-icon-closethick" onclick="cancellaTappa('ArrivaA_')" style="vertical-align: bottom"></a>
-                        <span href="#" id="ArrivaA_Link" ></span>
-                        @Html.HiddenFor(m => m.ArrivaA.CAP)
-                        @Html.HiddenFor(m => m.ArrivaA.City)
-                        @Html.HiddenFor(m => m.ArrivaA.Lat)
-                        @Html.HiddenFor(m => m.ArrivaA.Lng)
-                        @Html.HiddenFor(m => m.ArrivaA.Nation)
-                        @Html.HiddenFor(m => m.ArrivaA.Number)
-                        @Html.HiddenFor(m => m.ArrivaA.Province)
-                        @Html.HiddenFor(m => m.ArrivaA.Region)
-                        @Html.HiddenFor(m => m.ArrivaA.Street)
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.DataPartenzaMin)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBox("DataPartenzaMin", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMin, ViewData).DisplayFormatString, Model.DataPartenzaMin), new { @class = "datepicker" })
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.DataPartenzaMax)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBox("DataPartenzaMax", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMax, ViewData).DisplayFormatString, Model.DataPartenzaMax), new { @class = "datepicker" })
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.PrezzoMin)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.PrezzoMin, new { style = "width: 50px" }) €
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.PrezzoMax)
-                    </div>
-                    <div class="editor-field">
-                        @Html.TextBoxFor(model => model.PrezzoMax, new { style = "width: 50px" }) €
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan='2'>
-                    <p>
-                        <input type="submit" value="Cerca viaggi" class="button" />
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
+    </div>
+    @*<div>@Html.LabelFor(model => model.SearchString) &nbsp; @Html.TextBoxFor(model => model.SearchString, new { @class = "search" })</div>*@
+
+    <table>
+        <tr>
+            <td>
+                <label>
+                    Tappe</label>
+            </td>
+            <td>
+                <table style="margin:0px!important;">
+                    <tr>
+                        <td style="padding-left:0px!important; border-width: 0px!important;">
+                            <div class="editor-label">
+                                <a href="#" onclick="aggiungiTappa('@Url.Action("SearchTappa")',2)" class="button">Passa
+                                    da</a>
+                            </div>
+                        </td>
+                        <td style="padding-left:0px!important; border-width: 0px!important;">
+                            <div class="editor-field" id="PassaDa_Div" style="margin-top: 10px; display: none;">
+                                <a href="#" class="ui-icon ui-icon-closethick" onclick="cancellaTappa('PassaDa_')"
+                                    style="vertical-align: bottom"></a><span id="PassaDa_Link"></span>
+                                @Html.HiddenFor(m => m.PassaDa.CAP)
+                                @Html.HiddenFor(m => m.PassaDa.City)
+                                @Html.HiddenFor(m => m.PassaDa.Lat)
+                                @Html.HiddenFor(m => m.PassaDa.Lng)
+                                @Html.HiddenFor(m => m.PassaDa.Nation)
+                                @Html.HiddenFor(m => m.PassaDa.Number)
+                                @Html.HiddenFor(m => m.PassaDa.Province)
+                                @Html.HiddenFor(m => m.PassaDa.Region)
+                                @Html.HiddenFor(m => m.PassaDa.Street)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-left:0px!important; border-width: 0px!important;">
+                            <div class="editor-label">
+                                <a href="#" onclick="aggiungiTappa('@Url.Action("SearchTappa")',3)" class="button">Arriva
+                                    a</a>
+                            </div>
+                        </td>
+                        <td style="padding-left:0px!important; border-width: 0px!important;">
+                            <div class="editor-field" id="ArrivaA_Div" style="margin-top: 10px; display: none;">
+                                <a href="#" class="ui-icon ui-icon-closethick" onclick="cancellaTappa('ArrivaA_')"
+                                    style="vertical-align: bottom"></a><span href="#" id="ArrivaA_Link"></span>
+                                @Html.HiddenFor(m => m.ArrivaA.CAP)
+                                @Html.HiddenFor(m => m.ArrivaA.City)
+                                @Html.HiddenFor(m => m.ArrivaA.Lat)
+                                @Html.HiddenFor(m => m.ArrivaA.Lng)
+                                @Html.HiddenFor(m => m.ArrivaA.Nation)
+                                @Html.HiddenFor(m => m.ArrivaA.Number)
+                                @Html.HiddenFor(m => m.ArrivaA.Province)
+                                @Html.HiddenFor(m => m.ArrivaA.Region)
+                                @Html.HiddenFor(m => m.ArrivaA.Street)
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Data Partenza da</label>
+            </td>
+            <td>@Html.TextBox("DataPartenzaMin", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMin, ViewData).DisplayFormatString, Model.DataPartenzaMin), new { @class = "datepicker" })
+                <label>
+                    a
+                </label>@Html.TextBox("DataPartenzaMax", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMax, ViewData).DisplayFormatString, Model.DataPartenzaMax), new { @class = "datepicker" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>
+                    Prezzo da</label>
+            </td>
+            <td>@Html.TextBoxFor(model => model.PrezzoMin, new { style = "width: 50px" })
+                <label>
+                    a
+                </label>
+                @Html.TextBoxFor(model => model.PrezzoMax, new { style = "width: 50px" }) <label>€</label>
+            </td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Cerca viaggi" class="button" />
+
 
 }
 <div style="display: none; margin-left: 50px" id="loadingDiv">
