@@ -444,26 +444,54 @@ namespace Xlns.BusBook.Core
 
         public List<Viaggio> Search(ViaggioSearch searchParams)
         {
-
-            IEnumerable<Viaggio> viaggiFound = vr.GetViaggi();
-
-            if (searchParams != null)
+            try
             {
-                if(searchParams.onlyPubblicati)
-                    viaggiFound = viaggiFound.Where(v => v.DataPubblicazione != null);
-                if(!String.IsNullOrEmpty(searchParams.SearchString))
-                    viaggiFound = viaggiFound.Where(v => v.Nome.ToUpper().StartsWith(searchParams.SearchString.ToUpper()));
-                if(searchParams.DataPartenzaMin != null)
-                    viaggiFound = viaggiFound.Where( v => v.DataPartenza >= searchParams.DataPartenzaMin);
-                if(searchParams.DataPartenzaMax != null)
-                    viaggiFound = viaggiFound.Where(v => v.DataPartenza <= searchParams.DataPartenzaMax);
-                if (searchParams.PrezzoMin != null)
-                    viaggiFound = viaggiFound.Where(v => v.PrezzoStandard >= searchParams.PrezzoMin);
-                if (searchParams.PrezzoMax != null)
-                    viaggiFound = viaggiFound.Where(v => v.PrezzoStandard <= searchParams.PrezzoMax);
+                IEnumerable<Viaggio> viaggiFound = vr.GetViaggi();
+
+                if (searchParams != null)
+                {
+                    if(searchParams.onlyPubblicati)
+                        viaggiFound = viaggiFound.Where(v => v.DataPubblicazione != null);
+                    if(!String.IsNullOrEmpty(searchParams.SearchString))
+                        viaggiFound = viaggiFound.Where(v => v.Nome.ToUpper().StartsWith(searchParams.SearchString.ToUpper()));
+                    if(searchParams.DataPartenzaMin != null)
+                        viaggiFound = viaggiFound.Where( v => v.DataPartenza >= searchParams.DataPartenzaMin);
+                    if(searchParams.DataPartenzaMax != null)
+                        viaggiFound = viaggiFound.Where(v => v.DataPartenza <= searchParams.DataPartenzaMax);
+                    if (searchParams.PrezzoMin != null)
+                        viaggiFound = viaggiFound.Where(v => v.PrezzoStandard >= searchParams.PrezzoMin);
+                    if (searchParams.PrezzoMax != null)
+                        viaggiFound = viaggiFound.Where(v => v.PrezzoStandard <= searchParams.PrezzoMax);
+                    if (searchParams.PassaDa != null)
+                        viaggiFound = AddTappaSearchFilter(viaggiFound, searchParams.PassaDa, TipoTappa.PICK_UP_POINT);
+                    if (searchParams.ArrivaA != null)
+                        viaggiFound = AddTappaSearchFilter(viaggiFound, searchParams.ArrivaA, TipoTappa.DESTINAZIONE);
+
+
+                }
+                return viaggiFound.ToList();
 
             }
-            return viaggiFound.ToList();
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore nella ricerca viaggio");
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg, ex);
+            }
+        }
+
+        private IEnumerable<Viaggio> AddTappaSearchFilter(IEnumerable<Viaggio> viaggiToBeFiltered, GeoLocation locationFilter, TipoTappa tipoTappa)
+        {
+            try
+            {
+                return viaggiToBeFiltered.Where(v => v.Tappe.Any(t => t!= null && t.Location != null && t.Location.City != null && t.Tipo == tipoTappa && t.Location.City.Equals(locationFilter.City)));
+            }
+            catch (Exception ex)
+            {
+                string msg = String.Format("Errore nell'aggiunta del filtro per tappa/destinazione");
+                logger.ErrorException(msg, ex);
+                throw new Exception(msg, ex);
+            }
         }
 
         public void DeleteTappa(int idTappa)
