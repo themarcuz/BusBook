@@ -146,6 +146,7 @@
     <Content Include="Config\hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\ricercaViaggio.css" />
     <Content Include="Content\editviaggioscroller.css" />
     <Content Include="Content\flyer.css" />
     <Content Include="Content\logout.css" />

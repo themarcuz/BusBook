@@ -20,6 +20,10 @@ $(function () {
     $(".datepicker").attr('readonly', true);
 });
 
+function toggleDiv(idDiv) {
+    $("#" + idDiv).slideToggle('fast');
+}
+
 //tappe
 
 var tappaDialog;
