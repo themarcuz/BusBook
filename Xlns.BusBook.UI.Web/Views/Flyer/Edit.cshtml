@@ -25,7 +25,10 @@
         @using (Html.BeginForm("Save", "Flyer"))
         {
             @Html.ValidationSummary(true)
-    
+            <input type="submit" value="Salva" id="submitButton" class="button" />
+            <a class="button" href="@Request.UrlReferrer">Annulla</a>
+            <br />
+            <br />
             <div style="display: table">
                 <div style="display: table-row">
                     <div style="display: table-cell; padding-right: 20px">
@@ -44,7 +47,7 @@
                                 @Html.ValidationMessageFor(model => model.hasViaggiSelected)
                             <div>
                             </div>
-                            <div id="elencoViaggi" class="scroll">
+                            <div id="elencoViaggi">
                                @{Html.RenderAction("Select", "Viaggio");}
                             </div>
                             <br />
@@ -55,9 +58,6 @@
                 <!-- chiusura riga -->
             </div>
             
-         
-            <input type="submit" value="Salva" id="submitButton" class="button" />
-            <a class="button" href="@Request.UrlReferrer">Annulla</a>
             
             @Html.HiddenFor(model => model.RedirectOnSave);
         }

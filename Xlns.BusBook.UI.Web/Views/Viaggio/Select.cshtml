@@ -20,7 +20,12 @@
         <span class="tileTitle">
             @Html.DisplayFor(model => viaggioItem.viaggio.Nome)
         </span>
-        <br />
+        @if (viaggioItem.viaggio.PromoImage != null)
+        {
+        <div style="margin: 0px 0px;">
+            <img src="@Url.Action("View", "PromoImage", new { id = viaggioItem.viaggio.PromoImage.Id })" width="300px" height="150px" alt="promo image" />
+        </div>
+        } 
         <div class="tileSubTitle">@Html.DisplayFor(model => viaggioItem.viaggio.Descrizione)</div>
         @Html.LabelFor(model => viaggioItem.viaggio.DataPartenza) <b>@Html.DisplayFor(model => viaggioItem.viaggio.DataPartenza)</b>
         <br />

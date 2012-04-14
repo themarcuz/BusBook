@@ -13,14 +13,12 @@
         <h3>@ViewBag.Title</h3>
         <p>
             @Html.ActionLink("Nuovo Flyer", "Edit", new { id = 0 }, new { @class = "button" })
+            @Html.ActionLink("DashBoard", "DashBoard", "Home", null, new { @class = "button"})
         </p>
         @foreach (var flyer in Model.flyers)
         {
             Html.RenderAction("ShowTile", new { flyer = flyer, isShort = false, isEditable = true, isDetailAjax = false });
         }
-        <p>
-            @Html.ActionLink("DashBoard", "DashBoard", "Home", null, new { @class = "button"})
-        </p>
     </div>
 </div>
 <div style="visibility: hidden; ">

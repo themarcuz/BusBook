@@ -13,6 +13,9 @@
     <div id="main" class="grid_16">
         <h3>
             @ViewBag.Title</h3>
+            <a class="button" href="@Request.UrlReferrer">Annulla</a>
+            <br />
+            <br />
             <div style="display: table">
                 <div style="display: table-row">
                     <div style="display: table-cell; padding-right: 20px">
@@ -25,7 +28,7 @@
                             <div class="editor-label">
                                 @Html.DisplayFor(model => model.Titolo, new { @class="titolo"})
                             </div>
-                            <div class="scroll">
+                            <div>
                                 @{Html.RenderAction("ShowSelected","Viaggio",  new {idFlyer = Model.Id, isDetailExternal = false});}
                             </div>
                             <br />
@@ -35,6 +38,6 @@
                 </div>
                 <!-- chiusura riga -->
             </div>
-            <a class="button" href="@Request.UrlReferrer">Annulla</a>
+            
     </div>
 </div>
