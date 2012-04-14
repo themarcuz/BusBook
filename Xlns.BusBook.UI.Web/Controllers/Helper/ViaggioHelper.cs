@@ -29,7 +29,9 @@ namespace Xlns.BusBook.UI.Web.Models
                     PrezzoMin = searchViewModelParams.PrezzoMin,
                     PrezzoMax = searchViewModelParams.PrezzoMax,
                     PassaDa = getGeoLocationModelFromViewModel(searchViewModelParams.PassaDa),
-                    ArrivaA = getGeoLocationModelFromViewModel(searchViewModelParams.ArrivaA)
+                    ArrivaA = getGeoLocationModelFromViewModel(searchViewModelParams.ArrivaA),
+                    PassaDaTipoSearch = searchViewModelParams.PassaDaTipoSearch,
+                    ArrivaATipoSearch = searchViewModelParams.ArrivaATipoSearch
                 };
             }
 

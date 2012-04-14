@@ -20,7 +20,9 @@ namespace Xlns.BusBook.UI.Web.Models
         public DateTime? DataPartenzaMax { get; set; }
 
         public GeoLocationView PassaDa { get; set; }
+        public TipoSearch PassaDaTipoSearch { get; set; }
         public GeoLocationView ArrivaA { get; set; }
+        public TipoSearch ArrivaATipoSearch { get; set; }
 
         [Display(Name = "Prezzo minimo")]
         [Range(typeof(decimal), "0","1000000", ErrorMessage="Il Prezzo minimo deve essere compreso tra 0 e 1000000 di euro")]
@@ -30,5 +32,11 @@ namespace Xlns.BusBook.UI.Web.Models
         public decimal? PrezzoMax { get; set; }
 
         public String idDivToUpdate { get; set; }
+
+        public ViaggioSearchView()
+        {
+            PassaDaTipoSearch = TipoSearch.Città;
+            ArrivaATipoSearch = TipoSearch.Città;
+        }
     }
 }

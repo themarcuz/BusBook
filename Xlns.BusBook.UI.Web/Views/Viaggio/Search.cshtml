@@ -1,4 +1,7 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.ViaggioSearchView
+@{
+    var tipoSearch = new SelectList(Enum.GetNames(typeof(Xlns.BusBook.Core.Model.TipoSearch)));
+ }
 @using (Ajax.BeginForm("Search", Model, new AjaxOptions()
 {
     HttpMethod = "POST",
@@ -18,11 +21,15 @@
         @Html.ValidationSummary(true)
         @Html.ValidationMessageFor(model => model.SearchString)
         @Html.ValidationMessageFor(model => model.PassaDa)
+        @Html.ValidationMessageFor(model => model.PassaDaTipoSearch)
         @Html.ValidationMessageFor(model => model.ArrivaA)
+        @Html.ValidationMessageFor(model => model.ArrivaATipoSearch)
         @Html.ValidationMessageFor(model => model.DataPartenzaMin)
         @Html.ValidationMessageFor(model => model.DataPartenzaMax)
         @Html.ValidationMessageFor(model => model.PrezzoMin)
         @Html.ValidationMessageFor(model => model.PrezzoMax)
+
+        
     </div>
     @*<div>@Html.LabelFor(model => model.SearchString) &nbsp; @Html.TextBoxFor(model => model.SearchString, new { @class = "search" })</div>*@
 
@@ -44,7 +51,7 @@
                         <td style="padding-left:0px!important; border-width: 0px!important;">
                             <div class="editor-field" id="PassaDa_Div" style="margin-top: 10px; display: none;">
                                 <a href="#" class="ui-icon ui-icon-closethick" onclick="cancellaTappa('PassaDa_')"
-                                    style="vertical-align: bottom"></a><span id="PassaDa_Link"></span>
+                                    style="vertical-align: middle; margin-right: 5px;"></a><span id="PassaDa_Link"></span>
                                 @Html.HiddenFor(m => m.PassaDa.CAP)
                                 @Html.HiddenFor(m => m.PassaDa.City)
                                 @Html.HiddenFor(m => m.PassaDa.Lat)
@@ -54,6 +61,7 @@
                                 @Html.HiddenFor(m => m.PassaDa.Province)
                                 @Html.HiddenFor(m => m.PassaDa.Region)
                                 @Html.HiddenFor(m => m.PassaDa.Street)
+                                @Html.DropDownListFor(m => m.PassaDaTipoSearch, tipoSearch)
                             </div>
                         </td>
                     </tr>
@@ -67,7 +75,7 @@
                         <td style="padding-left:0px!important; border-width: 0px!important;">
                             <div class="editor-field" id="ArrivaA_Div" style="margin-top: 10px; display: none;">
                                 <a href="#" class="ui-icon ui-icon-closethick" onclick="cancellaTappa('ArrivaA_')"
-                                    style="vertical-align: bottom"></a><span href="#" id="ArrivaA_Link"></span>
+                                    style="vertical-align: middle; margin-right: 5px;"></a><span href="#" id="ArrivaA_Link"></span>
                                 @Html.HiddenFor(m => m.ArrivaA.CAP)
                                 @Html.HiddenFor(m => m.ArrivaA.City)
                                 @Html.HiddenFor(m => m.ArrivaA.Lat)
@@ -77,6 +85,7 @@
                                 @Html.HiddenFor(m => m.ArrivaA.Province)
                                 @Html.HiddenFor(m => m.ArrivaA.Region)
                                 @Html.HiddenFor(m => m.ArrivaA.Street)
+                                @Html.DropDownListFor(m => m.ArrivaATipoSearch, tipoSearch)
                             </div>
                         </td>
                     </tr>

@@ -463,9 +463,9 @@ namespace Xlns.BusBook.Core
                     if (searchParams.PrezzoMax != null)
                         viaggiFound = viaggiFound.Where(v => v.PrezzoStandard <= searchParams.PrezzoMax);
                     if (searchParams.PassaDa != null)
-                        viaggiFound = AddTappaSearchFilter(viaggiFound, searchParams.PassaDa, TipoTappa.PICK_UP_POINT);
+                        viaggiFound = AddTappaSearchFilter(viaggiFound, searchParams.PassaDa, searchParams.PassaDaTipoSearch, TipoTappa.PICK_UP_POINT);
                     if (searchParams.ArrivaA != null)
-                        viaggiFound = AddTappaSearchFilter(viaggiFound, searchParams.ArrivaA, TipoTappa.DESTINAZIONE);
+                        viaggiFound = AddTappaSearchFilter(viaggiFound, searchParams.ArrivaA, searchParams.ArrivaATipoSearch, TipoTappa.DESTINAZIONE);
 
 
                 }
@@ -480,11 +480,36 @@ namespace Xlns.BusBook.Core
             }
         }
 
-        private IEnumerable<Viaggio> AddTappaSearchFilter(IEnumerable<Viaggio> viaggiToBeFiltered, GeoLocation locationFilter, TipoTappa tipoTappa)
+        private IEnumerable<Viaggio> AddTappaSearchFilter(IEnumerable<Viaggio> viaggiToBeFiltered, GeoLocation locationFilter, TipoSearch tipoSearch,TipoTappa tipoTappa)
         {
             try
             {
-                return viaggiToBeFiltered.Where(v => v.Tappe.Any(t => t!= null && t.Location != null && t.Location.City != null && t.Tipo == tipoTappa && t.Location.City.Equals(locationFilter.City)));
+                IEnumerable<Viaggio> viaggiFiltered = null;
+
+                if (tipoSearch == null)
+                    tipoSearch = TipoSearch.Città;
+
+                switch (tipoSearch)
+                {
+                    case TipoSearch.Città:
+                        viaggiFiltered = viaggiToBeFiltered.Where(v => v.Tappe.Any(t => t!= null && t.Location != null && t.Location.City != null && t.Tipo == tipoTappa && t.Location.City.Equals(locationFilter.City)));
+                        break;
+                    case TipoSearch.Provincia:
+                        viaggiFiltered = viaggiToBeFiltered.Where(v => v.Tappe.Any(t => t != null && t.Location != null && t.Location.Province != null && t.Tipo == tipoTappa && t.Location.Province.Equals(locationFilter.Province)));
+                        break;
+                    case TipoSearch.Regione:
+                        viaggiFiltered = viaggiToBeFiltered.Where(v => v.Tappe.Any(t => t != null && t.Location != null && t.Location.Region != null && t.Tipo == tipoTappa && t.Location.Region.Equals(locationFilter.Region)));
+                        break;
+                    case  TipoSearch.Nazione:
+                        viaggiFiltered = viaggiToBeFiltered.Where(v => v.Tappe.Any(t => t != null && t.Location != null && t.Location.Nation != null && t.Tipo == tipoTappa && t.Location.Nation.Equals(locationFilter.Nation)));
+                        break;
+                    default:
+                        throw new Exception("TipoSearch sconosciuto: " + Enum.GetName(typeof(TipoSearch), tipoSearch));
+                    
+                }
+
+
+                return viaggiFiltered;
             }
             catch (Exception ex)
             {
