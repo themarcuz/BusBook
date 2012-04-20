@@ -48,7 +48,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
             var viaggio = vr.GetById(id);
             var loggedUser = Session.getLoggedUtente();
             var pr = new PartecipazioneRepository();
-            var hasPartecipated = pr.HasParticipated(loggedUser.Id, id);
+            var hasPartecipated = pr.HasParticipated(loggedUser.Id, id) || (viaggio.Agenzia.Id == loggedUser.Agenzia.Id);
             ViewBag.HasPartecipated = hasPartecipated;
             return View(viaggio);
         }

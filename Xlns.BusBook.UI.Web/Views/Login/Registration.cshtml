@@ -9,7 +9,7 @@
     @Html.ValidationSummary(true)
     <table>
         <tr>
-            <td>
+            <td class="alignOntop">
                 <fieldset>
                     <legend>Utente</legend>
                     <br />
@@ -45,9 +45,10 @@
                         @Html.EditorFor(model => model.Utente.Email)
                         @Html.ValidationMessageFor(model => model.Utente.Email)
                     </div>
+                    <br />
                 </fieldset>
             </td>
-            <td>
+            <td class="alignOntop">
                 <fieldset>
                     <legend>Agenzia</legend>
                     <br />
@@ -87,7 +88,7 @@
                     <br />
                 </fieldset>
             </td>
-            <td>
+            <td class="alignOntop">
                 <fieldset>
                     <legend>Dati di registrazione</legend>
                     @Html.HiddenFor(model => model.Agenzia.Id)
@@ -108,18 +109,23 @@
                         @Html.PasswordFor(model => model.UtenteRepeatPassword)
                         @Html.ValidationMessageFor(model => model.UtenteRepeatPassword)
                     </div>
+                    <br />
                 </fieldset>
             </td>
         </tr>
         <tr>
             <td colspan="3">
                 <div>
-                    Cliccando su Registra, accetti i Termini e le Condizioni d'Uso di BusBook e confermi
-                    di aver letto e compreso la nostra Normativa sull'utilizzo dei dati.
-                    <br /><br />
-                    <a href="https://www.iubenda.com/privacy-policy/362213" class="iubenda-white " id="iubenda-embed" title="Privacy Policy">Privacy Policy</a>
-<script type="text/javascript">    (function (w, d) { var loader = function () { var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s, tag); }; w.addEventListener ? w.addEventListener("load", loader, false) : w.attachEvent("onload", loader); })(window, document);</script>
-
+                    <br />
+                    <p class="italicText">
+                        Cliccando su Registra, accetti i Termini e le Condizioni d'Uso di "Parti Comodo" e confermi
+                        di aver letto e compreso la nostra Normativa sull'utilizzo dei dati.
+                        <br />
+                        Per maggiori informazioni leggi la nostra informativa cliccando sul pulsante <b>Privacy Policy</b> sottostante</p>
+                    <br />
+                    <a href="https://www.iubenda.com/privacy-policy/362213" class="iubenda-white " id="iubenda-embed"
+                        title="Privacy Policy">Privacy Policy</a>
+                    <script type="text/javascript">                        (function (w, d) { var loader = function () { var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s, tag); }; w.addEventListener ? w.addEventListener("load", loader, false) : w.attachEvent("onload", loader); })(window, document);</script>
                 </div>
             </td>
         </tr>
@@ -127,10 +133,8 @@
             <td colspan="3">
                 @ReCaptcha.GetHtml(publicKey: "6Lcq1csSAAAAAGdA4Ugi3h6D5kpwQTq-g-AXVXSt", theme: "clean")
                 <br />
-                <input type="submit" value="Registra" id="submitButton" class="button" />
+                <input type="submit" value="Registra" id="submitButton" class="submit" id="form_submit" />
             </td>
         </tr>
     </table>
-   
-    
 }

@@ -12,23 +12,16 @@
                 UpdateTargetId = "LoginDiv"
             }, new { id = "userInfoBox" }))
     {
-        <div>
-            @Html.DisplayTextFor(model => model.LoginErrorMessage)
-      
-            @Html.LabelFor(model => model.Username)
-        
-            @Html.EditorFor(model => model.Username)
-        
-            @Html.ValidationMessageFor(model => model.Username)
-        
-            @Html.LabelFor(model => model.Password)
-        
-            @Html.PasswordFor(model => model.Password)
-        
-            @Html.ValidationMessageFor(model => model.Password)
 
-            <input type="submit" value="Log In" id="submitButton" class="button" />
-        </div>
+        @Html.DisplayTextFor(model => model.LoginErrorMessage)<br />
+        @Html.LabelFor(model => model.Username)<br />
+        @Html.EditorFor(model => model.Username)
+        @Html.ValidationMessageFor(model => model.Username)<br />
+        @Html.LabelFor(model => model.Password)<br />
+        @Html.PasswordFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password)<br />
+        <input type="submit" value="Log In" id="submitButton" class="button" />
+        @Html.ActionLink("Registrati", "Registration", "Login", null, new { @class = "button" })
     }
     <div style="display: none; margin-left: 50px" id="loadingDiv">
         <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>

@@ -107,7 +107,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult Registration()
         {
             RegistrationView registration = new RegistrationView();
-            return PartialView(registration);
+            return View(registration);
         }
 
         [HttpPost]
@@ -133,6 +133,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                         var cryptedPassword = crypto.cryptPassword(registration.Utente.Password);
                         utente.Password = cryptedPassword;
                         ur.Save(utente);
+                        return View("Index");
                     }
                 }
             }

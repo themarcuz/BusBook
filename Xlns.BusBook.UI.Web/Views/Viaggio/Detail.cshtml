@@ -100,19 +100,18 @@
     </div>
     <div class="grid_16">
         <p>
+        <div id="partecipazioneDiv">
             @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
             @if (agenzia != null //si rappresenta un'agenzia
                 && Model.Agenzia.Id == agenzia.Id //il viaggio è della propria agenzia
                 && !Model.DataPubblicazione.HasValue //il viaggio non è pubblicato
                 )
             {        
-                @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
-                <text></text>         
-            }  
-           
-            @if (!Model.DataPubblicazione.HasValue) 
+                @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })   
+            }
+            @if (!Model.DataPubblicazione.HasValue && Model.Agenzia.Id == agenzia.Id)
             {
-                Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
+                @Ajax.ActionLink("Pubblica", "Pubblica", "Viaggio", new { idViaggio = Model.Id },
                                    new AjaxOptions()
                                    {
                                        Confirm = "Una volta pubblicato il viaggio non sarà più possibile modificarlo: sicuro di voler continuare con la pubblicazione?",
@@ -122,41 +121,41 @@
                                    },
                                    new { @class = "button" });
             }
-           
             
-
-            @if (Model.DataChiusuraPrenotazioni > DateTime.Now)
-            {
-                if (ViewBag.HasPartecipated == false)
+                @if (Model.DataChiusuraPrenotazioni > DateTime.Now)
                 {
-                @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id },
+                    if (ViewBag.HasPartecipated == false)
+                    {
+                    @Ajax.ActionLink("Partecipa", "RichiestaPartecipazione", "Viaggio", new { idViaggio = Model.Id },
                                     new AjaxOptions()
                                     {
                                         Confirm = "",
                                         HttpMethod = "POST",
-                                        OnSuccess = "OnSuccess",
-                                        OnFailure = "PubblicaError"
+                                        //OnSuccess = "OnSuccess",
+                                        OnFailure = "PubblicaError",
+                                        UpdateTargetId = "dialog"
                                     },
                                     new { @class = "button" })
+                    }
+                    else if (Model.Agenzia.Id != agenzia.Id)
+                    {
+                    @Ajax.ActionLink("Rimuovi partecipazione", "RimuoviPartecipazione", "Viaggio", new { idViaggio = Model.Id },
+                                    new AjaxOptions()
+                                    {
+                                        Confirm = "",
+                                        HttpMethod = "POST",
+                                        OnFailure = "PubblicaError",
+                                        UpdateTargetId = "dialog"
+                                    },
+                                    new { @class = "button" })
+                    }
                 }
                 else
                 {
-                @Ajax.ActionLink("Rimuovi partecipazione", "RimuoviPartecipazione", "Viaggio", new { idViaggio = Model.Id },
-                                    new AjaxOptions()
-                                    {
-                                        Confirm = "",
-                                        HttpMethod = "POST",
-                                        OnSuccess = "OnSuccess",
-                                        OnFailure = "PubblicaError"
-                                    },
-                                    new { @class = "button" })
+                    <br />
+                    @Html.Label("Le partecipazioni a questo viaggio sono già chiuse")
                 }
-            }
-            else
-            {
-                <br />
-                @Html.Label("Le partecipazioni a questo viaggio sono già chiuse")
-            }
+            </div>
             <br />
             <br />
             <a href="#" onclick="publishWallPost(); return false;">
@@ -196,7 +195,7 @@
 
         function OnSuccess(response, status, data) {
             window.location.href = '@(Url.Action("Detail", "Viaggio"))';
-        }        
+        }
 
         function PubblicaError(response, status, error) {
             $('#dialog').html(response.statusText);

@@ -12,74 +12,149 @@
             padding-top: 5px;
             overflow: auto;
         }
-        #header
+        
+        
+        #slides
         {
-            position: relative;
-            margin: 0 auto;
-            background: url(../images/border.gif) repeat-x left bottom;
-            height: 275px;
+            width: 600px;
+            height: 400px;
+            border: 2px dotted silver;
+        }
+        
+        #slides h1
+        {
+            margin: 50px 0px 50px 10px;
+            text-align: center;
+        }
+        
+        .slides_container
+        {
+            width: 600px;
+            height: 350px;
+        }
+        .slides_container div
+        {
+            width: 600px;
+            height: 350px;
+            display: block;
+        }
+        .pagination
+        {
+            margin: 26px auto 0;
+            width: 100px;
+        }
+        .pagination li
+        {
+            float: left;
+            margin: 0 1px;
+            list-style: none;
+        }
+        .pagination li a
+        {
+            display: block;
+            width: 12px;
+            height: 0;
+            padding-top: 12px;
+            background-image: url('../../Content/img/pagination.png');
+            background-position: 0 0;
+            float: left;
+            overflow: hidden;
+        }
+        .pagination li.current a
+        {
+            background-position: 0 -12px;
+        }
+        
+        .SliderFontstyle
+        {
+            margin: 10px 10px 10px 10px;
+            font-size: 16px;
+            text-align: justify;
+        }
+        
+        .fontstyle
+        {
+            font-size: 13px;
+            text-align: left;
         }
     </style>
 }
-@section logo{
-    <h1 id="logo-text">
-        @Html.ActionLink("BusBook", "Index", "Home")
-    </h1>
-    <p id="intro">
-        the bus tour-aggregator...</p>
-}
-<div id="content-wrapper" class="container_16">
-    <!-- main -->
-    <div id="main" class="grid_16">
-        <div id="left-columns" class="grid_4">
-            <div class="grid_4 alpha">
-                <div class="sidemenu">
-                    @{
-                        if (Session.getLoggedUtente() == null)
-                        {
-                            Html.RenderAction("ShowLogin", "Login");
-                        }
-                    }
-                </div>
+<div id="content">
+    <div id="slides">
+        <div class="slides_container">
+            <div>
+                <h1>
+                    Cos'è Parti Comodo?</h1>
+                <p class="SliderFontstyle">
+                    Parti Comodo è un <b>innovativo sistema di programmazione di viaggi in Bus</b>.
+                    Da oggi potrai creare facilmente la tua <b>personale programmazione viaggi</b> fatta
+                    da offerte mensili e/o settimanali che sfruttano il sistema per completare la tua
+                    offerta. Arricchisci il sito della tua Agenzia collegando la tua personale vetrina
+                    di Parti Comodo o crea una o piu locandine informatiche delle iniziative che più
+                    ti soddisfano.
+                </p>
+            </div>
+            <div>
+                <h1>
+                    Perché usare Parti Comodo?</h1>
+                <p class="SliderFontstyle">
+                    per svariate ragioni non riesci a commercializzare la tua iniziativa? oggi con questo
+                    sistema ti puoi permettere anche te di evidenziare la tua iniziativa e attivare
+                    una organizzazione commerciale che puo' evidenziare la tua iniziativa insieme ad
+                    altre programmazioni cosi da completare un ventaglio di offerte senza dover forzatamente
+                    impegnare un numero di persone che e' sempre piu difficile da realizzare.
+                </p>
+            </div>
+            <div>
+                <h1>
+                    BusBook funziona?</h1>
+                <p class="SliderFontstyle">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse
+                    bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis
+                    varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat
+                    bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. <a href="index.html">
+                        Read more...</a>
+                </p>
+            </div>
+            <div>
+                <h1>
+                    Chi ha realizzato BusBook?</h1>
+                <p class="SliderFontstyle">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse
+                    bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis
+                    varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat
+                    bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. <a href="index.html">
+                        Read more...</a>
+                </p>
             </div>
         </div>
-        <div class="grid_4 omega">
-            <h3>
-                Registrati</h3>
-            @{Html.RenderAction("Registration", "Login");}
-        </div>
-        <!-- main ends -->
+        <script src="../../Content/scripts/slides.min.jquery.js" type="text/javascript"></script>
+        <script>
+            $(function () {
+                $('#slides').slides({
+                    play: 25000,
+                    pause: 10000,
+                    hoverPause: true
+                });
+            });
+        </script>
     </div>
-    <!-- contents end here -->
 </div>
-@section footer{
-    <div class="grid_8">
-        <h3>
-            Cos'è un Tour Aggregator?</h3>
+<!--end content-->
+<div id="sidebar">
+    <div id="hire">
+        <h2 class="sidebar-title">
+            Login</h2>
         <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse
-            bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis
-            varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat
-            bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. <a href="index.html">
-                Read more...</a>
+            @{
+                Html.RenderAction("ShowLogin", "Login", Session.getLoggedUtente());
+            }
         </p>
     </div>
-    <div id="footer-bottom">
-        <p class="bottom-left">
-            &nbsp; &copy;xlns - 2011 - All rights reserved &nbsp; &nbsp; Powered by <a href="http://www.xlns.it/">
-                xlns</a>, you're right to be excellent
-        </p>
-        <p class="bottom-right">
-            <a href="index.html">Home</a> | <a href="index.html">Sitemap</a> | <a href="index.html">
-                RSS Feed</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
-            | <a href="http://validator.w3.org/check/referer">XHTML</a>
-        </p>
-        <br />
-        <div class="fb-like" data-href="http://www.xlns.it" data-send="true" data-layout="button_count"
-            data-width="450" data-show-faces="true" data-font="segoe ui">
-        </div>
-        <br />
-        <a href="https://twitter.com/xlnsx" class="twitter-follow-button" data-show-count="false"
-            data-lang="it">Segui @@xlnsx</a>
-        <script>            !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>
-}
+    <!--end hire-->
+    <div id="featured-project">
+        <img src="../../Content/img/particomodo-small.png" />
+    </div>
+    <!--end recent-projects-->
+</div>
+<!--end sidebar-->
