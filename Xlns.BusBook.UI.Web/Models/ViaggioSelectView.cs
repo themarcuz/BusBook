@@ -12,5 +12,6 @@ namespace Xlns.BusBook.UI.Web.Models
         public bool isSelected;
         public int idFlyer;
         public bool isSelectable;
+        public bool isDetailExternal;
     }
 }

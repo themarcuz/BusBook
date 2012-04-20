@@ -27,7 +27,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult ListPartial()
         {
             var viaggi = vr.GetViaggi();
-            ViewBag.IsFullPage = false;
+            ViewBag.IsFullPage = false;            
             return PartialView("List", viaggi);
         }
 
@@ -78,6 +78,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 {
                     viaggio.Tappe = oldViaggio.Tappe;
                     viaggio.Depliant = oldViaggio.Depliant;
+                    viaggio.PromoImage = oldViaggio.PromoImage;
                 }
                 viaggio.Agenzia = Session.getLoggedAgenzia();
 
@@ -89,9 +90,9 @@ namespace Xlns.BusBook.UI.Web.Controllers
                         HttpPostedFileBase file = Request.Files[fileName] as HttpPostedFileBase;
                         if (file.ContentLength == 0)
                             continue;
-                        if (file.FileName.ToLower().EndsWith(".pdf"))
+                        if (vm.isValidDepliantMimeType(file.FileName))
                         {
-                            logger.Info("Caricamento allegato per il viaggio {0}", viaggio);
+                            logger.Info("Caricamento depliant per il viaggio {0}", viaggio);
                             Int32 length = file.ContentLength;
                             byte[] rawFile = new byte[length];
                             file.InputStream.Read(rawFile, 0, length);
@@ -103,14 +104,33 @@ namespace Xlns.BusBook.UI.Web.Controllers
                             };
                             viaggio.Depliant = allegato;
                         }
-                        //TODO: gestire anche l'immagine promozionale
+                        if (vm.isValidImageMimeType(file.FileName))
+                        {
+                            logger.Info("Caricamento immagine promozionale per il viaggio {0}", viaggio);
+                            Int32 length = file.ContentLength;
+                            byte[] rawFile = new byte[length];
+                            file.InputStream.Read(rawFile, 0, length);
+                            var allegato = new AllegatoViaggio()
+                            {
+                                RawFile = rawFile,
+                                NomeFile = file.FileName,
+                                Viaggio = viaggio
+                            };
+                            viaggio.PromoImage = allegato;
+                        }                       
                     }
                 }                
                 vm.Save(viaggio);
-                //return RedirectToAction("Detail", new { id = viaggio.Id });
+                if (viaggio.Tappe.Count > 1 && viaggio.Tappe.SingleOrDefault(t => t.Tipo == TipoTappa.DESTINAZIONE) != null)
+                {
+                    logger.Debug("Il percorso del viaggio è stato definito, per cui lo si redirige alla pagina di dettaglio per verifica");
+                    return RedirectToAction("Detail", new { id = viaggio.Id });
+                }
             }
             return RedirectToAction("Edit", new { id = viaggio.Id });
         }
+
+        
 
         public ActionResult EditTappeViaggio(int idViaggio)
         {
@@ -161,8 +181,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             try
             {
-                var tappa = vr.GetTappaById(id);
-                vr.deleteTappa(tappa);
+                vm.DeleteTappa(id);                
             }
             catch (Exception ex)
             {
@@ -266,6 +285,65 @@ namespace Xlns.BusBook.UI.Web.Controllers
             var pr = new PartecipazioneRepository();
             var partecipazioni = pr.GetPartecipazioniAlViaggio(idViaggio);
             return PartialView(partecipazioni);
+        }
+        [HttpPost]
+        public ActionResult ReorderTappe(int[] reorderedIds, int idViaggio)
+        {
+            var viaggio = vr.GetById(idViaggio);
+            int order = 1;
+            foreach (var id in reorderedIds)
+            {
+                viaggio.Tappe.Single(t => t.Id == id).Ordinamento = order;
+                order++;
+            }
+            vr.Save(viaggio);
+            return new HttpStatusCodeResult(200);
+        }
+
+        [HttpPost]
+        public ActionResult Search(ViaggioSearchView searchParams)
+        {
+            //TODO: Solo Pubblicati!
+
+            var viaggiFound = vm.Search(ViaggioHelper.getViaggioSearchParams(searchParams, false));
+
+            var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
+
+            return Select(viaggiSelezionabili);
+        }
+
+        public ActionResult Search(String idDivToUpdate)
+        {
+            return PartialView(new ViaggioSearchView() { idDivToUpdate = idDivToUpdate });
+        }
+
+
+        public ActionResult Select(List<ViaggioSelectView> viaggi)
+        {
+            //TODO: Solo Pubblicati!
+            if (viaggi == null)
+            {
+                //con questa ricerca li becco tutti
+                List<Viaggio> viaggiFound = vm.Search(new ViaggioSearch() { onlyPubblicati = false });
+
+                viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
+            }
+
+            return PartialView("Select",viaggi);
+        }
+
+        public ActionResult SearchTappa(int tipo)
+        {
+            var tappaSearch = new Tappa()
+            {
+                Tipo = (TipoTappa)tipo,  
+            };
+            return PartialView("SearchTappa", tappaSearch);
+        }
+
+        public ActionResult ShowSelected(int idFlyer, bool isDetailExternal)
+        {
+            return Select(FlyerHelper.getViaggiSelezionati(idFlyer, isDetailExternal));
         }
     }
 }

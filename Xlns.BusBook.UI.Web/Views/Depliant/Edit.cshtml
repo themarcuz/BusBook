@@ -2,7 +2,10 @@
 <div class="editor-label">
     @Html.LabelFor(model => model.Viaggio.Depliant)
     <span id="depliantGetter" class="ui-icon ui-icon-link"></span>
-    <span id="depliantDeleter" class="ui-icon ui-icon-closethick"></span>
+    @if (Model.ShowDeleteCommand)
+    {
+        <span id="depliantDeleter" class="ui-icon ui-icon-closethick"></span>
+    }
 </div>
 <script type="text/javascript">
     $(function () {

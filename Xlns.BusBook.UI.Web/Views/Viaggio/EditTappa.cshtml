@@ -1,11 +1,7 @@
 ﻿@using Xlns.BusBook.UI.Web.Models;
 @model Xlns.BusBook.Core.Model.Tappa
 @{
-    String title = "Definizione tappa";
-    if (Model.Tipo == Xlns.BusBook.Core.Model.TipoTappa.PARTENZA)
-    {
-        title = "Da dove vuoi partire?";
-    }
+    String title = "Definizione punto di raccolta";   
     if (Model.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE)
     {
         title = "Qual'è la destinazione?";

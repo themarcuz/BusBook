@@ -27,8 +27,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult Edit(int id)
         {
             var flyer = setFlyerInEdit(id);
+            var flyerEdit = new FlyerEditView(flyer);
+            flyerEdit.RedirectOnSave = Request.UrlReferrer.OriginalString;
 
-            return View(new FlyerEditView(flyer));
+            return View(flyerEdit);
         }
 
         public ActionResult Detail(int id)
@@ -54,7 +56,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 flyer.Titolo = flyerEdit.Titolo;
 
                 flyerRepo.Save(flyer);
-                return RedirectToAction("DashBoard","Home");
+                return Redirect(flyerEdit.RedirectOnSave);
+       
             }
             return View("Edit",flyerEdit);
         }
@@ -66,14 +69,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
             var viaggio = viaggiRepo.GetById(idViaggio);
 
-            if (flyer.Viaggi.Any(v => v.Id == viaggio.Id))
-                flyer.Viaggi.Remove(viaggio);
-            else
-                flyer.Viaggi.Add(viaggio);
+            FlyerHelper.ToggleViaggio(flyer, viaggio);
 
             return null;
             
-            }
+         }
 
 
         private Flyer getFlyerInEdit()
@@ -94,42 +94,6 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return flyer;
         }
 
-        public ActionResult Select()
-        {
-            //TODO: solo viaggi pubblicati!
-            //var viaggiPubblicati = vr.GetViaggi().Where(v => v.DataPubblicazione != null).ToList();
-            var viaggiPubblicati = viaggiRepo.GetViaggi();
-
-            var flyer = getFlyerInEdit();
-
-            List<ViaggioSelectView> viaggiSelezionabili = new List<ViaggioSelectView>();
-
-            foreach (var viaggioPub in viaggiPubblicati)
-            {
-                bool selected = false;
-
-                if (flyer.Viaggi != null && flyer.Viaggi.Any(v => v.Id == viaggioPub.Id))
-                    selected = true;
-
-                ViaggioSelectView viaggioSelezionabile = new ViaggioSelectView() { viaggio = viaggioPub, isSelected = selected, isSelectable = true,  idFlyer = flyer.Id };
-                viaggiSelezionabili.Add(viaggioSelezionabile);
-            }
-            return PartialView(viaggiSelezionabili);
-        }
-
-        public ActionResult ShowSelected(int id)
-        {
-            var flyer = flyerRepo.GetById(id);
-
-            List<ViaggioSelectView> viaggiSelezionati = new List<ViaggioSelectView>();
-
-            foreach (var viaggioSel in flyer.Viaggi)
-            {
-                ViaggioSelectView viaggioSelezionato = new ViaggioSelectView() { viaggio = viaggioSel, isSelected = true, isSelectable = false, idFlyer = flyer.Id };
-                viaggiSelezionati.Add(viaggioSelezionato);
-            }
-            return PartialView("Select",viaggiSelezionati);
-        }
 
         public ActionResult ShowTile(Flyer flyer, bool isShort, bool isEditable, bool isDetailAjax)
         {
@@ -157,6 +121,15 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg);
             }
+        }
+
+       public JsonResult CheckViaggiSelected(int hasViaggiSelected)
+        {
+            var flyer = getFlyerInEdit();
+
+            bool valid = (flyer.Viaggi.Count > 0);
+
+            return Json(valid, JsonRequestBehavior.AllowGet);
         }
 
     }

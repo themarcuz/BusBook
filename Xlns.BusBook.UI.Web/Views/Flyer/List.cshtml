@@ -13,6 +13,7 @@
         <h3>@ViewBag.Title</h3>
         <p>
             @Html.ActionLink("Nuovo Flyer", "Edit", new { id = 0 }, new { @class = "button" })
+            @Html.ActionLink("DashBoard", "DashBoard", "Home", null, new { @class = "button"})
         </p>
         @foreach (var flyer in Model.flyers)
         {
@@ -25,3 +26,4 @@
 	    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Sicuro di voler cancellare il Flyer?</p>
     </div>
 </div>
+

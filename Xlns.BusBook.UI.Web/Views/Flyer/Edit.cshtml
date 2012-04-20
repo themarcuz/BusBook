@@ -1,4 +1,5 @@
-﻿@model Xlns.BusBook.UI.Web.Models.FlyerEditView
+﻿@using Xlns.BusBook.UI.Web.Models
+@model Xlns.BusBook.UI.Web.Models.FlyerEditView
 @{
     if (Model.Id == 0)
     {
@@ -20,10 +21,14 @@
     <div id="main" class="grid_16">
         <h3>
             @ViewBag.Title</h3>
+        @{Html.RenderAction("Search", "Viaggio", new { idDivToUpdate = "elencoViaggi" });}
         @using (Html.BeginForm("Save", "Flyer"))
         {
             @Html.ValidationSummary(true)
-    
+            <input type="submit" value="Salva" id="submitButton" class="button" />
+            <a class="button" href="@Request.UrlReferrer">Annulla</a>
+            <br />
+            <br />
             <div style="display: table">
                 <div style="display: table-row">
                     <div style="display: table-cell; padding-right: 20px">
@@ -38,8 +43,12 @@
                                 @Html.TextBoxFor(model => model.Titolo, new { @class = "titolo" })
                                 @Html.ValidationMessageFor(model => model.Titolo)
                             </div>
-                            <div class="scroll">
-                               @{Html.RenderAction("Select");}
+                                @Html.HiddenFor(model => model.hasViaggiSelected, new { id = "hasViaggiSelected" })
+                                @Html.ValidationMessageFor(model => model.hasViaggiSelected)
+                            <div>
+                            </div>
+                            <div id="elencoViaggi">
+                               @{Html.RenderAction("Select", "Viaggio");}
                             </div>
                             <br />
                         </fieldset>
@@ -49,10 +58,8 @@
                 <!-- chiusura riga -->
             </div>
             
-         
-            <input type="submit" value="Salva" id="submitButton" class="button" />
-            <input type="button" value="Annulla" id="cancelButton" class="button" 
-                    onclick="window.location='@Href("~/Home/DashBoard")'" />
+            
+            @Html.HiddenFor(model => model.RedirectOnSave);
         }
     </div>
 </div>

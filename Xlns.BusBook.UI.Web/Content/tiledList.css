@@ -14,6 +14,11 @@
     background-color: #9CCF5F;
 }
 
+.tileSelectedElement:hover
+{
+    background-color: #9CCF5F !important;
+}
+
 .tileElement:hover
 {
     background-color: #F5F4F3;

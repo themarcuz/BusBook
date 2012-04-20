@@ -10,5 +10,7 @@ namespace Xlns.BusBook.UI.Web.Models
     {
         public Viaggio Viaggio { get; set; }
         public String HtmlContainerId { get; set; }
+        public bool ShowDeleteCommand { get; set; }
+        
     }
 }

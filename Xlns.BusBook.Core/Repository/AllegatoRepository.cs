@@ -35,7 +35,7 @@ namespace Xlns.BusBook.Core.Repository
 
         private void HydrateAllegato(Model.Allegato allegato)
         {            
-            allegato.RawFile = System.IO.File.ReadAllBytes(allegato.NomeFile);
+            allegato.RawFile = System.IO.File.ReadAllBytes(allegato.FullName);
         }
 
         

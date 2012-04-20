@@ -75,19 +75,18 @@ namespace Xlns.BusBook.Core.Repository
             }
         }
 
-
-        public void deleteDepliant(AllegatoViaggio depliant)
+        public void deleteAllegato(AllegatoViaggio allegato)
         {
             try
             {
                 // questo serve altrimenti cerca di cancellare anche il viaggio
-                depliant.Viaggio = null;
+                allegato.Viaggio = null;
 
-                base.delete<AllegatoViaggio>(depliant);
+                base.delete<AllegatoViaggio>(allegato);
             }
             catch (Exception ex)
             {
-                string msg = String.Format("Errore durante la cancellazione della tappa ", depliant);
+                string msg = String.Format("Errore durante la cancellazione dell'allegato ", allegato);
                 logger.ErrorException(msg, ex);
                 throw new Exception(msg, ex);
             }

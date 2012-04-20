@@ -1,0 +1,119 @@
+﻿
+@model Xlns.BusBook.UI.Web.Models.DetailViaggio      
+@{
+    Layout = "~/Views/Site/_Layout.cshtml";
+    ViewBag.Title = Model.viaggio.Nome;
+}
+@section head{
+    <link href="@Url.Content("~/Content/tiledList.css")" rel="stylesheet" type="text/css" media="screen"/>
+}
+@section scripts{
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/scripts/viaggio.detail.js")"></script>
+}
+<div id="content-wrapper" class="container_16">
+    <div id="main" class="grid_18">
+        <div class="grid_6 alpha">
+            <h3 style="padding-bottom: 0px">@Model.viaggio.Nome</h3>
+            <h4 style="padding-top: 0px" class="tileSubTitle">
+                @Html.DisplayFor(model => model.viaggio.Descrizione)
+            </h4>
+            <br />
+            <fieldset>
+                @Html.LabelFor(model => model.viaggio.DataPartenza)
+                <div>
+                    @Html.DisplayFor(model => model.viaggio.DataPartenza)
+                </div>
+                @Html.LabelFor(model => model.viaggio.TotalePosti)
+                <div>
+                    @Html.DisplayFor(model => model.viaggio.TotalePosti)
+                </div>
+                @Html.LabelFor(model => model.viaggio.DataChiusuraPrenotazioni)
+                <div>
+                    @Html.DisplayFor(model => model.viaggio.DataChiusuraPrenotazioni)
+                </div>
+                @if (Model.viaggio.DataPubblicazione.HasValue)
+                {
+                    @Html.LabelFor(model => model.viaggio.DataPubblicazione)
+                    <div>
+                        @Html.DisplayFor(model => model.viaggio.DataPubblicazione)
+                    </div>
+                }
+                @if (Model.viaggio.Tappe != null && Model.viaggio.Tappe.Count > 0)
+                {                    
+                    if (Model.viaggio.Tappe != null
+                        && Model.viaggio.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
+                        && Model.viaggio.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
+                    {
+                    <div>
+                        <label>
+                            Destinazione</label>
+                    </div>
+                    <div>
+                        @Html.DisplayFor(model => model.viaggio.Tappe
+                                    .Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE)
+                                    .OrderByDescending(t => t.Ordinamento)
+                                    .First()
+                                    .Location.City)
+                    </div>
+                    }
+                    <div style="margin-top: 10px">
+                        @{Html.RenderAction("ListaPartecipanti", "Viaggio", new { idViaggio = Model.viaggio.Id });
+                        }
+                    </div>
+                    <div style="display: none">
+                        @foreach (var tappa in Model.viaggio.Tappe)
+                        {
+                            <div class="tappaLocationInfo" data-tappa-id="@tappa.Id">
+                                @Html.TextBox(String.Format("tbTappa{0}Lat", tappa.Id), tappa.Location.Lat)
+                                @Html.TextBox(String.Format("tbTappa{0}Lng", tappa.Id), tappa.Location.Lng)
+                            </div>
+                        }
+                    </div>
+                }
+            </fieldset>
+        </div>
+        <div class="grid_8 omega">
+            <div style="height: 40px">
+                <span id="loaderMessage"></span>
+            </div>
+            <div id="map_canvas" style="width: 500px; height: 350px;">
+            </div>
+        </div>
+    </div>
+    <div class="grid_16">
+        <p>
+            @Html.ActionLink("Torna alla lista", "IndexFromFlyer", new { id = Model.idFlyer }, new { @class = "button" })
+
+            @if (Model.viaggio.DataChiusuraPrenotazioni > DateTime.Now)
+            {
+                <br />
+                @Html.Label("Le partecipazioni a questo viaggio si chiuderanno il " + @Model.viaggio.DataPartenza.Date.ToString("dd MMM yyyy"));
+            }
+            else
+            {
+                <br />
+                @Html.Label("Le partecipazioni a questo viaggio sono già chiuse")
+            }
+            <br />
+            <br />
+            <a href="#" onclick="publishWallPost(); return false;">
+                <img src="@Url.Content("~/Content/img/facebook.png")" alt="Share on Facebook" /></a>
+            <img src="@Url.Content("~/Content/img/twitter.png")" alt="Share on twitter"/>
+            <script type="text/javascript">
+                function publishWallPost() {
+                    var date = ('@Model.viaggio.DataPartenza.Date.ToString("dd MMM yyyy")');
+                    var nomeViaggio = '@Model.viaggio.Nome';
+                    var descrizione = '@Model.viaggio.Descrizione';
+                    var attachment = { 'name': nomeViaggio, 'description': nomeViaggio + ' partenza il ' + date };
+                    FB.ui({
+                        method: 'stream.publish',
+                        attachment: attachment,
+                        user_message_prompt: 'inviato da BusBook'
+                    });
+                }
+            </script>
+        </p>
+    </div>
+  
+</div>
