@@ -1,31 +1,6 @@
 ﻿@using Xlns.BusBook.UI.Web.Models
 @model MenuView
-<link type="text/css" href="@Url.Content("~/Content/logout.css")" media="screen, projection" rel="stylesheet" />
-<div id="LogoutDiv">
-    <div id="topnav" class="topnav">
         @if (Model.Messaggi.Count > 1)
         {
             @Html.ActionLink("Hai " + Model.Messaggi.Count.ToString() + " nuovi messaggi", "List", "Messaggio")
         }
-        <a href="#" class="signin"><span>BusBook | @Html.DisplayTextFor(model => model.Utente.Nome)
-            @Html.DisplayTextFor(model => model.Utente.Cognome)</span></a>
-    </div>
-    <fieldset id="signin_menu">
-        <div>
-            @Html.ActionLink("Dati Utente", "Detail", "Utente", new { id = Session.getLoggedUtente().Id }, new { @class = "button" })
-        </div>
-        <div>
-            @Html.ActionLink("Dati Agenzia", "Detail", "Agenzia", new { id = Session.getLoggedAgenzia().Id }, new { @class = "button" })
-        </div>
-        <div>
-            @Ajax.ActionLink("Esci", "Logout", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
-       {
-           InsertionMode = InsertionMode.Replace,
-           HttpMethod = "POST",
-           UpdateTargetId = "replaceDiv"
-       }, new { @class = "button" })
-        </div>
-        <div id="replaceDiv" style="display: none;">
-        </div>
-    </fieldset>
-</div>

@@ -1,6 +1,6 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.UtenteLoginView
 <script type="text/javascript" src="@Url.Content("~/Content/scripts/login.js")" ></script>
-<div id="LoginDiv">
+<div id="latest-article">
     @using (Ajax.BeginForm("Login", "Login", new { redirectOnSuccess = true }, new AjaxOptions()
             {
                 InsertionMode = InsertionMode.Replace,
@@ -9,19 +9,21 @@
                 OnBegin = "startOperation",
                 OnComplete = "completeOperation",
                 LoadingElementId = "loadingDiv",
-                UpdateTargetId = "LoginDiv"
+                UpdateTargetId = "latest-article"
             }, new { id = "userInfoBox" }))
     {
 
         @Html.DisplayTextFor(model => model.LoginErrorMessage)<br />
-        @Html.LabelFor(model => model.Username)<br />
+        <div class="labelizer">
+            @Html.LabelFor(model => model.Username)</div>
         @Html.EditorFor(model => model.Username)
         @Html.ValidationMessageFor(model => model.Username)<br />
-        @Html.LabelFor(model => model.Password)<br />
+        <div class="labelizer">
+            @Html.LabelFor(model => model.Password)</div>
         @Html.PasswordFor(model => model.Password)
         @Html.ValidationMessageFor(model => model.Password)<br />
-        <input type="submit" value="Log In" id="submitButton" class="button" />
-        @Html.ActionLink("Registrati", "Registration", "Login", null, new { @class = "button" })
+        <input type="submit" value="Log In" id="submitButton" class="read-more" />
+        @Html.ActionLink("Registrati", "Registration", "Login", null, new { @class = "read-more" })
     }
     <div style="display: none; margin-left: 50px" id="loadingDiv">
         <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")"/>

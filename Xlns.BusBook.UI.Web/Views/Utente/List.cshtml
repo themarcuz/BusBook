@@ -14,8 +14,8 @@
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Content/scripts/utente.list.js")" ></script>
 }
-<div id="content-wrapper" class="container_16">
-    <div id="main" class="grid_16">
+<div id="content-wrapper">
+    <div id="main" >
         <h3>@ViewBag.Title</h3>
         <p>
              <input type="button" value="Nuovo utente" class="button" 
@@ -33,7 +33,7 @@
         {
             <div style="margin: 10px">
                 @Html.TextBox("q", Model.SearchString, new { style = "width: 200px" })
-                <input type="submit" value="Cerca" class="button" />
+                <input type="submit" value="Cerca" class="read-more" />
             </div>
             <div style="margin: 10px;">
                 @Ajax.ActionLink("Tutto", "Search", new { ini = string.Empty, q = Model.SearchString },

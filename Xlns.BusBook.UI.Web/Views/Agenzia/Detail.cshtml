@@ -4,64 +4,9 @@
 @{
     ViewBag.Title = "Dettaglio agenzia";
 }
-<div id="content-wrapper" class="container_16">
-    <div id="main" class="grid_16">
-        <h3>@Html.DisplayFor(model => model.agenzia.Nome)</h3>
-        <br />
-        <div class="grid_6 alpha">
-            <fieldset>                
-                <div>
-                    @Html.LabelFor(model => model.agenzia.RagioneSociale)</div>
-                <div>
-                    @Html.DisplayFor(model => model.agenzia.RagioneSociale)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.agenzia.PIva)</div>
-                <div>
-                    @Html.DisplayFor(model => model.agenzia.PIva)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.agenzia.Location)</div>
-                <div>
-                    @Html.DisplayFor(model => model.agenzia.Location.IndirizzoLeggibile)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.agenzia.Email)</div>
-                <div>
-                    @Html.DisplayFor(model => model.agenzia.Email)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.agenzia.Telefono)</div>
-                <div>
-                    @Html.DisplayFor(model => model.agenzia.Telefono)
-                </div>
-                <div>
-                    @Html.LabelFor(model => model.agenzia.Fax)</div>
-                <div>
-                    @Html.DisplayFor(model => model.agenzia.Fax)
-                </div>
-                <div style="margin-top: 10px">
-                    <a href="@Url.Action("Proposte", new { id = Model.agenzia.Id })">
-                        L'agenzia ha proposto
-                        @Html.DisplayFor(model => model.NumeroViaggiPubblicati) viaggi 
-                        per un totale di
-                        @Html.DisplayFor(model => model.KmViaggiPubblicati) km 
-                    </a>
-                </div>
-                <div style="margin-top: 10px">
-                    <a href="@Url.Action("Partecipazioni", new { id = Model.agenzia.Id })">
-                        L'agenzia ha partecipato a
-                        @Html.DisplayFor(model => model.NumeroViaggiPartecipati)
-                        viaggi per un totale di
-                        @Html.DisplayFor(model => model.KmViaggiPartecipati)
-                        km
-                    </a>
-                </div>
-                @Html.HiddenFor(model => model.agenzia.Location.Lat, new { id = "hiddenLat" })
-                @Html.HiddenFor(model => model.agenzia.Location.Lng, new { id = "hiddenLng" })
-            </fieldset>
-        </div>
-        <div class="grid_8 omega">
+<div id="content-wrapper">
+<div id="content">
+    <div>
             @{Html.RenderAction("Show", "Location",
                         new
                         {
@@ -73,11 +18,62 @@
                         });
             }
         </div>
+</div>
+<div id="sidebar">
+    <div class="sidemenu">
+        <h3>@Html.DisplayFor(model => model.agenzia.Nome)</h3>
+        <br />
+        <div>
+            <div class="labelizer">
+                @Html.LabelFor(model => model.agenzia.RagioneSociale)</div>
+            <div>
+                @Html.DisplayFor(model => model.agenzia.RagioneSociale)
+            </div>
+            <div class="labelizer">
+                @Html.LabelFor(model => model.agenzia.PIva)</div>
+            <div>
+                @Html.DisplayFor(model => model.agenzia.PIva)
+            </div>
+            <div class="labelizer">
+                @Html.LabelFor(model => model.agenzia.Location)</div>
+            <div>
+                @Html.DisplayFor(model => model.agenzia.Location.IndirizzoLeggibile)
+            </div>
+            <div class="labelizer">
+                @Html.LabelFor(model => model.agenzia.Email)</div>
+            <div>
+                @Html.DisplayFor(model => model.agenzia.Email)
+            </div>
+            <div class="labelizer">
+                @Html.LabelFor(model => model.agenzia.Telefono)</div>
+            <div>
+                @Html.DisplayFor(model => model.agenzia.Telefono)
+            </div>
+            <div class="labelizer">
+                @Html.LabelFor(model => model.agenzia.Fax)</div>
+            <div>
+                @Html.DisplayFor(model => model.agenzia.Fax)
+            </div>
+            <div style="margin-top: 10px">
+                <a href="@Url.Action("Proposte", new { id = Model.agenzia.Id })">L'agenzia ha proposto
+                    @Html.DisplayFor(model => model.NumeroViaggiPubblicati) viaggi per un totale di
+                    @Html.DisplayFor(model => model.KmViaggiPubblicati) km </a>
+            </div>
+            <div style="margin-top: 10px">
+                <a href="@Url.Action("Partecipazioni", new { id = Model.agenzia.Id })" class="button">L'agenzia ha
+                    partecipato a
+                    @Html.DisplayFor(model => model.NumeroViaggiPartecipati)
+                    viaggi per un totale di
+                    @Html.DisplayFor(model => model.KmViaggiPartecipati)
+                    km </a>
+            </div>
+            @Html.HiddenFor(model => model.agenzia.Location.Lat, new { id = "hiddenLat" })
+            @Html.HiddenFor(model => model.agenzia.Location.Lng, new { id = "hiddenLng" })
+        </div>
     </div>
-    <div class="grid_16">
+</div>
         <p>
-            @Html.ActionLink("Modifica", "Edit", new { id = Model.agenzia.Id }, new { @class = "button" })
-            @Html.ActionLink("Torna alla lista", "List", null, new { @class = "button" })
+            @Html.ActionLink("Modifica", "Edit", new { id = Model.agenzia.Id }, new { @class = "read-more" })
+            @Html.ActionLink("Torna alla lista", "List", null, new { @class = "read-more" })
         </p>
-    </div>
 </div>

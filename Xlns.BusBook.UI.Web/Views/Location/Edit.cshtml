@@ -1,54 +1,53 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.LocationPartialView
 <div style="@Model.CssStyleForDataFieldDiv">
-    <fieldset>
         @if (Model.ShowDataFieldLegend)
         {
-            <legend>Locazione geografica</legend>
+            <div class="fieldsetStyle">Locazione geografica</div>
             <br />
         }
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.City)
         </div>
         <div>
             @Html.TextBoxFor(model => model.Location.City, new { onblur = "refineLocation()" })
             @Html.ValidationMessageFor(model => model.Location.City)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Street)
         </div>
         <div>
             @Html.TextBoxFor(model => model.Location.Street, new { onblur = "refineLocation()" })
             @Html.ValidationMessageFor(model => model.Location.Street)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Number)
         </div>
         <div>
             @Html.TextBoxFor(model => model.Location.Number, new { onblur = "refineLocation()" })
             @Html.ValidationMessageFor(model => model.Location.Number)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.CAP)
         </div>
         <div>
             @Html.TextBoxFor(model => model.Location.CAP, new { onblur = "refineLocation()" })
             @Html.ValidationMessageFor(model => model.Location.CAP)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Province)
         </div>
         <div>
             @Html.TextBoxFor(model => model.Location.Province, new { onblur = "refineLocation()" })
             @Html.ValidationMessageFor(model => model.Location.Province)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Region)
         </div>
         <div>
             @Html.TextBoxFor(model => model.Location.Region, new { onblur = "refineLocation()" })
             @Html.ValidationMessageFor(model => model.Location.Region)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Nation)
         </div>
         <div>
@@ -57,11 +56,9 @@
         </div>
         @Html.HiddenFor(model => model.Location.Lat)
         @Html.HiddenFor(model => model.Location.Lng)
-        <br />
-    </fieldset>
 </div>
 <div style="@Model.CssStyleForMapDiv">
-    <div>
+    <div class="fieldsetStyle">
         Cerca indirizzo
     </div>
     <div>

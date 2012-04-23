@@ -5,8 +5,8 @@
 @section head{
     <link href="@Url.Content("~/Content/agenzia.css")" rel="stylesheet" type="text/css" media="screen"/>
 }
-<div id="content-wrapper" class="container_16">
-    <div id="main" class="grid_16">
+<div id="content-wrapper">
+    <div id="main" >
         <h3>
             @ViewBag.Title</h3>
         @using (Html.BeginForm("Create", "Utente", FormMethod.Post))
@@ -16,7 +16,6 @@
             <table>
                 <tr>
                     <td>
-                        <fieldset>
                             <legend>Utente</legend>
                             <br />
                             <div>
@@ -43,12 +42,11 @@
                                 @Html.EditorFor(model => model.Username)
                                 @Html.ValidationMessageFor(model => model.Username)
                             </div>
-                        </fieldset>
                     </td>
                 </tr>
             </table>
-              <input type="submit" value="Salva" id="submitButton" class="button" />
-            <input type="button" value="Annulla" id="cancelButton" class="button" 
+              <input type="submit" value="Salva" id="submitButton" class="read-more" />
+            <input type="button" value="Annulla" id="cancelButton" class="read-more" 
                     onclick="window.location='@Href("~/Utente/List")'" />
         }
     </div>

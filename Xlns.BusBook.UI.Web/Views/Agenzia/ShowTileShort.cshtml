@@ -1,15 +1,12 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.DettaglioAgenziaView
 <div>
-    <h3>@Model.NomeAdv</h3>
+    <h2>Benvenuto, @Model.NomeAdv</h2>
     <div>
         @Html.ActionLink("Modifica dati", "Edit", new { id = Model.agenzia.Id })
     </div>
-    <div>
-        <a href="#">Rubrica</a>
-    </div>
     <div style="margin-top: 10px">
-        <div style="font-weight: bold; font-style: italic">
-            Stato</div>
+        <h2>
+            Stato</h2>
         <div>
             <a href="@Url.Action("Proposte", "Agenzia", new { id = Model.agenzia.Id })">Pubblicati
                 @Html.DisplayFor(model => model.KmViaggiPubblicati)

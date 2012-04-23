@@ -11,9 +11,9 @@
         <tr>
             <td class="alignOntop">
                 <fieldset>
-                    <legend>Utente</legend>
+                    <legend class="fieldsetStyle">Utente</legend>
                     <br />
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Utente.Nome)
                         @Html.Label("*")
                     </div>
@@ -21,7 +21,7 @@
                         @Html.EditorFor(model => model.Utente.Nome)
                         @Html.ValidationMessageFor(model => model.Utente.Nome)
                     </div>
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Utente.Cognome)
                         @Html.Label("*")
                     </div>
@@ -29,7 +29,7 @@
                         @Html.EditorFor(model => model.Utente.Cognome)
                         @Html.ValidationMessageFor(model => model.Utente.Cognome)
                     </div>
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Utente.Username)
                         @Html.Label("*")
                     </div>
@@ -37,7 +37,7 @@
                         @Html.EditorFor(model => model.Utente.Username)
                         @Html.ValidationMessageFor(model => model.Utente.Username)
                     </div>
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Utente.Email)
                         @Html.Label("*")
                     </div>
@@ -50,10 +50,10 @@
             </td>
             <td class="alignOntop">
                 <fieldset>
-                    <legend>Agenzia</legend>
+                    <legend class="fieldsetStyle">Agenzia</legend>
                     <br />
                     @Html.HiddenFor(model => model.Agenzia.Id)
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Agenzia.Nome)
                         @Html.Label("*")
                     </div>
@@ -61,7 +61,7 @@
                         @Html.EditorFor(model => model.Agenzia.Nome)
                         @Html.ValidationMessageFor(model => model.Agenzia.Nome)
                     </div>
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Agenzia.RagioneSociale)
                         @Html.Label("*")
                     </div>
@@ -69,7 +69,7 @@
                         @Html.EditorFor(model => model.Agenzia.RagioneSociale)
                         @Html.ValidationMessageFor(model => model.Agenzia.RagioneSociale)
                     </div>
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Agenzia.PIva)
                         @Html.Label("*")
                     </div>
@@ -77,7 +77,7 @@
                         @Html.EditorFor(model => model.Agenzia.PIva)
                         @Html.ValidationMessageFor(model => model.Agenzia.PIva)
                     </div>
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Agenzia.Email)
                         @Html.Label("*")
                     </div>
@@ -90,10 +90,10 @@
             </td>
             <td class="alignOntop">
                 <fieldset>
-                    <legend>Dati di registrazione</legend>
+                    <legend class="fieldsetStyle">Dati di registrazione</legend>
                     @Html.HiddenFor(model => model.Agenzia.Id)
                     <br />
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.Utente.Password)
                         @Html.Label("*")
                     </div>
@@ -101,7 +101,7 @@
                         @Html.PasswordFor(model => model.Utente.Password)
                         @Html.ValidationMessageFor(model => model.Utente.Password)
                     </div>
-                    <div>
+                    <div class="labelizer">
                         @Html.LabelFor(model => model.UtenteRepeatPassword)
                         @Html.Label("*")
                     </div>
@@ -133,7 +133,7 @@
             <td colspan="3">
                 @ReCaptcha.GetHtml(publicKey: "6Lcq1csSAAAAAGdA4Ugi3h6D5kpwQTq-g-AXVXSt", theme: "clean")
                 <br />
-                <input type="submit" value="Registra" id="submitButton" class="submit" id="form_submit" />
+                <input type="submit" value="Registra" id="submitButton" class="read-more" id="form_submit" />
             </td>
         </tr>
     </table>

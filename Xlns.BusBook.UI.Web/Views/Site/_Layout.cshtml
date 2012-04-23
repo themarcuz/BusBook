@@ -18,14 +18,14 @@
 <body>
     @{Html.RenderAction("Facebook", "Login");}
     <!-- header starts-->
-    <div id="header" class="container_16">
+    <div id="header">
         @RenderSection("logo", false)
     </div>
     <!-- content starts -->
     <div id="content-outer">
         @RenderBody()
     </div>
-    <div id="footer-wrapper" class="container_16">
+    <div id="footer-wrapper">
         <div id="footer-content">
             @RenderSection("footer", false)
         </div>

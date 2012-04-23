@@ -1,4 +1,5 @@
-﻿@using Xlns.BusBook.UI.Web.Models;
+﻿<link href="@Url.Content("~/Content/StyleTextXlns.css")" rel="stylesheet" type="text/css" media="screen"/>
+@using Xlns.BusBook.UI.Web.Models;
 @model Xlns.BusBook.Core.Model.Agenzia
 @{
     if (Model.Id == 0)
@@ -24,22 +25,21 @@
         });
     </script>
 }
-<div id="content-wrapper" class="container_16">
-    <div id="main" class="grid_16">
-        <h3>
-            @ViewBag.Title</h3>
-        @using (Html.BeginForm("Save", "Agenzia", FormMethod.Post, new { id = "salvaAgenziaForm" }))
-        {
-            @Html.ValidationSummary(true)
+<div id="content-wrapper">
+    <div id="content">
+        <div id="main">
+            <h3>
+                @ViewBag.Title</h3>
+            @using (Html.BeginForm("Save", "Agenzia", FormMethod.Post, new { id = "salvaAgenziaForm" }))
+            {
+                @Html.ValidationSummary(true)
     
-            <div style="display: table">
-                <div style="display: table-row">
-                    <div style="display: table-cell; padding-right: 20px">
-                        <fieldset>
-                            <legend>Agenzia</legend>
+                <div style="display: table">
+                    <div style="display: table-row">
+                        <div style="display: table-cell; padding-right: 20px">
                             <br />
                             @Html.HiddenFor(model => model.Id)
-                            <div>
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.Nome)
                                 @Html.Label("*")
                             </div>
@@ -47,7 +47,7 @@
                                 @Html.EditorFor(model => model.Nome)
                                 @Html.ValidationMessageFor(model => model.Nome)
                             </div>
-                            <div>
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.RagioneSociale)
                                 @Html.Label("*")
                             </div>
@@ -55,7 +55,7 @@
                                 @Html.EditorFor(model => model.RagioneSociale)
                                 @Html.ValidationMessageFor(model => model.RagioneSociale)
                             </div>
-                            <div>
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.PIva)
                                 @Html.Label("*")
                             </div>
@@ -63,7 +63,7 @@
                                 @Html.EditorFor(model => model.PIva)
                                 @Html.ValidationMessageFor(model => model.PIva)
                             </div>
-                            <div>
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.Email)
                                 @Html.Label("*")
                             </div>
@@ -71,14 +71,14 @@
                                 @Html.EditorFor(model => model.Email)
                                 @Html.ValidationMessageFor(model => model.Email)
                             </div>
-                            <div>
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.Telefono)
                             </div>
                             <div>
                                 @Html.EditorFor(model => model.Telefono)
                                 @Html.ValidationMessageFor(model => model.Telefono)
                             </div>
-                            <div>
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.Fax)
                             </div>
                             <div>
@@ -86,26 +86,31 @@
                                 @Html.ValidationMessageFor(model => model.Fax)
                             </div>
                             <br />
-                        </fieldset>
-                    </div> <!-- chiusura cella -->
-                    @{Html.RenderAction("Edit", "Location",
+                        </div>
+                        <!-- chiusura cella -->
+                        @{Html.RenderAction("Edit", "Location",
                          new
                          {
                              locationPartialView = new LocationPartialView()
                                   {
                                       Location = Model.Location,
                                       CssStyleForDataFieldDiv = "display: table-cell; padding-right: 20px",
-                                      CssStyleForMapDiv = "display: table-cell;"                                      
+                                      CssStyleForMapDiv = "display: table-cell;"
                                   }
                          });
-                    }
-                </div> <!-- chiusura riga -->
-            </div>
+                        }
+                    </div>
+                    <!-- chiusura riga -->
+                </div>
             
              
-            <input type="button" value="Salva" id="submitButton" class="button" />
-            <input type="button" value="Annulla" id="cancelButton" class="button" 
+                <input type="button" value="Salva" id="submitButton" class="button" />
+                <input type="button" value="Annulla" id="cancelButton" class="button" 
                     onclick="window.location='@Href("~/Agenzia/List")'" />
-        }
+            }
+        </div>
     </div>
+</div>
+<div id="sidebar">
+    
 </div>

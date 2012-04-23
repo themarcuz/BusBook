@@ -35,8 +35,8 @@
             }
     </style>
 }
-<div id="content-wrapper" class="container_16">
-    <div id="main" class="grid_16">
+<div id="content-wrapper">
+    <div id="main" >
         <h3>
             @ViewBag.Title</h3>
         <div style="display: table">
@@ -44,8 +44,7 @@
                 <div style="display: table-cell">
                     @using (Html.BeginForm("Save", "Viaggio", FormMethod.Post, new { id = "salvaViaggioForm", enctype = "multipart/form-data" }))
                     {                        
-                        <fieldset>
-                            <div class="editor-label">
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.Nome)
                                 @Html.Label("*")
                             </div>
@@ -53,7 +52,7 @@
                                 @Html.TextBoxFor(model => model.Nome, new { style = "width: 300px" })
                                 @Html.ValidationMessageFor(model => model.Nome)
                             </div>
-                            <div class="editor-label">
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.Descrizione)
                                 @Html.Label("*")
                             </div>
@@ -61,7 +60,7 @@
                                 @Html.TextAreaFor(model => model.Descrizione, 3, 50, null)
                                 @Html.ValidationMessageFor(model => model.Descrizione)
                             </div>
-                            <div class="editor-label">
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.DataPartenza)
                                 @Html.Label("*")
                             </div>
@@ -69,7 +68,7 @@
                                 @Html.TextBox("DataPartenza", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenza, ViewData).DisplayFormatString, Model.DataPartenza), new { @class = "datepicker" })
                                 @Html.ValidationMessageFor(model => model.DataPartenza)
                             </div>
-                            <div class="editor-label">
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.DataChiusuraPrenotazioni)
                                 @Html.Label("*")
                             </div>
@@ -77,7 +76,7 @@
                                 @Html.TextBox("DataChiusuraPrenotazioni", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataChiusuraPrenotazioni, ViewData).DisplayFormatString, Model.DataChiusuraPrenotazioni), new { @class = "datepicker" })
                                 @Html.ValidationMessageFor(model => model.DataChiusuraPrenotazioni)
                             </div>
-                            <div class="editor-label">
+                            <div class="labelizer">
                                 @Html.Label("Prezzo base")
                             </div>
                             <div class="editor-field">
@@ -89,7 +88,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            @Html.Label("maggiorazione camera singola")
+                                           <div class="labelizer"> @Html.Label("maggiorazione camera singola")</div>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(model => model.DeltaCameraSingola, new { style = "width: 30px" }) €
@@ -98,7 +97,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.Label("maggiorazione camera tripla")
+                                           <div class="labelizer"> @Html.Label("maggiorazione camera tripla")</div>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(model => model.DeltaCameraTripla, new { style = "width: 30px" }) €
@@ -107,7 +106,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.Label("maggiorazione mezza pensione")
+                                          <div class="labelizer"> @Html.Label("maggiorazione mezza pensione")</div>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(model => model.DeltaMezzaPensione, new { style = "width: 30px" }) €
@@ -116,7 +115,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            @Html.Label("maggiorazione pensione completa")
+                                            <div class="labelizer">@Html.Label("maggiorazione pensione completa")</div>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(model => model.DeltaPensioneCompleta, new { style = "width: 30px" }) €
@@ -125,7 +124,7 @@
                                     </tr>
                                 </table>                               
                             </div>
-                            <div class="editor-label">
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.TotalePosti)
                                 @Html.Label("*")
                             </div>
@@ -165,7 +164,6 @@
                                 <input type="button" value="Annulla" id="cancelButton" class="button" 
                                     onclick="window.location='@Href("~/Viaggio/List")'" />
                             </p>
-                        </fieldset>
                     }
                 </div>
                 <div style="display: table-cell; padding-left: 50px">

@@ -1,4 +1,4 @@
-﻿@using Xlns.BusBook.Core.Model;
+﻿q@using Xlns.BusBook.Core.Model;
 @model Xlns.BusBook.Core.Model.Utente
 @{
     ViewBag.Title = "Dettaglio utente";
@@ -6,11 +6,10 @@
 @section head{
     <link href="@Url.Content("~/Content/agenzia.css")" rel="stylesheet" type="text/css" media="screen"/>
 }
-<div id="content-wrapper" class="container_16">
-    <div id="main" class="grid_16">
+<div id="content-wrapper">
+    <div id="main" >
         <h3>@ViewBag.Title</h3>
         <br />
-        <fieldset>
             <legend>Utente</legend>
             <div>
                 @Html.LabelFor(model => model.Cognome)</div>
@@ -32,11 +31,9 @@
             <div>
                 @Html.DisplayFor(model => model.Agenzia.Nome)
             </div>
-
-        </fieldset>
         <p>
-            @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "button" })
-            @Html.ActionLink("Torna alla lista", "Index", null, new { @class = "button" })
+            @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "read-more" })
+            @Html.ActionLink("Torna alla lista", "Index", null, new { @class = "read-more" })
         </p>
     </div>
 </div>

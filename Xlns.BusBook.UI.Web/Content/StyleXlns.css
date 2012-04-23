@@ -1,18 +1,12 @@
 ﻿body
 {
 }
-/*
-Template Name: Rokono HTML Template
-Description: A Business/Portfolio HTML Template
-Author: Chris Creed
-URL: http://www.chris-creed.com
-*/
-
 @import "reset.css";
 
 /* -------------------- */
 /* -- General Styles -- */
 /* -------------------- */
+
 #wrap
 {
     width: 960px;
@@ -305,10 +299,10 @@ em
     text-align: center;
     padding: 5px 0;
     margin: 12px 0 0 -2px;
+    border: none;
 }
 #latest-article .read-more:hover
 {
-    background: url(./img/red-button-bg.png) no-repeat;
 }
 .blue-bullets
 {
@@ -317,7 +311,6 @@ em
 }
 .blue-bullets li
 {
-    background: url(./img/blue-bullet.png) no-repeat;
     height: 21px;
     position: relative;
     padding: 0px 0 18px 35px;
@@ -409,10 +402,10 @@ em
     text-align: center;
     padding: 5px 0;
     margin: 25px 0 0 0;
+    border: none;
 }
 #project-content .read-more:hover
 {
-    background: url(./img/red-button-bg.png) no-repeat;
 }
 #project-header h3
 {
@@ -454,11 +447,10 @@ em
     text-align: center;
     padding: 5px 0;
     margin: 25px 0 0 0;
+    border: none;
 }
 .more-link:hover
 {
-    background: url(./img/red-button-bg.png) no-repeat;
-    color: #fff;
 }
 
 /* ------------- */
@@ -573,11 +565,10 @@ em
     cursor: pointer;
     font-size: 14px;
     margin: 0 0 0 0;
+    border: none;
 }
 #contact-form .submit:hover
 {
-    background: url(./img/red-button-bg.png) no-repeat;
-    color: #fff;
 }
 #response
 {
@@ -618,3 +609,4 @@ em
     text-align: center;
     font-style: italic;
 }
+

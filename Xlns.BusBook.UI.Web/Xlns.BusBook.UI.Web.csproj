@@ -146,6 +146,7 @@
     <Content Include="Config\hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\reset.css" />
     <Content Include="Content\ricercaViaggio.css" />
     <Content Include="Content\editviaggioscroller.css" />
     <Content Include="Content\img\black-button-bg.png" />
@@ -193,30 +194,9 @@
     <Content Include="Content\scripts\viaggio.lista.js" />
     <Content Include="Content\scripts\location.show.js" />
     <Content Include="Content\slider.css" />
+    <Content Include="Content\StyleTextXlns.css" />
     <Content Include="Content\StyleXlns.css" />
     <Content Include="Content\tiledList.css" />
-    <Content Include="Content\KeepItSimple11\blog.html" />
-    <Content Include="Content\KeepItSimple11\css\960.css" />
-    <Content Include="Content\KeepItSimple11\css\KeepItSimple.css" />
-    <Content Include="Content\KeepItSimple11\css\reset.css" />
-    <Content Include="Content\KeepItSimple11\css\screen.css" />
-    <Content Include="Content\KeepItSimple11\images\bg.gif" />
-    <Content Include="Content\KeepItSimple11\images\border.gif" />
-    <Content Include="Content\KeepItSimple11\images\content-bg.gif" />
-    <Content Include="Content\KeepItSimple11\images\content-bg.xlns.gif" />
-    <Content Include="Content\KeepItSimple11\images\dots.gif" />
-    <Content Include="Content\KeepItSimple11\images\firefox-gray.jpg" />
-    <Content Include="Content\KeepItSimple11\images\gravatar.jpg" />
-    <Content Include="Content\KeepItSimple11\images\header-image.gif" />
-    <Content Include="Content\KeepItSimple11\images\header-search.gif" />
-    <Content Include="Content\KeepItSimple11\images\image.gif" />
-    <Content Include="Content\KeepItSimple11\images\left-tab.gif" />
-    <Content Include="Content\KeepItSimple11\images\quote.gif" />
-    <Content Include="Content\KeepItSimple11\images\right-tab.gif" />
-    <Content Include="Content\KeepItSimple11\images\search.gif" />
-    <Content Include="Content\KeepItSimple11\images\thumb.jpg" />
-    <Content Include="Content\KeepItSimple11\index.html" />
-    <Content Include="Content\KeepItSimple11\style.html" />
     <Content Include="Content\ricerca.css" />
     <Content Include="Content\scripts\agenzia.list.js" />
     <Content Include="Content\scripts\viaggio.js" />

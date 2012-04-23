@@ -8,12 +8,12 @@
 @section scripts{
     <script src="@Url.Content("~/Content/scripts/flyer.tile.js")" type="text/javascript"></script>
 }
-<div id="content-wrapper" class="container_16">
+<div id="content-wrapper">
     <div id="main" class="grid_6">
         <h3>@ViewBag.Title</h3>
         <p>
-            @Html.ActionLink("Nuovo Flyer", "Edit", new { id = 0 }, new { @class = "button" })
-            @Html.ActionLink("DashBoard", "DashBoard", "Home", null, new { @class = "button"})
+            @Html.ActionLink("Nuovo Flyer", "Edit", new { id = 0 }, new { @class = "read-more" })
+            @Html.ActionLink("DashBoard", "DashBoard", "Home", null, new { @class = "read-more"})
         </p>
         @foreach (var flyer in Model.flyers)
         {

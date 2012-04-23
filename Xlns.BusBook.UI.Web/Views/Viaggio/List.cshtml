@@ -18,7 +18,7 @@
 
 @if (needsContainer)
 {
-    <text><div id="content-wrapper" class="container_16"></text>
+    <text><div id="content-wrapper"></text>
 }
 else
 {
@@ -28,7 +28,7 @@ else
     <div id="main" class="grid_@(grid)">
         <h3>@ViewBag.Title</h3>
         <p>
-            @Html.ActionLink("Proponi nuovo viaggio", "Create", null, new { @class = "button" })
+            @Html.ActionLink("Proponi nuovo viaggio", "Create", null, new { @class = "read-more" })
         </p>
         @foreach (var item in Model)
         {

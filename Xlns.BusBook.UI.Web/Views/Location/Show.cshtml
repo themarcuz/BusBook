@@ -1,45 +1,43 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.LocationPartialView
 @{ var uniqueId = Model.GetHashCode();}
 <div style="@Model.CssStyleForDataFieldDiv">
-    <fieldset>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Nation)</div>
         <div>
             @Html.DisplayFor(model => model.Location.Nation)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Region)</div>
         <div>
             @Html.DisplayFor(model => model.Location.Region)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Province)</div>
         <div>
             @Html.DisplayFor(model => model.Location.Province)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.City)</div>
         <div>
             @Html.DisplayFor(model => model.Location.City)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Street)</div>
         <div>
             @Html.DisplayFor(model => model.Location.Street)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.Number)</div>
         <div>
             @Html.DisplayFor(model => model.Location.Number)
         </div>
-        <div>
+        <div class="labelizer">
             @Html.LabelFor(model => model.Location.CAP)</div>
         <div>
             @Html.DisplayFor(model => model.Location.CAP)
         </div>
         @Html.HiddenFor(model => model.Location.Lat, new { id = "hiddenLat" + uniqueId })
         @Html.HiddenFor(model => model.Location.Lng, new { id = "hiddenLng" + uniqueId })
-    </fieldset>
 </div>
 <div style="@Model.CssStyleForMapDiv">
     @Html.DisplayFor(model => model.Location.IndirizzoLeggibile)

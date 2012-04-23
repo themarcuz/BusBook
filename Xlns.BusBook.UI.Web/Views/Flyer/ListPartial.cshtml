@@ -1,15 +1,15 @@
 ﻿@model Xlns.BusBook.UI.Web.Models.ListFlyerView
 <br />
 <div>
-    @Html.ActionLink("Nuovo Flyer", "Edit", new { id = 0 }, new { @class = "button" })
+    @Html.ActionLink("Nuovo Flyer", "Edit", new { id = 0 }, new { @class = "read-more" })
 </div>
 <br />
 <div>
-    @Html.ActionLink("Flyers", "List", new { idAgenzia = Model.agenzia.Id }, new { @class = "button" })
+    @Html.ActionLink("Flyers", "List", new { idAgenzia = Model.agenzia.Id }, new { @class = "read-more" })
 </div>
 <br />
 <div>
-    @Html.ActionLink("Mini Sito", "Index", "Site", new { id = Model.agenzia.Id }, new { @class = "button" })
+    @Html.ActionLink("Mini Sito", "Index", "Site", new { id = Model.agenzia.Id }, new { @class = "read-more" })
 </div>
 <br />
 <script type="text/javascript" src="@Url.Content("~/Content/scripts/flyer.tile.js")" ></script>
