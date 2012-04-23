@@ -99,6 +99,8 @@
   <ItemGroup>
     <Compile Include="Controllers\AgenziaController.cs" />
     <Compile Include="Controllers\AllegatoController.cs" />
+    <Compile Include="Controllers\Filters\AuthorizationFilter.cs" />
+    <Compile Include="Controllers\Helper\AuthenticationHelper.cs" />
     <Compile Include="Controllers\Helper\ViaggioHelper.cs" />
     <Compile Include="Controllers\Helper\FlyerHelper.cs" />
     <Compile Include="Controllers\PromoImageController.cs" />
@@ -316,9 +318,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Utente\ChangePassword.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Viaggio\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Viaggio\_ViewStart.cshtml" />

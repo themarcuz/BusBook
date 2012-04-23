@@ -26,7 +26,7 @@
         {
             @Html.ValidationSummary(true)
             <input type="submit" value="Salva" id="submitButton" class="button" />
-            <a class="button" href="@Request.UrlReferrer">Annulla</a>
+            @Html.ActionLink("Annulla", "List", "Flyer", new { idAgenzia = Model.idAgenzia }, new { @class = "button" })
             <br />
             <br />
             <div style="display: table">

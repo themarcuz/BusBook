@@ -35,6 +35,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult Detail(int id)
         {
+            ViewBag.From = "flyer";
+            ViewBag.FlyerId = id;
             return View(flyerRepo.GetById(id));
         }
 

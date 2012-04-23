@@ -10,11 +10,14 @@
         }
         else
         {
-            location = "window.location = '" + Url.Action("Detail", "Viaggio", new { id = viaggioItem.viaggio.Id }) + "'";
+            string onClickUrl = @Url.Action("Detail", "Viaggio", new { id = viaggioItem.viaggio.Id });
+            if (ViewBag.From != null && ViewBag.From.ToLower() == "flyer")
+            {
+                onClickUrl = @Url.Action("Detail", "Viaggio", new { id = viaggioItem.viaggio.Id, from = "flyer", idFlyer = ViewBag.FlyerId });
+            }
+            location = "window.location = '" + onClickUrl + "'";
         }
-
     }
-
     
     <div class="tileElement" id="TileDivViaggio@(viaggioItem.viaggio.Id)"  onclick="@location">
         <span class="tileTitle">

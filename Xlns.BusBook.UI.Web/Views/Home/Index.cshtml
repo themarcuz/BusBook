@@ -1,4 +1,5 @@
 ﻿@using Xlns.BusBook.UI.Web.Models
+@using Xlns.BusBook.UI.Web.Controllers.Helper;
 @{
     ViewBag.Title = "Index";    
 }
@@ -35,7 +36,7 @@
             <div class="grid_4 alpha">
                 <div class="sidemenu">
                     @{
-                        if (Session.getLoggedUtente() == null)
+                        if (!AuthenticationHelper.isLogged(Session))
                         {
                             Html.RenderAction("ShowLogin", "Login");
                         }

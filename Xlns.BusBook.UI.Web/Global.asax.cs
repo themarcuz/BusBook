@@ -45,10 +45,18 @@ namespace Xlns.BusBook.UI.Web
             );
 
             routes.MapRoute(
+                "DettaglioViaggio", // Route name
+                "Viaggio/Detail/{id}/{from}/{idFlyer}", // URL with parameters
+                new { controller= "Viaggio", action = "Detail", 
+                    id = UrlParameter.Optional, from = UrlParameter.Optional, idFlyer = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { action = "List", id = UrlParameter.Optional } // Parameter defaults
             );
+            
 
         }
 

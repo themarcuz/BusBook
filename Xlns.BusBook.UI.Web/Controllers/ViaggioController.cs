@@ -9,6 +9,7 @@ using Xlns.BusBook.Core;
 using Xlns.BusBook.UI.Web.Models;
 using Xlns.BusBook.Core.Mailer;
 using Xlns.BusBook.Core.Enums;
+using Xlns.BusBook.UI.Web.Controllers.Helper;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -16,13 +17,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private ViaggioRepository vr = new ViaggioRepository();
-        private ViaggioManager vm = new ViaggioManager();
-
-        public ActionResult List()
-        {
-            var viaggi = vr.GetViaggi();
-            return View(viaggi);
-        }
+        private ViaggioManager vm = new ViaggioManager();        
 
         public ActionResult ListPartial()
         {
@@ -43,9 +38,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView(viaggio);
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int id, string from = null, int idFlyer = 0)
         {
             var viaggio = vr.GetById(id);
+            ViewBag.From = from;
+            ViewBag.FlyerId = idFlyer;
             var loggedUser = Session.getLoggedUtente();
             var pr = new PartecipazioneRepository();
             var hasPartecipated = pr.HasParticipated(loggedUser.Id, id);
@@ -121,7 +118,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                     }
                 }                
                 vm.Save(viaggio);
-                if (viaggio.Tappe.Count > 1 && viaggio.Tappe.SingleOrDefault(t => t.Tipo == TipoTappa.DESTINAZIONE) != null)
+                if (viaggio.Tappe != null && viaggio.Tappe.Count > 1 && viaggio.Tappe.SingleOrDefault(t => t.Tipo == TipoTappa.DESTINAZIONE) != null)
                 {
                     logger.Debug("Il percorso del viaggio è stato definito, per cui lo si redirige alla pagina di dettaglio per verifica");
                     return RedirectToAction("Detail", new { id = viaggio.Id });
@@ -196,7 +193,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             var loggedUser = Session.getLoggedUtente();
             Agenzia agenzia = null;
-            if (loggedUser != null)
+            if (AuthenticationHelper.isLogged(Session))
             {
                 var viaggio = vr.GetById(idViaggio);
                 //registro che questo utente ha visualizzato i dati                
@@ -227,7 +224,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             var loggedUser = Session.getLoggedUtente();
             Agenzia agenzia = null;
-            if (loggedUser != null)
+            if (AuthenticationHelper.isLogged(Session))
             {
                 var viaggio = vr.GetById(idViaggio);
                 var pr = new PartecipazioneRepository();
@@ -318,8 +315,10 @@ namespace Xlns.BusBook.UI.Web.Controllers
         }
 
 
-        public ActionResult Select(List<ViaggioSelectView> viaggi)
+        public ActionResult Select(List<ViaggioSelectView> viaggi, string from = null, int idFlyer = 0)
         {
+            ViewBag.From = from;
+            ViewBag.FlyerId = idFlyer;
             //TODO: Solo Pubblicati!
             if (viaggi == null)
             {
@@ -343,7 +342,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult ShowSelected(int idFlyer, bool isDetailExternal)
         {
-            return Select(FlyerHelper.getViaggiSelezionati(idFlyer, isDetailExternal));
+            return Select(FlyerHelper.getViaggiSelezionati(idFlyer, isDetailExternal), "flyer", idFlyer);
         }
     }
 }

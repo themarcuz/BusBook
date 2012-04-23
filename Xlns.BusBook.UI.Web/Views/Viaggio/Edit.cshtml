@@ -163,7 +163,7 @@
                             <p>
                                 <input type="submit" value="Salva" class="button" />
                                 <input type="button" value="Annulla" id="cancelButton" class="button" 
-                                    onclick="window.location='@Href("~/Viaggio/List")'" />
+                                    onclick="window.location='@Href("~/Viaggio/Detail", new { id = Model.Id })'" />
                             </p>
                         </fieldset>
                     }
