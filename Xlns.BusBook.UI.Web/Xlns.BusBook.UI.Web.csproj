@@ -362,9 +362,6 @@
     <Content Include="Views\Login\Logout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fbchannel.ashx" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Viaggio\RichiestaPartecipazione.cshtml" />
   </ItemGroup>
   <ItemGroup>
