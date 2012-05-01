@@ -287,7 +287,6 @@
   <ItemGroup>
     <Content Include="Config\BusBook.config">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -436,6 +435,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Viaggio\SearchTappa.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Viaggio\List.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -26,9 +26,9 @@
     <file relUrl="bin/NLog.xml" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Views/Home/Index.cshtml" publishTime="04/23/2012 22:21:45" />
     <file relUrl="Views/Login/Facebook.cshtml" publishTime="02/06/2012 20:09:42" />
-    <file relUrl="bin/Xlns.BusBook.Core.pdb" publishTime="04/30/2012 22:25:24" />
+    <file relUrl="bin/Xlns.BusBook.Core.pdb" publishTime="05/01/2012 11:35:21" />
     <file relUrl="Content/editviaggioscroller.css" publishTime="01/18/2012 00:38:32" />
-    <file relUrl="Config/BusBook.config" publishTime="03/14/2012 23:29:17" />
+    <file relUrl="Config/BusBook.config" publishTime="05/01/2012 11:44:58" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Views/Agenzia/Edit.cshtml" publishTime="02/06/2012 20:09:42" />
     <file relUrl="NLog.config" publishTime="02/20/2012 22:09:23" />
@@ -65,7 +65,7 @@
     <file relUrl="Content/KeepItSimple11/style.html" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Content/KeepItSimple11/index.html" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Content/scripts/messaggio.tile.js" publishTime="03/05/2012 21:44:09" />
-    <file relUrl="bin/Xlns.BusBook.ConfigurationManager.dll" publishTime="04/30/2012 22:25:24" />
+    <file relUrl="bin/Xlns.BusBook.ConfigurationManager.dll" publishTime="05/01/2012 11:35:21" />
     <file relUrl="Content/KeepItSimple11/images/right-tab.gif" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Content/scripts/agenzia.list.js" publishTime="03/19/2012 21:02:21" />
     <file relUrl="Global.asax" publishTime="12/25/2011 15:37:21" />
@@ -96,7 +96,7 @@
     <file relUrl="Views/Agenzia/_ViewStart.cshtml" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Content/scripts/utente.list.js" publishTime="03/19/2012 21:02:21" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="12/25/2011 15:37:21" />
-    <file relUrl="bin/Xlns.BusBook.UI.Web.pdb" publishTime="04/30/2012 22:25:24" />
+    <file relUrl="bin/Xlns.BusBook.UI.Web.pdb" publishTime="05/01/2012 11:45:06" />
     <file relUrl="Content/themes/base/jquery.ui.autocomplete.css" publishTime="12/25/2011 15:37:21" />
     <file relUrl="bin/Microsoft.Web.Helpers.dll" publishTime="01/04/2012 22:07:46" />
     <file relUrl="Content/scripts/utente.tile.js" publishTime="01/30/2012 16:26:50" />
@@ -113,7 +113,6 @@
     <file relUrl="Views/Agenzia/Viaggi.cshtml" publishTime="02/03/2012 23:03:38" />
     <file relUrl="Content/KeepItSimple11/images/firefox-gray.jpg" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Views/Flyer/ShowTile.cshtml" publishTime="04/23/2012 23:15:43" />
-    <file relUrl="bin/Config/BusBook.config" publishTime="03/14/2012 23:29:17" />
     <file relUrl="Content/upload.css" publishTime="02/19/2012 20:00:53" />
     <file relUrl="Content/scripts/viaggio.detail.js" publishTime="02/01/2012 23:49:49" />
     <file relUrl="Content/KeepItSimple11/images/header-search.gif" publishTime="12/25/2011 15:37:21" />
@@ -145,13 +144,13 @@
     <file relUrl="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Content/KeepItSimple11/blog.html" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Views/Flyer/ListPartial.cshtml" publishTime="03/05/2012 10:23:56" />
-    <file relUrl="bin/Xlns.BusBook.Core.dll" publishTime="04/30/2012 22:25:24" />
+    <file relUrl="bin/Xlns.BusBook.Core.dll" publishTime="05/01/2012 11:35:21" />
     <file relUrl="Content/themes/base/jquery.ui.button.css" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Content/ricerca.css" publishTime="12/25/2011 15:37:21" />
     <file relUrl="bin/Iesi.Collections.xml" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Content/scripts/agenzia.tile.js" publishTime="01/15/2012 01:35:05" />
     <file relUrl="Views/Utente/_ViewStart.cshtml" publishTime="12/25/2011 15:37:21" />
-    <file relUrl="bin/Xlns.BusBook.UI.Web.dll" publishTime="04/30/2012 22:25:25" />
+    <file relUrl="bin/Xlns.BusBook.UI.Web.dll" publishTime="05/01/2012 11:45:06" />
     <file relUrl="Content/scripts/flyer.tile.js" publishTime="03/30/2012 13:08:34" />
     <file relUrl="bin/Xlns.Google.Maps.pdb" publishTime="04/30/2012 22:25:23" />
     <file relUrl="Content/KeepItSimple11/images/thumb.jpg" publishTime="12/25/2011 15:37:21" />
@@ -181,6 +180,6 @@
     <file relUrl="Scripts/modernizr-1.7.min.js" publishTime="12/25/2011 15:37:21" />
     <file relUrl="Content/logout.css" publishTime="02/13/2012 21:15:13" />
     <file relUrl="Views/Location/Show.cshtml" publishTime="02/01/2012 17:11:55" />
-    <file relUrl="bin/Xlns.BusBook.ConfigurationManager.pdb" publishTime="04/30/2012 22:25:24" />
+    <file relUrl="bin/Xlns.BusBook.ConfigurationManager.pdb" publishTime="05/01/2012 11:35:21" />
   </publishProfile>
 </publishData>
