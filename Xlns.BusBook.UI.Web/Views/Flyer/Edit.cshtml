@@ -21,7 +21,7 @@
     <div id="main" class="grid_16">
         <h3>
             @ViewBag.Title</h3>
-        @{Html.RenderAction("Search", "Viaggio", new { idDivToUpdate = "elencoViaggi" });}
+        @{Html.RenderAction("Search", "Viaggio", new { idDivToUpdate = "elencoViaggi", onlyPubblicati=true, isFlyerSearch = true });}
         @using (Html.BeginForm("Save", "Flyer"))
         {
             @Html.ValidationSummary(true)

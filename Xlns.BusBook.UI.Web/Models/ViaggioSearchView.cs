@@ -33,6 +33,10 @@ namespace Xlns.BusBook.UI.Web.Models
 
         public String idDivToUpdate { get; set; }
 
+        public bool onlyPubblicati { get; set; }
+
+        public bool isFlyersSearch { get; set; }
+
         public ViaggioSearchView()
         {
             PassaDaTipoSearch = TipoSearch.Città;

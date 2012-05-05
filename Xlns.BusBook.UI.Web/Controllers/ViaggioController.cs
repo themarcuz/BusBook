@@ -32,6 +32,13 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView(tappa);
         }
 
+
+        [ChildActionOnly]
+        public ActionResult ListOfViaggioTiledDetail(List<Viaggio> viaggi)
+        {
+            return PartialView(viaggi);
+        }
+
         [ChildActionOnly]
         public ActionResult ViaggioTiledDetail(Viaggio viaggio)
         {
@@ -300,18 +307,25 @@ namespace Xlns.BusBook.UI.Web.Controllers
         [HttpPost]
         public ActionResult Search(ViaggioSearchView searchParams)
         {
-            //TODO: Solo Pubblicati!
 
-            var viaggiFound = vm.Search(ViaggioHelper.getViaggioSearchParams(searchParams, false));
+            var viaggiFound = vm.Search(ViaggioHelper.getViaggioSearchParams(searchParams));
 
-            var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
+            if (searchParams.isFlyersSearch)
+            {
+                var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
 
-            return Select(viaggiSelezionabili);
+                return Select(viaggiSelezionabili);
+            }
+            else
+            {
+                return PartialView("ListOfViaggioTiledDetail", viaggiFound);
+            }
+
         }
 
-        public ActionResult Search(String idDivToUpdate)
+        public ActionResult Search(String idDivToUpdate, bool onlyPubblicati, bool isFlyerSearch)
         {
-            return PartialView(new ViaggioSearchView() { idDivToUpdate = idDivToUpdate });
+            return PartialView(new ViaggioSearchView() { idDivToUpdate = idDivToUpdate, onlyPubblicati = onlyPubblicati, isFlyersSearch = isFlyerSearch });
         }
 
 
@@ -319,11 +333,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             ViewBag.From = from;
             ViewBag.FlyerId = idFlyer;
-            //TODO: Solo Pubblicati!
+
             if (viaggi == null)
             {
                 //con questa ricerca li becco tutti
-                List<Viaggio> viaggiFound = vm.Search(new ViaggioSearch() { onlyPubblicati = false });
+                List<Viaggio> viaggiFound = vm.Search(new ViaggioSearch() { onlyPubblicati = true });
 
                 viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
             }
