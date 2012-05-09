@@ -9,6 +9,7 @@ using Xlns.BusBook.Core;
 using Xlns.BusBook.UI.Web.Models;
 using Xlns.BusBook.Core.Mailer;
 using Xlns.BusBook.Core.Enums;
+using Xlns.BusBook.UI.Web.Controllers.Helper;
 
 namespace Xlns.BusBook.UI.Web.Controllers
 {
@@ -16,13 +17,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private ViaggioRepository vr = new ViaggioRepository();
-        private ViaggioManager vm = new ViaggioManager();
-
-        public ActionResult List()
-        {
-            var viaggi = vr.GetViaggi();
-            return View(viaggi);
-        }
+        private ViaggioManager vm = new ViaggioManager();        
 
         public ActionResult ListPartial()
         {
@@ -37,15 +32,24 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView(tappa);
         }
 
+
+        [ChildActionOnly]
+        public ActionResult ListOfViaggioTiledDetail(List<Viaggio> viaggi)
+        {
+            return PartialView(viaggi);
+        }
+
         [ChildActionOnly]
         public ActionResult ViaggioTiledDetail(Viaggio viaggio)
         {
             return PartialView(viaggio);
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int id, string from = null, int idFlyer = 0)
         {
             var viaggio = vr.GetById(id);
+            ViewBag.From = from;
+            ViewBag.FlyerId = idFlyer;
             var loggedUser = Session.getLoggedUtente();
             var pr = new PartecipazioneRepository();
             var hasPartecipated = pr.HasParticipated(loggedUser.Id, id) || (viaggio.Agenzia.Id == loggedUser.Agenzia.Id);
@@ -121,7 +125,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
                     }
                 }                
                 vm.Save(viaggio);
-                if (viaggio.Tappe.Count > 1 && viaggio.Tappe.SingleOrDefault(t => t.Tipo == TipoTappa.DESTINAZIONE) != null)
+                if (viaggio.Tappe != null && viaggio.Tappe.Count > 1 && viaggio.Tappe.SingleOrDefault(t => t.Tipo == TipoTappa.DESTINAZIONE) != null)
                 {
                     logger.Debug("Il percorso del viaggio è stato definito, per cui lo si redirige alla pagina di dettaglio per verifica");
                     return RedirectToAction("Detail", new { id = viaggio.Id });
@@ -196,7 +200,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             var loggedUser = Session.getLoggedUtente();
             Agenzia agenzia = null;
-            if (loggedUser != null)
+            if (AuthenticationHelper.isLogged(Session))
             {
                 var viaggio = vr.GetById(idViaggio);
                 //registro che questo utente ha visualizzato i dati                
@@ -227,7 +231,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             var loggedUser = Session.getLoggedUtente();
             Agenzia agenzia = null;
-            if (loggedUser != null)
+            if (AuthenticationHelper.isLogged(Session))
             {
                 var viaggio = vr.GetById(idViaggio);
                 var pr = new PartecipazioneRepository();
@@ -303,28 +307,37 @@ namespace Xlns.BusBook.UI.Web.Controllers
         [HttpPost]
         public ActionResult Search(ViaggioSearchView searchParams)
         {
-            //TODO: Solo Pubblicati!
 
-            var viaggiFound = vm.Search(ViaggioHelper.getViaggioSearchParams(searchParams, false));
+            var viaggiFound = vm.Search(ViaggioHelper.getViaggioSearchParams(searchParams));
 
-            var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
+            if (searchParams.isFlyersSearch)
+            {
+                var viaggiSelezionabili = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
 
-            return Select(viaggiSelezionabili);
+                return Select(viaggiSelezionabili);
+            }
+            else
+            {
+                return PartialView("ListOfViaggioTiledDetail", viaggiFound);
+            }
+
         }
 
-        public ActionResult Search(String idDivToUpdate)
+        public ActionResult Search(String idDivToUpdate, bool onlyPubblicati, bool isFlyerSearch)
         {
-            return PartialView(new ViaggioSearchView() { idDivToUpdate = idDivToUpdate });
+            return PartialView(new ViaggioSearchView() { idDivToUpdate = idDivToUpdate, onlyPubblicati = onlyPubblicati, isFlyersSearch = isFlyerSearch });
         }
 
 
-        public ActionResult Select(List<ViaggioSelectView> viaggi)
+        public ActionResult Select(List<ViaggioSelectView> viaggi, string from = null, int idFlyer = 0)
         {
-            //TODO: Solo Pubblicati!
+            ViewBag.From = from;
+            ViewBag.FlyerId = idFlyer;
+
             if (viaggi == null)
             {
                 //con questa ricerca li becco tutti
-                List<Viaggio> viaggiFound = vm.Search(new ViaggioSearch() { onlyPubblicati = false });
+                List<Viaggio> viaggiFound = vm.Search(new ViaggioSearch() { onlyPubblicati = true });
 
                 viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
             }
@@ -343,7 +356,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult ShowSelected(int idFlyer, bool isDetailExternal)
         {
-            return Select(FlyerHelper.getViaggiSelezionati(idFlyer, isDetailExternal));
+            return Select(FlyerHelper.getViaggiSelezionati(idFlyer, isDetailExternal), "flyer", idFlyer);
         }
     }
 }

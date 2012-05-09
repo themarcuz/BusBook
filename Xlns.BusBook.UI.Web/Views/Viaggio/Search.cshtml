@@ -43,8 +43,7 @@
                     <tr>
                         <td>
                             <div class="editor-label">
-                                <a href="#" onclick="aggiungiTappa('@Url.Action("SearchTappa")',2)" class="button">Passa
-                                    da</a>
+                                <a href="#" onclick="aggiungiTappa('@Url.Action("SearchTappa")',2)" class="button">Passa&nbsp;da</a>
                             </div>
                         </td>
                         <td>
@@ -67,8 +66,7 @@
                     <tr>
                         <td>
                             <div class="editor-label">
-                                <a href="#" onclick="aggiungiTappa('@Url.Action("SearchTappa")',3)" class="button">Arriva
-                                    a</a>
+                                <a href="#" onclick="aggiungiTappa('@Url.Action("SearchTappa")',3)" class="button">Arriva&nbsp;a</a>
                             </div>
                         </td>
                         <td>
@@ -94,7 +92,7 @@
         <tr>
             <td>
                 <label>
-                    Data Partenza da</label>
+                    Data&nbsp;Partenza&nbsp;da</label>
             </td>
             <td>@Html.TextBox("DataPartenzaMin", string.Format(ModelMetadata.FromLambdaExpression(m => m.DataPartenzaMin, ViewData).DisplayFormatString, Model.DataPartenzaMin), new { @class = "datepicker" })
                 <label>
@@ -105,7 +103,7 @@
         <tr>
             <td>
                 <label>
-                    Prezzo da</label>
+                    Prezzo&nbsp;da</label>
             </td>
             <td>@Html.TextBoxFor(model => model.PrezzoMin, new { style = "width: 50px" })
                 <label>
@@ -118,7 +116,9 @@
 
     <input type="submit" value="Cerca viaggi" class="read-more" />
     </div>
-
+    @Html.HiddenFor(model => model.idDivToUpdate)
+    @Html.HiddenFor(model => model.onlyPubblicati)
+    @Html.HiddenFor(model => model.isFlyersSearch)
 }
 <div style="display: none; margin-left: 50px" id="loadingDiv">
     <img alt="loading" src="@Url.Content("~/Content/img/loading.gif")" />

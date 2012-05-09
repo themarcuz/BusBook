@@ -101,7 +101,14 @@
             }
         </div>
         <p>
-            @Html.ActionLink("Torna alla lista", "List", null, new { @class = "read-more" })
+            @if (ViewBag.From != null && ViewBag.From.ToLower() == "flyer")
+            {
+                 @Html.ActionLink("Flyer", "Detail", "Flyer", new { id = ViewBag.FlyerId }, new { @class = "button" })
+            }
+            else
+            {
+                @Html.ActionLink("Home", "DashBoard", "Home", null, new { @class = "button" })
+            }
             @if (agenzia != null //si rappresenta un'agenzia
                 && Model.Agenzia.Id == agenzia.Id //il viaggio è della propria agenzia
                 && !Model.DataPubblicazione.HasValue //il viaggio non è pubblicato

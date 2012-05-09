@@ -1,0 +1,5 @@
+﻿@model IEnumerable<Xlns.BusBook.Core.Model.Viaggio>
+@foreach (var item in Model)
+{
+   Html.RenderAction("ViaggioTiledDetail", new { viaggio = item });
+}

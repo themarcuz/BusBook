@@ -14,7 +14,7 @@ namespace Xlns.BusBook.UI.Web.Models
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public static ViaggioSearch getViaggioSearchParams(ViaggioSearchView searchViewModelParams, bool onlyViaggiPubblicati)
+        public static ViaggioSearch getViaggioSearchParams(ViaggioSearchView searchViewModelParams)
         {
             ViaggioSearch searchModelParams = null;
 
@@ -22,7 +22,7 @@ namespace Xlns.BusBook.UI.Web.Models
             {
                 searchModelParams = new ViaggioSearch()
                 {
-                    onlyPubblicati = onlyViaggiPubblicati,
+                    onlyPubblicati = searchViewModelParams.onlyPubblicati,
                     SearchString = searchViewModelParams.SearchString,
                     DataPartenzaMin = searchViewModelParams.DataPartenzaMin,
                     DataPartenzaMax = searchViewModelParams.DataPartenzaMax,

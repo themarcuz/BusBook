@@ -6,7 +6,7 @@
     if (ViewBag.IsFullPage != null && ViewBag.IsFullPage == false)
     {
         needsContainer = false;
-        grid = 6;
+        grid = 9;
     }
 }
 @section head{
@@ -28,11 +28,15 @@ else
     <div id="main" class="grid_@(grid)">
         <h3>@ViewBag.Title</h3>
         <p>
-            @Html.ActionLink("Proponi nuovo viaggio", "Create", null, new { @class = "read-more" })
+        @{Html.RenderAction("Search", "Viaggio", new { idDivToUpdate = "elencoViaggi", onlyPubblicati = false, isFlyerSearch = false });}
         </p>
-        @foreach (var item in Model)
-        {
-            Html.RenderAction("ViaggioTiledDetail", new { viaggio = item });
-        }
+        <p>
+            @Html.ActionLink("Proponi nuovo viaggio", "Create", null, new { @class = "button" })
+        </p>
+        <div id="elencoViaggi">
+            @{
+               Html.RenderAction("ListOfViaggioTiledDetail", new { viaggi = Model });   
+            }
+        </div>
     </div>    
  </div>    

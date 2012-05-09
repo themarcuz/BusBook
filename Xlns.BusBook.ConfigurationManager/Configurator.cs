@@ -59,7 +59,20 @@ namespace Xlns.BusBook.ConfigurationManager
             logger.Debug(xml.ToString());
         }
 
-        public string hibernateConfiguration { get { return base.getParameter("core.DAL.hibernateConfiguration"); } }
+        public string hibernateConfiguration { 
+            get 
+            {
+
+                var fullPath = base.getParameter("core.DAL.hibernateConfiguration");
+                if (fullPath.Contains("[config]"))
+                {
+                    var cfgFile = new System.IO.FileInfo(configFileName);
+                    var cfgPath = cfgFile.DirectoryName;
+                    fullPath = fullPath.Replace("[config]", cfgPath);
+                }
+                return fullPath; 
+            } 
+        }
         public string connectionString { get { return base.getParameter("core.DAL.connectionString"); } }
         public int itemsPerPage { get { return int.Parse(base.getParameter("UI.Web.itemsPerPage")); } }
 

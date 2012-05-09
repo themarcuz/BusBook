@@ -21,12 +21,12 @@
     <div id="main" >
         <h3>
             @ViewBag.Title</h3>
-        @{Html.RenderAction("Search", "Viaggio", new { idDivToUpdate = "elencoViaggi" });}
+        @{Html.RenderAction("Search", "Viaggio", new { idDivToUpdate = "elencoViaggi", onlyPubblicati=true, isFlyerSearch = true });}
         @using (Html.BeginForm("Save", "Flyer"))
         {
             @Html.ValidationSummary(true)
             <input type="submit" value="Salva" id="submitButton" class="read-more" />
-            <a class="button" href="@Request.UrlReferrer">Annulla</a>
+            @Html.ActionLink("Annulla", "List", "Flyer", new { idAgenzia = Model.idAgenzia }, new { @class = "button" })
             <br />
             <br />
             <div style="display: table">
