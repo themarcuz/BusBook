@@ -7,16 +7,19 @@
     -webkit-border-radius:4px;
 	-moz-border-radius:4px;
 	border-radius:4px;
+	border-bottom: 1px dotted;
 }
 
 .tileSelectedElement
 {
-    background-color: #9CCF5F;
+    color: White;
+    background-color: #0084b4;
 }
 
 .tileSelectedElement:hover
 {
-    background-color: #9CCF5F !important;
+    color: White;
+    background-color: #0084b4 !important;
 }
 
 .tileElement:hover

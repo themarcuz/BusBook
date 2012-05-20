@@ -1,8 +1,5 @@
 ﻿@model Xlns.BusBook.Core.Model.Viaggio
-@{
-    string onClickUrl = @Url.Action("Detail", new { id = Model.Id});    
-    }           
-<div class="tileElement" onclick="window.location='@onClickUrl'">
+<div class="tileElement" onclick="window.location='@Url.Action("Detail", new { id = Model.Id })'">
     <span class="tileTitle">
         @Html.DisplayFor(model => model.Nome)
     </span>

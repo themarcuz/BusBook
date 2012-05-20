@@ -1,5 +1,4 @@
 ﻿@using Xlns.BusBook.UI.Web.Models
-@using Xlns.BusBook.UI.Web.Controllers.Helper;
 @{
     ViewBag.Title = "Index";    
 }
@@ -18,25 +17,25 @@
         #slides
         {
             width: 600px;
-            height: 400px;
-            border: 2px dotted silver;
+            height: 500px;
+            border: 2px solid silver;
         }
         
         #slides h1
         {
-            margin: 50px 0px 50px 10px;
+            margin: 10px 0px 20px 10px;
             text-align: center;
         }
         
         .slides_container
         {
             width: 600px;
-            height: 350px;
+            height: 450px;
         }
         .slides_container div
         {
             width: 600px;
-            height: 350px;
+            height: 450px;
             display: block;
         }
         .pagination
@@ -86,46 +85,37 @@
             <div>
                 <h1>
                     Cos'è Parti Comodo?</h1>
-                <p class="SliderFontstyle">
-                    Parti Comodo è un <b>innovativo sistema di programmazione di viaggi in Bus</b>.
-                    Da oggi potrai creare facilmente la tua <b>personale programmazione viaggi</b> fatta
-                    da offerte mensili e/o settimanali che sfruttano il sistema per completare la tua
-                    offerta. Arricchisci il sito della tua Agenzia collegando la tua personale vetrina
-                    di Parti Comodo o crea una o piu locandine informatiche delle iniziative che più
-                    ti soddisfano.
-                </p>
+                <center>
+                    <p class="SliderFontstyle">
+                        <b>Parti Comodo</b> non è un Tour Operator, ma un Tour Aggregator dedicato al mondo
+                        delle Agenzie di Viaggi: <b>Crea, Pubblica e Condividi le tue iniziative</b>, Parti
+                        Comodo ti aiuterà a connettere la tua attività con il Mondo che ti circonda!</p>
+                    <img src="@Url.Content("~/Content/img/dotted-world-map.gif")" /></center>
             </div>
             <div>
                 <h1>
                     Perché usare Parti Comodo?</h1>
                 <p class="SliderFontstyle">
-                    per svariate ragioni non riesci a commercializzare la tua iniziativa? oggi con questo
-                    sistema ti puoi permettere anche te di evidenziare la tua iniziativa e attivare
-                    una organizzazione commerciale che puo' evidenziare la tua iniziativa insieme ad
-                    altre programmazioni cosi da completare un ventaglio di offerte senza dover forzatamente
-                    impegnare un numero di persone che e' sempre piu difficile da realizzare.
+                    Per qualche motivo non riesci a commercializzare la tua iniziativa? Desideri organizzare
+                    un viaggio, ma non hai abbastanza persone per riempire il tuo Bus? Da oggi con <b>Parti
+                        Comodo</b> avrai la possibilità di evedenziare le tue iniziative o di completarle
+                    grazie ad un ampio ventaglio di offerte basate sulle pubblicazioni effettuate dalle
+                    Agenzie e dai tour Operator che circondano il tuo territorio.
+                    <center>
+                        <img src="@Url.Content("~/Content/img/xlns_map.jpg")" /></center>
                 </p>
             </div>
             <div>
                 <h1>
-                    BusBook funziona?</h1>
+                    Cos'è un Tour Aggregator?</h1>
                 <p class="SliderFontstyle">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse
-                    bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis
-                    varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat
-                    bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. <a href="index.html">
-                        Read more...</a>
-                </p>
-            </div>
-            <div>
-                <h1>
-                    Chi ha realizzato BusBook?</h1>
-                <p class="SliderFontstyle">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse
-                    bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis
-                    varius lorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat
-                    bibendum, dui pede condimentum odio, ac blandit ante orci ut diam. <a href="index.html">
-                        Read more...</a>
+                    Un Tour Aggregator non è un gestionale, ma una vera e propria esperienza informatica.
+                    Questo innovativo sistema ha il principio di evidenziare e consolidare il forte
+                    legame tra Agenzie e Tour Operator. Scorri tra i viaggi disponibili, seleziona quelli
+                    che soddisfano i tuoi criteri e crea la tua lista personalizzata. Parti Comodo ti
+                    aiuterà a promuovere le tue iniziative in modo semplice ed innovativo!!
+                     <center>
+                        <img src="@Url.Content("~/Content/img/mac.bmp")" /></center>
                 </p>
             </div>
         </div>
@@ -141,7 +131,6 @@
         </script>
     </div>
 </div>
-<!--end content-->
 <div id="sidebar">
     <div id="hire">
         <h2 class="sidebar-title">
@@ -152,10 +141,7 @@
             }
         </p>
     </div>
-    <!--end hire-->
     <div id="featured-project">
         <img src="../../Content/img/particomodo-small.png" />
     </div>
-    <!--end recent-projects-->
 </div>
-<!--end sidebar-->

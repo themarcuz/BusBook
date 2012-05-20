@@ -18,7 +18,7 @@
             <div style="height: 40px">
                 <span id="loaderMessage"></span>
             </div>
-            <div id="map_canvas" style="width: 500px; height: 350px;">
+             <div id="map_canvas" style="width: 500px; height: 350px; margin-top:20px; border: 3px solid black">
             </div>
         </div>
     </div>
@@ -163,8 +163,8 @@
             <br />
             <br />
             <a href="#" onclick="publishWallPost(); return false;">
-                <img src="@Url.Content("~/Content/img/facebook.png")" alt="Share on Facebook" /></a>
-            <img src="@Url.Content("~/Content/img/twitter.png")" alt="Share on twitter"/>
+                <img src="@Url.Content("~/Content/img/facebook_share.png")" alt="Share on Facebook" /></a>
+            @*<img src="@Url.Content("~/Content/img/twitter.png")" alt="Share on twitter"/>*@
             <script type="text/javascript">
                 function publishWallPost() {
                     var date = ('@Model.DataPartenza.Date.ToString("dd MMM yyyy")');

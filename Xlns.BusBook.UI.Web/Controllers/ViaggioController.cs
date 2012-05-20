@@ -17,12 +17,12 @@ namespace Xlns.BusBook.UI.Web.Controllers
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private ViaggioRepository vr = new ViaggioRepository();
-        private ViaggioManager vm = new ViaggioManager();        
+        private ViaggioManager vm = new ViaggioManager();
 
         public ActionResult ListPartial()
         {
             var viaggi = vr.GetViaggi();
-            ViewBag.IsFullPage = false;            
+            ViewBag.IsFullPage = false;
             return PartialView("List", viaggi);
         }
 
@@ -52,7 +52,11 @@ namespace Xlns.BusBook.UI.Web.Controllers
             ViewBag.FlyerId = idFlyer;
             var loggedUser = Session.getLoggedUtente();
             var pr = new PartecipazioneRepository();
-            var hasPartecipated = pr.HasParticipated(loggedUser.Id, id) || (viaggio.Agenzia.Id == loggedUser.Agenzia.Id);
+            bool hasPartecipated;
+            if (viaggio.Agenzia != null)
+                hasPartecipated = pr.HasParticipated(loggedUser.Id, id) || (viaggio.Agenzia.Id == loggedUser.Agenzia.Id);
+            else
+                hasPartecipated = pr.HasParticipated(loggedUser.Id, id);
             ViewBag.HasPartecipated = hasPartecipated;
             return View(viaggio);
         }
@@ -121,9 +125,9 @@ namespace Xlns.BusBook.UI.Web.Controllers
                                 Viaggio = viaggio
                             };
                             viaggio.PromoImage = allegato;
-                        }                       
+                        }
                     }
-                }                
+                }
                 vm.Save(viaggio);
                 if (viaggio.Tappe != null && viaggio.Tappe.Count > 1 && viaggio.Tappe.SingleOrDefault(t => t.Tipo == TipoTappa.DESTINAZIONE) != null)
                 {
@@ -134,7 +138,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return RedirectToAction("Edit", new { id = viaggio.Id });
         }
 
-        
+
 
         public ActionResult EditTappeViaggio(int idViaggio)
         {
@@ -185,7 +189,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         {
             try
             {
-                vm.DeleteTappa(id);                
+                vm.DeleteTappa(id);
             }
             catch (Exception ex)
             {
@@ -224,7 +228,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
             return PartialView("RichiestaPartecipazione", agenzia);
         }
 
-        
+
 
         [HttpPost]
         public ActionResult RimuoviPartecipazione(int idViaggio)
@@ -259,7 +263,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         [HttpPost]
         public ActionResult Pubblica(int idViaggio)
-        {            
+        {
             var viaggio = vr.GetById(idViaggio);
             if (Session.getLoggedAgenzia() != null && viaggio.Agenzia.Id == Session.getLoggedAgenzia().Id)
             {
@@ -342,14 +346,14 @@ namespace Xlns.BusBook.UI.Web.Controllers
                 viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
             }
 
-            return PartialView("Select",viaggi);
+            return PartialView("Select", viaggi);
         }
 
         public ActionResult SearchTappa(int tipo)
         {
             var tappaSearch = new Tappa()
             {
-                Tipo = (TipoTappa)tipo,  
+                Tipo = (TipoTappa)tipo,
             };
             return PartialView("SearchTappa", tappaSearch);
         }

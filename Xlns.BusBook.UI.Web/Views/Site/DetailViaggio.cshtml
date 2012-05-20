@@ -18,21 +18,29 @@
                 @Html.DisplayFor(model => model.viaggio.Descrizione)
             </h4>
             <br />
+            <div class="labelizer">
                 @Html.LabelFor(model => model.viaggio.DataPartenza)
+                </div>
                 <div>
                     @Html.DisplayFor(model => model.viaggio.DataPartenza)
                 </div>
+                <div class="labelizer">
                 @Html.LabelFor(model => model.viaggio.TotalePosti)
-                <div>
+                </div>
+              <div>
                     @Html.DisplayFor(model => model.viaggio.TotalePosti)
                 </div>
+                <div class="labelizer">
                 @Html.LabelFor(model => model.viaggio.DataChiusuraPrenotazioni)
-                <div>
+               </div>
+               <div>
                     @Html.DisplayFor(model => model.viaggio.DataChiusuraPrenotazioni)
                 </div>
                 @if (Model.viaggio.DataPubblicazione.HasValue)
                 {
+                    <div class="labelizer">
                     @Html.LabelFor(model => model.viaggio.DataPubblicazione)
+                    </div>
                     <div>
                         @Html.DisplayFor(model => model.viaggio.DataPubblicazione)
                     </div>
@@ -43,7 +51,7 @@
                         && Model.viaggio.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE) != null
                         && Model.viaggio.Tappe.Where(t => t.Tipo == Xlns.BusBook.Core.Model.TipoTappa.DESTINAZIONE).Count() > 0)
                     {
-                    <div>
+                    <div class="labelizer">
                         <label>
                             Destinazione</label>
                     </div>
@@ -74,7 +82,7 @@
             <div style="height: 40px">
                 <span id="loaderMessage"></span>
             </div>
-            <div id="map_canvas" style="width: 500px; height: 350px;">
+            <div id="map_canvas"  style="width: 500px; height: 350px; margin-top:20px; border: 3px solid black">
             </div>
         </div>
     </div>
@@ -94,8 +102,8 @@
             <br />
             <br />
             <a href="#" onclick="publishWallPost(); return false;">
-                <img src="@Url.Content("~/Content/img/facebook.png")" alt="Share on Facebook" /></a>
-            <img src="@Url.Content("~/Content/img/twitter.png")" alt="Share on twitter"/>
+                <img src="@Url.Content("~/Content/img/facebook_share.png")" alt="Share on Facebook" /></a>
+            @*<img src="@Url.Content("~/Content/img/twitter.png")" alt="Share on twitter"/>*@
             <script type="text/javascript">
                 function publishWallPost() {
                     var date = ('@Model.viaggio.DataPartenza.Date.ToString("dd MMM yyyy")');

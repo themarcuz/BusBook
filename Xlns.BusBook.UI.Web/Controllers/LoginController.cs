@@ -98,7 +98,8 @@ namespace Xlns.BusBook.UI.Web.Controllers
                     var newPassword = Membership.GeneratePassword(12, 0);
                     user.Password = crypto.cryptPassword(newPassword);
                     ur.Save(user);
-                    //mh.SendResetPasswordEmail(u.Email, newPassword);
+                    var message = ConfigurationManager.Configurator.Istance.mailBodyChangePassword.Replace("{password}", newPassword);
+                    mh.SendMail(u.Email, message);
                 }
             }
             return View(u);
@@ -117,24 +118,28 @@ namespace Xlns.BusBook.UI.Web.Controllers
             {
                 if (!ReCaptcha.Validate(privateKey: ConfigurationManager.Configurator.Istance.recaptchaPublicKey))
                 {
-                    if (registration.Utente.Password.Equals(registration.UtenteRepeatPassword))
-                    {
-                        Agenzia agenzia = new Agenzia();
-                        agenzia.Nome = registration.Agenzia.Nome;
-                        agenzia.RagioneSociale = registration.Agenzia.RagioneSociale;
-                        agenzia.PIva = registration.Agenzia.PIva;
-                        agenzia.Email = registration.Agenzia.Email;
-                        ar.Save(agenzia);
-                        Utente utente = new Utente();
-                        utente.Nome = registration.Utente.Nome;
-                        utente.Cognome = registration.Utente.Cognome;
-                        utente.Username = registration.Utente.Username;
-                        utente.Agenzia = agenzia;
-                        var cryptedPassword = crypto.cryptPassword(registration.Utente.Password);
-                        utente.Password = cryptedPassword;
-                        ur.Save(utente);
-                        return View("Index");
-                    }
+                }
+                if (registration.Utente.Password.Equals(registration.UtenteRepeatPassword))
+                {
+                    Agenzia agenzia = new Agenzia();
+                    agenzia.Nome = registration.Agenzia.Nome;
+                    agenzia.RagioneSociale = registration.Agenzia.RagioneSociale;
+                    agenzia.PIva = registration.Agenzia.PIva;
+                    agenzia.Email = registration.Agenzia.Email;
+                    ar.Save(agenzia);
+                    Utente utente = new Utente();
+                    utente.Nome = registration.Utente.Nome;
+                    utente.Cognome = registration.Utente.Cognome;
+                    utente.Username = registration.Utente.Username;
+                    utente.Email = registration.Utente.Email;
+                    utente.Agenzia = agenzia;
+                    var cryptedPassword = crypto.cryptPassword(registration.Utente.Password);
+                    utente.Password = cryptedPassword;
+                    ur.Save(utente);
+                    var message = ConfigurationManager.Configurator.Istance.mailBodyRegister;
+                    mh.SendMail(utente.Email, message);
+                    ViewBag.RedirectUrl = Url.Action("Index", "Home");
+                    return View("Redirect");
                 }
             }
             return View(registration);

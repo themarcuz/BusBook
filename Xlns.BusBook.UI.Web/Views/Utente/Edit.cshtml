@@ -1,12 +1,12 @@
 ﻿@model Xlns.BusBook.Core.Model.Utente
 @{
-   ViewBag.Title = "Modifica utente";
+    ViewBag.Title = "Modifica utente";
 }
 @section head{
     <link href="@Url.Content("~/Content/agenzia.css")" rel="stylesheet" type="text/css" media="screen"/>
 }
 <div id="content-wrapper">
-    <div id="main" >
+    <div id="main">
         <h3>
             @ViewBag.Title</h3>
         @using (Html.BeginForm("Edit", "Utente", FormMethod.Post))
@@ -16,45 +16,43 @@
             <table>
                 <tr>
                     <td>
-                            <legend>Utente</legend>
-                            <br />
-                            <div>
-                                @Html.LabelFor(model => model.Nome)
-                                @Html.Label("*")
-                            </div>
-                            <div>
-                                @Html.EditorFor(model => model.Nome)
-                                @Html.ValidationMessageFor(model => model.Nome)
-                            </div>
-                            <div>
-                                @Html.LabelFor(model => model.Cognome)
-                                @Html.Label("*")
-                            </div>
-                            <div>
-                                @Html.EditorFor(model => model.Cognome)
-                                @Html.ValidationMessageFor(model => model.Cognome)
-                            </div>
-                            <div>
-                                @Html.LabelFor(model => model.Username)
-                                @Html.Label("*")
-                            </div>
-                            <div>
-                                @Html.EditorFor(model => model.Username)
-                                @Html.ValidationMessageFor(model => model.Username)
-                            </div>
-                            <div>
-                                @Html.LabelFor(model => model.Email)
-                                @Html.Label("*")
-                            </div>
-                            <div>
-                                @Html.EditorFor(model => model.Email)
-                                @Html.ValidationMessageFor(model => model.Email)
-                            </div>
-                            @Html.HiddenFor(model => model.Password)
+                        <div class="labelizer">
+                            @Html.LabelFor(model => model.Nome)
+                            @Html.Label("*")
+                        </div>
+                        <div>
+                            @Html.EditorFor(model => model.Nome)
+                            @Html.ValidationMessageFor(model => model.Nome)
+                        </div>
+                        <div class="labelizer">
+                            @Html.LabelFor(model => model.Cognome)
+                            @Html.Label("*")
+                        </div>
+                        <div>
+                            @Html.EditorFor(model => model.Cognome)
+                            @Html.ValidationMessageFor(model => model.Cognome)
+                        </div>
+                        <div class="labelizer">
+                            @Html.LabelFor(model => model.Username)
+                            @Html.Label("*")
+                        </div>
+                        <div>
+                            @Html.EditorFor(model => model.Username)
+                            @Html.ValidationMessageFor(model => model.Username)
+                        </div>
+                        <div class="labelizer">
+                            @Html.LabelFor(model => model.Email)
+                            @Html.Label("*")
+                        </div>
+                        <div>
+                            @Html.EditorFor(model => model.Email)
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                        @Html.HiddenFor(model => model.Password)
                     </td>
                 </tr>
             </table>
-              <input type="submit" value="Salva" id="submitButton" class="read-more" />
+            <input type="submit" value="Salva" id="submitButton" class="read-more" />
             <input type="button" value="Annulla" id="cancelButton" class="read-more" 
                     onclick="window.location='@Href("~/Utente/List")'" />
         }

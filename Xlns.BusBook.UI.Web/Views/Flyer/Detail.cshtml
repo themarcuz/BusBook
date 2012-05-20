@@ -13,7 +13,7 @@
     <div id="main" >
         <h3>
             @ViewBag.Title</h3>            
-            @Html.ActionLink("Annulla", "List", "Flyer", new { idAgenzia = Model.Agenzia.Id }, new {@class ="button"})
+            @Html.ActionLink("Annulla", "List", "Flyer", new { idAgenzia = Model.Agenzia.Id }, new { @class = "read-more" })
             <br />
             <br />
             <div style="display: table">
@@ -21,10 +21,10 @@
                     <div style="display: table-cell; padding-right: 20px">
                             @Html.HiddenFor(model => model.Id)
                             @Html.HiddenFor(model => model.Agenzia.Id)
-                            <div class="editor-label">
+                            <div class="labelizer">
                                 @Html.LabelFor(model => model.Titolo)
                             </div>
-                            <div class="editor-label">
+                            <div class="labelizer">
                                 @Html.DisplayFor(model => model.Titolo, new { @class="titolo"})
                             </div>
                             <div>

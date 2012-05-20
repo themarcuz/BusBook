@@ -23,15 +23,7 @@
     margin: 12px 0 0 -2px;
 }
 
-.read-more
+.read-more:hover
 {
-    display: block;
-    background: url(./img/blue-button-bg.png) no-repeat;
-    width: 141px;
-    height: 34px;
     color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    margin: 25px 0 0 0;
-    border: none;
 }

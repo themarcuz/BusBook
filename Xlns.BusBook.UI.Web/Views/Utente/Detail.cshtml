@@ -1,4 +1,4 @@
-﻿q@using Xlns.BusBook.Core.Model;
+﻿@using Xlns.BusBook.Core.Model;
 @model Xlns.BusBook.Core.Model.Utente
 @{
     ViewBag.Title = "Dettaglio utente";
@@ -7,30 +7,28 @@
     <link href="@Url.Content("~/Content/agenzia.css")" rel="stylesheet" type="text/css" media="screen"/>
 }
 <div id="content-wrapper">
-    <div id="main" >
+    <div id="main">
         <h3>@ViewBag.Title</h3>
-        <br />
-            <legend>Utente</legend>
-            <div>
-                @Html.LabelFor(model => model.Cognome)</div>
-            <div>
-                @Html.DisplayFor(model => model.Cognome)
-            </div>
-            <div>
-                @Html.LabelFor(model => model.Nome)</div>
-            <div>
-                @Html.DisplayFor(model => model.Nome)
-            </div>
-            <div>
-                @Html.LabelFor(model => model.Username)</div>
-            <div>
-                @Html.DisplayFor(model => model.Username)
-            </div>
-            <div>
-                @Html.LabelFor(model => model.Agenzia.Nome)</div>
-            <div>
-                @Html.DisplayFor(model => model.Agenzia.Nome)
-            </div>
+        <div class="labelizer">
+            @Html.LabelFor(model => model.Cognome)</div>
+        <div>
+            @Html.DisplayFor(model => model.Cognome)
+        </div>
+        <div class="labelizer">
+            @Html.LabelFor(model => model.Nome)</div>
+        <div>
+            @Html.DisplayFor(model => model.Nome)
+        </div>
+        <div class="labelizer">
+            @Html.LabelFor(model => model.Username)</div>
+        <div>
+            @Html.DisplayFor(model => model.Username)
+        </div>
+        <div class="labelizer">
+            @Html.LabelFor(model => model.Agenzia.Nome)</div>
+        <div>
+            @Html.DisplayFor(model => model.Agenzia.Nome)
+        </div>
         <p>
             @Html.ActionLink("Modifica", "Edit", new { id = Model.Id }, new { @class = "read-more" })
             @Html.ActionLink("Torna alla lista", "Index", null, new { @class = "read-more" })

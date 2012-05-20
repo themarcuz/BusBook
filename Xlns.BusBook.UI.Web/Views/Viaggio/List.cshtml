@@ -31,7 +31,7 @@ else
         @{Html.RenderAction("Search", "Viaggio", new { idDivToUpdate = "elencoViaggi", onlyPubblicati = false, isFlyerSearch = false });}
         </p>
         <p>
-            @Html.ActionLink("Proponi nuovo viaggio", "Create", null, new { @class = "button" })
+            @Html.ActionLink("Proponi nuovo viaggio", "Create", null, new { @class = "read-more" })
         </p>
         <div id="elencoViaggi">
             @{

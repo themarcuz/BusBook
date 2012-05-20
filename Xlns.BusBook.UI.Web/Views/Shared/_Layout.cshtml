@@ -40,12 +40,15 @@
     <div id="wrap">
         <div id="header">
             <h1>
-                <a href="index.html">xlns | Parti Comodo</a></h1>
+                <a href="#">Parti Comodo</a></h1>
             <div id="nav">
                 <ul class="menu">
                     @if (Session.getLoggedUtente() != null)
                     {
-                        <li class="current_page_item"><a href="#">Qui i Messaggi</a> </li>
+                        <li>
+                            @{Html.RenderAction("ShowLogin", "Login");}
+                        </li>
+
                     }
                     @if (Session.getLoggedUtente() != null)
                     {
@@ -76,57 +79,50 @@
                     }
                 </ul>
             </div>
-            <!--end nav-->
         </div>
-        <!--end header-->
         <div id="featured-section">
-            <div id="circles">
-                <div class="red-circle circle first">
-                    <h3>
-                        <em>Parti Comodo e...</em></h3>
-                    <p>
-                        Ottimizza il riempimento del tuo Bus. Niente più sedili vuoti!!!</p>
+            @if (Session.getLoggedUtente() == null)
+            {
+                <div id="circles">
+                    <div class="blue-circle circle first">
+                        <h3>
+                            <em>Parti Comodo e...</em></h3>
+                        <p>
+                            Ottimizza il riempimento del tuo Bus. Niente più sedili vuoti!!!</p>
+                    </div>
+                    <div class="blue-circle circle">
+                        <h3>
+                            <em>Parti Comodo è</em></h3>
+                        <p>
+                            Facile da usare: Crea, Pubblica e Condividi le tue Iniaziative</p>
+                    </div>
+                    <div class="blue-circle circle">
+                        <h3>
+                            <em>Parti Comodo ti aiuta...</em></h3>
+                        <p>
+                            A promuovere la tua Attività</p>
+                    </div>
+                    <div class="blue-circle circle">
+                        <h3>
+                            <em>Parti Comodo</em></h3>
+                        <p>
+                            E' il primo, vero ed unico Tour Aggregator</p>
+                    </div>
                 </div>
-                <!--end red-circle-->
-                <div class="pink-circle circle">
-                    <h3>
-                        <em>Parti Comodo è</em></h3>
-                    <p>
-                        xlns</p>
-                </div>
-                <!--end red-circle-->
-                <div class="orange-circle circle">
-                    <h3>
-                        <em>Parti Comodo ti aiuta...</em></h3>
-                    <p>
-                        a promuovere la tua attività</p>
-                </div>
-                <!--end red-circle-->
-                <div class="yellow-circle circle">
-                    <h3>
-                        <em>XLNS</em></h3>
-                    <p>
-                        Il tuo diritto all'eccellenza</p>
-                </div>
-                <!--end red-circle-->
-            </div>
-            <!--end circles-->
+            }
         </div>
         <div id="main">
             @RenderBody()
         </div>
-        <!--end main-->
         <div id="footer">
             <p class="copyright">
                 &nbsp; &copy;xlns - 2012 - All rights reserved &nbsp; &nbsp;
             </p>
+            <br />
             <p class="twitter">
-                <a href="[ADD LINK TO TWITTER]" title="[ADD LINK TITLE]">Follow Us On Twitter &rarr;</a></p>
+               Powered by <a href="http://www.xlns.it/">xlns</a>, you're right to be excellent</p>
             <p>
                 @RenderSection("scripts", false)
-            </p>
-            <p>
-                Powered by <a href="http://www.xlns.it/">xlns</a>, you're right to be excellent
             </p>
             <p>
                 <h4>
@@ -137,7 +133,7 @@
                 Questo innovativo sistema ha il principio di evidenziare e consolidare il forte
                 legame tra Agenzie e Tour Operator. Scorri tra i viaggi disponibili, seleziona quelli
                 che soddisfano i tuoi criteri e crea la tua lista personalizzata. Parti Comodo ti
-                aiuterà a promuovere le tue iniziative in modo semplice ed innovativo!!
+                aiuterà a promuovere le tue iniziative in modo semplice ed innovativo!
             </p>
             <div id="social">
                 <div class="fb-like" data-href="http://www.xlns.it" data-send="true" data-layout="button_count"
@@ -149,8 +145,6 @@
                 <script>                    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>
             </div>
         </div>
-        <!--end footer-->
     </div>
-    <!--end wrap-->
 </body>
 </html>

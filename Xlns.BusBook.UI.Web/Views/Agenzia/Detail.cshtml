@@ -60,7 +60,7 @@
                     @Html.DisplayFor(model => model.KmViaggiPubblicati) km </a>
             </div>
             <div style="margin-top: 10px">
-                <a href="@Url.Action("Partecipazioni", new { id = Model.agenzia.Id })" class="button">L'agenzia ha
+                <a href="@Url.Action("Partecipazioni", new { id = Model.agenzia.Id })">L'agenzia ha
                     partecipato a
                     @Html.DisplayFor(model => model.NumeroViaggiPartecipati)
                     viaggi per un totale di

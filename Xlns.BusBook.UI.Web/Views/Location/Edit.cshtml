@@ -64,12 +64,12 @@
     <div>
         <input type="text" id="searchAddressField" style="width: 200px" />
         <input type="button" id="searchAddressButton" onclick="showLocation(searchAddressField.value, true);"
-            value="cerca" class="button" />
+            value="cerca" class="read-more" />
     </div>
     <div style="height: 20px">
         <span id="loaderMessage"></span>
     </div>
-    <div id="map_canvas" style="width: @(Model.MapWidth); height: @(Model.MapHeight);">    
+    <div id="map_canvas" style="margin-top:20px; border: 3px solid black; width: @(Model.MapWidth); height: @(Model.MapHeight);">    
     </div>
 </div>
 

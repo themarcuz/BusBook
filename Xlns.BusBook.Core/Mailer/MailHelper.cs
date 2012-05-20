@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net.Mail;
+using System.Net;
 
 namespace Xlns.BusBook.Core.Mailer
 {
@@ -21,6 +22,9 @@ namespace Xlns.BusBook.Core.Mailer
                 SmtpClient smtp = new SmtpClient();
                 smtp.Port = ConfigurationManager.Configurator.Istance.smtpPort;
                 smtp.Host = ConfigurationManager.Configurator.Istance.smtpHost;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential(ConfigurationManager.Configurator.Istance.smtpUsername,
+                     ConfigurationManager.Configurator.Istance.smtpPassword);
                 smtp.EnableSsl = true;
                 smtp.Send(mail);
                 logger.Debug("Email inviata con successo all'indirizzo {0}", to);

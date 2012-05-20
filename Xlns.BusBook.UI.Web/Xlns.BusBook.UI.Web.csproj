@@ -148,27 +148,18 @@
     <Content Include="Config\hibernate.cfg.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\reset.css" />
-    <Content Include="Content\ricercaViaggio.css" />
-    <Content Include="Content\editviaggioscroller.css" />
-    <Content Include="Content\img\black-button-bg.png" />
     <Content Include="Content\img\blue-bullet.png" />
     <Content Include="Content\img\blue-button-bg.png" />
-    <Content Include="Content\img\Cartello.jpg" />
-    <Content Include="Content\img\circle-orange.png" />
-    <Content Include="Content\img\circle-pink.png" />
-    <Content Include="Content\img\circle-red.png" />
-    <Content Include="Content\img\circle-yellow.png" />
-    <Content Include="Content\img\example-frame.png" />
-    <Content Include="Content\flyer.css" />
-    <Content Include="Content\img\400-05175035w.jpg" />
     <Content Include="Content\img\bus.metro.gray.png" />
-    <Content Include="Content\img\Dots.jpg" />
+    <Content Include="Content\img\Cartello.jpg" />
+    <Content Include="Content\img\circle.png" />
+    <Content Include="Content\img\dotted-world-map.gif" />
     <Content Include="Content\img\facebook.png" />
+    <Content Include="Content\img\facebook_share.png" />
     <Content Include="Content\img\loading.gif" />
-    <Content Include="Content\img\Logo.png" />
+    <Content Include="Content\img\mac.bmp" />
     <Content Include="Content\img\main-bg.jpg" />
-    <Content Include="Content\img\orange-button-bg.png" />
+    <Content Include="Content\img\pagination.png" />
     <Content Include="Content\img\particomodo-small.png" />
     <Content Include="Content\img\red-button-bg.png" />
     <Content Include="Content\img\textarea-bg.png" />
@@ -176,8 +167,12 @@
     <Content Include="Content\img\toggle_down_light.png" />
     <Content Include="Content\img\toggle_up_dark.png" />
     <Content Include="Content\img\twitter.png" />
+    <Content Include="Content\img\xlns_map.jpg" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\ricercaViaggio.css" />
+    <Content Include="Content\editviaggioscroller.css" />
+    <Content Include="Content\flyer.css" />
     <Content Include="Content\logout.css" />
-    <Content Include="Content\img\pagination.png" />
     <Content Include="Content\scripts\agenzia.tile.js" />
     <Content Include="Content\scripts\viaggio.search.js" />
     <Content Include="Content\scripts\messaggio.tile.js" />

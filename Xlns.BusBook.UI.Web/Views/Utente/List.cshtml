@@ -18,7 +18,7 @@
     <div id="main" >
         <h3>@ViewBag.Title</h3>
         <p>
-             <input type="button" value="Nuovo utente" class="button" 
+             <input type="button" value="Nuovo utente" class="read-more" 
                 onclick="window.location = '@Url.Content("~/Utente/Create")'" />
         </p>
         @using (Ajax.BeginForm("Search", null, new AjaxOptions()
