@@ -37,22 +37,7 @@ namespace Xlns.BusBook.Core.Repository
                     throw new Exception(message, ex);
                 }
             }
-        }
-
-        public IList<Utente> GetAllUtenti()
-        {
-            try
-            {
-                var res = base.getAll<Utente>();
-                return res;
-            }
-            catch (Exception ex)
-            {
-                string message = "Errore durante il recupero degli utenti";
-                logger.ErrorException(message, ex);
-                throw new Exception(message, ex);
-            }
-        }
+        }        
 
         public IList<Utente> GetAllUtenti(string q, string ini)
         {

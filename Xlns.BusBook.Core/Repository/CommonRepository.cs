@@ -11,7 +11,7 @@ namespace Xlns.BusBook.Core.Repository
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        protected IList<T> getAll<T>() where T : Model.ModelEntity
+        protected IQueryable<T> getAll<T>() where T : Model.ModelEntity
         {
             using (var om = new OperationManager())
             {
@@ -20,7 +20,7 @@ namespace Xlns.BusBook.Core.Repository
                     var session = om.BeginOperation();
                     var items = session.Query<T>();
                     om.CommitOperation();
-                    return items.ToList();
+                    return items;
                 }
                 catch (Exception ex)
                 {

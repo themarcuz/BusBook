@@ -11,12 +11,7 @@ namespace Xlns.BusBook.Core.Repository
 {
     public class MessaggioRepository : CommonRepository
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
-        public IList<Messaggio> GetMessaggi()
-        {
-            return getAll<Messaggio>();
-        }
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();        
 
         public Messaggio GetById(int id)
         {
@@ -25,14 +20,50 @@ namespace Xlns.BusBook.Core.Repository
 
         public IList<Messaggio> GetMessaggiUnreadByDestinatario(int idDestinatario)
         {
-            IList<Messaggio> messaggi = GetMessaggi();
-            return messaggi.Where(u => u.Destinatario.Id == idDestinatario).Where(r => r.Stato == (int)MessaggioEnumerator.NonLetto).ToList();
+
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var messaggi = getAll<Messaggio>()
+                                   .Where(u => u.Destinatario.Id == idDestinatario)
+                                   .Where(r => r.Stato == (int)MessaggioEnumerator.NonLetto)
+                                   .ToList();                    
+                    om.CommitOperation();
+                    return messaggi;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Errore durante il recupero dei messaggi non letti per il destinatario {0}", idDestinatario);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
         }
 
         public IList<Messaggio> GetMessaggiByDestinatario(int idDestinatario)
         {
-            IList<Messaggio> messaggi = GetMessaggi();
-            return messaggi.Where(u => u.Destinatario.Id == idDestinatario).ToList();
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var messaggi = getAll<Messaggio>()
+                                   .Where(u => u.Destinatario.Id == idDestinatario)
+                                   .ToList();                    
+                    om.CommitOperation();
+                    return messaggi;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Errore durante il recupero dei messaggi per il destinatario {0}", idDestinatario);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
         }
 
         public void Save(Messaggio messaggio)

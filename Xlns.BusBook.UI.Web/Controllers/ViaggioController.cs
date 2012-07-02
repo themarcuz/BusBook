@@ -21,7 +21,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
 
         public ActionResult ListPartial()
         {
-            var viaggi = vr.GetViaggi();
+            var viaggi = vr.GetListaViaggiVisibili(Session.getLoggedAgenzia());
             ViewBag.IsFullPage = false;
             return PartialView("List", viaggi);
         }
@@ -312,7 +312,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
         public ActionResult Search(ViaggioSearchView searchParams)
         {
 
-            var viaggiFound = vm.Search(ViaggioHelper.getViaggioSearchParams(searchParams));
+            var viaggiFound = vm.Search(ViaggioHelper.getViaggioSearchParams(searchParams), Session.getLoggedAgenzia());
 
             if (searchParams.isFlyersSearch)
             {
@@ -341,7 +341,7 @@ namespace Xlns.BusBook.UI.Web.Controllers
             if (viaggi == null)
             {
                 //con questa ricerca li becco tutti
-                List<Viaggio> viaggiFound = vm.Search(new ViaggioSearch() { onlyPubblicati = true });
+                List<Viaggio> viaggiFound = vm.Search(new ViaggioSearch() { onlyPubblicati = true }, Session.getLoggedAgenzia());
 
                 viaggi = FlyerHelper.getViaggiSelezionabili(Session.getFlyerInModifica(), viaggiFound);
             }

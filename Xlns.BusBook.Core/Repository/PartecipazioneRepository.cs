@@ -12,11 +12,6 @@ namespace Xlns.BusBook.Core.Repository
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public IList<Partecipazione> GetPartecipazioni()
-        {
-            return getAll<Partecipazione>();
-        }
-
         public IList<Partecipazione> GetPartecipazioniAlViaggio(int idViaggio)
         {
             using (var om = new OperationManager())
@@ -24,7 +19,9 @@ namespace Xlns.BusBook.Core.Repository
                 try
                 {
                     var session = om.BeginOperation();
-                    var partecipazioni = session.Query<Partecipazione>().Where(p => p.Viaggio.Id == idViaggio).ToList();                    
+                    var partecipazioni = session.Query<Partecipazione>()
+                                         .Where(p => p.Viaggio.Id == idViaggio)
+                                         .ToList();                    
                     om.CommitOperation();
                     logger.Debug("Per il viaggio {0} sono state trovate {1} partecipazioni", idViaggio, partecipazioni.Count);
                     return partecipazioni;
@@ -110,7 +107,10 @@ namespace Xlns.BusBook.Core.Repository
                 try
                 {
                     var session = om.BeginOperation();
-                    var partecipazione = session.Query<Partecipazione>().Where(p => p.Viaggio.Id == idViaggio).Where(v => v.Utente.Id == idUtente).SingleOrDefault();
+                    var partecipazione = session.Query<Partecipazione>()
+                                         .Where(p => p.Viaggio.Id == idViaggio)
+                                         .Where(v => v.Utente.Id == idUtente)
+                                         .SingleOrDefault();
                     om.CommitOperation();
                     return partecipazione;
                 }

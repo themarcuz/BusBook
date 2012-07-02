@@ -12,9 +12,57 @@ namespace Xlns.BusBook.Core.Repository
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public IList<Viaggio> GetViaggi()
+        
+        public IQueryable<Viaggio> GetViaggi()
         {
             return getAll<Viaggio>();
+        }
+
+        /// <summary>
+        /// Prende tutti i viaggi pubblicati o proposti dall'agenzia dell'utente loggato
+        /// </summary>
+        /// <returns></returns>
+        internal IQueryable<Viaggio> GetViaggiVisibili(Agenzia agenzia)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var result = GetViaggi()
+                                 .Where(v=> v.Agenzia.Id == agenzia.Id || v.DataPubblicazione.HasValue);
+                    om.CommitOperation();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Errore durante il recupero dei viaggi pubblicati o proposti dall'agenzia {0}", agenzia);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }            
+        }
+
+        public IList<Viaggio> GetListaViaggiVisibili(Agenzia agenzia)
+        {
+            using (var om = new OperationManager())
+            {
+                try
+                {
+                    var session = om.BeginOperation();
+                    var result = GetViaggiVisibili(agenzia).ToList();
+                    om.CommitOperation();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = String.Format("Error {0}", null);
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
+            }
         }
 
         public Viaggio GetById(int id)

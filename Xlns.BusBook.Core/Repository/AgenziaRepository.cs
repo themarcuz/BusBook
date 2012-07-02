@@ -28,16 +28,22 @@ namespace Xlns.BusBook.Core.Repository
 
         public IList<Agenzia> GetAllAgenzie()
         {
-            try
+            using (var om = new OperationManager())
             {
-                var result = base.getAll<Agenzia>();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                string msg = "Errore durante il recupero delle agenzie";
-                logger.ErrorException(msg, ex);
-                throw new Exception(msg, ex);
+                try
+                {
+                    var session = om.BeginOperation();
+                    var result = base.getAll<Agenzia>().ToList();
+                    om.CommitOperation();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    om.RollbackOperation();
+                    string msg = "Errore durante il recupero delle agenzie";
+                    logger.ErrorException(msg, ex);
+                    throw new Exception(msg, ex);
+                }
             }
         }
 
@@ -90,7 +96,7 @@ namespace Xlns.BusBook.Core.Repository
 
         public Agenzia GetById(int id)
         {
-            return base.getDomainObjectById<Agenzia>(id);            
+            return base.getDomainObjectById<Agenzia>(id);
         }
 
         public void Delete(int id)

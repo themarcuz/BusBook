@@ -10,12 +10,7 @@ namespace Xlns.BusBook.Core.Repository
 {
     public class FlyerRepository : CommonRepository
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
-        public IList<Flyer> GetFlyers()
-        {
-            return getAll<Flyer>();
-        }
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();        
 
         public IList<Flyer> GetFlyersPerAgenzia(int idAgenzia)
         {
